@@ -1,0 +1,49 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 24 Jul 87 13:01:42 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7) id AA05994; Fri, 24 Jul 87 12:59:01 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA25348; Fri, 24 Jul 87 12:58:01 EDT
+Message-Id: <8707241658.AA25348@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: fixes
+Date: Fri, 24 Jul 87 12:57:59 EDT
+
+
+		Peter,
+
+	First, goo job with the relations between instances. It's 
+working ok now and I have those nice links grphically showing 
+whether they appear between classes or instances. 
+
+	I told you once that the recent versions don't tell you 
+anymore about defining the inverse-relation frame. If I define 
+parent as a relation having child as inverse, I am never told about 
+the creation of the child class. I don't mind, but it somehow 
+disappeared. 
+
+	On the second problem, I was probably not very clear, and 
+my example was badly chosen and over simplifying. 
+	What I do is define classes having relations slots with 
+a list of actual frames in them. This leads me to having a slot like 
+
+COMPONENTS (:VALUE (#<Vector T 12 AE283B> #<Vector T 12 AD6F63>) 
+            :DEPTH 0)
+
+	The way I do it doesn't matter, this part works with inverse 
+relations, set-value or defining the frame as you suggested. 
+	The problem then comes when I want to create a sub-class 
+that inherits from that class. I then run into the evaluation 
+problem of the (#<Vector T 12 AE283B> #<Vector T 12 AD6F63>) list. 
+
+	I read your mail again and again and I think we're saying 
+the same thing, but I just wanted to be sure. 
+
+	What does N.E. stand for : 
+		- New England 
+		- Nebraska
+		- Something else..
+
+	Anyway, hope to hear from you when you are back and have 
+some time to look at this problem. 
+
+		NICK
+

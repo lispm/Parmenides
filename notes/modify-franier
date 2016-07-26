@@ -1,0 +1,120 @@
+
+Return-Path: <FRAINIER@pluto.arc.nasa.gov>
+Received: from pluto.arc.nasa.gov by ML.RI.CMU.EDU id aa17463;
+          6 Jul 90 13:13:11 EDT
+Date: Fri 6 Jul 90 10:12:48-PST
+From: Richard Frainier <FRAINIER@PLUTO.ARC.NASA.GOV>
+Subject: Re:  Another question..
+To: Peter.Shell@ML.RI.CMU.EDU, frainier@PLUTO.ARC.NASA.GOV
+Message-ID: <647284368.0.FRAINIER@PLUTO.ARC.NASA.GOV>
+Mail-System-Version: <VAX-MM(228)+TOPSLIB(132)+PONY(228)@PLUTO.ARC.NASA.GOV>
+Status: R
+
+Pete,
+
+Be assured that your messages are very helpful. I was resisting the
+urge to "clutter" my LHS with clauses to store global information
+but it does seem like the best course now.
+
+I do have a related question. I am a bit confused about the behavior of
+$modify when used as a LISP call. For example...
+I have an instance frame  created with $make-named...
+? (setf foo ($make-named 'subjects 'rhea :height 64))
+I modify the height of the subject...
+? (setf bar ($modify (frame 'rhea) :height 68))
+Now foo points to the original frame in Parmenides, and bar points to
+a new frame. It also turns out that the new frame is not named (that
+is, is not seen by INSTANCE-NAMES-OF). Now comes the strange part...
+The function INSTANCE-NAMES-OF returns a pointer to the original frame
+and the function INSTANCES-OF returns a pointer to the new frame.
+Is this "correct" behavior?
+
+You asked for a backtrack of my PP-FRAME problem.
+I'm not sure how to get one in MACL. There is no Mailer on the Mac
+that I know of. I don't know how to dribble the backtrace info to a
+file. I cannot even get a backtrace dialog window all of the time (the
+error seems to be at a very low level). If I break the function
+WRITE-HEADER, then I can get a continuable error that leads to a LISP
+break from which I can backtrace. Still, it is a bracktrace dialog:
+<control>-B does not dribble the stack anywhere. Do you know a way to
+redirect the output?
+The post-BREAK backtrace I get is flacky. It blows up if I try to see
+more detail on the function calls (stack overflow -> thrown back to
+top-level read-eval-print loop in LISP Listener.)
+The functions on the stack look like: [my "stack" is inverted]
+top
+ .
+ .
+ .
+format
+CCL:subformat
+prin1
+Internal Function #x22F8
+Internal Function #x23D6
+Internal Function #x23D6
+Internal Function #x23D6
+Internal Function #x23D6
+ccl::%uvref
+error
+format
+CCL:subformat
+prin1
+Internal Function #x22F8
+Internal Function #x23D6
+ccl::%uvref
+error
+ .
+ .
+format
+CCL:subformat
+prin1
+Internal Function #x22F8
+Internal Function #x23D6
+ccl::%uvref
+error
+ .
+ .
+error
+error <stack-overflow>
+
+I cannot see the bound arguments for any of the functions except
+CCL:subformat, any they are not useful.
+
+Next I tried the stepper.....
+PP-FRAME appears to be breaking in the form
+(if (pa::pa-frame-c-slots (pa::frame-type-of frame))
+    (format stream " ~S" (pa::pa-frame-c-slots (pa::frame-type-of frame))))
+It is the FORMAT command that is breaking -- right after the form
+(pa::pa-frame-c-slots (pa::frame-type-of frame))
+returns a second time. [the first time is the test clause]
+
+There is a test clause
+(if #:G1159 
+    #:G1159 
+    (get (frame-class (assure-frame pa::class-name)) :frame-type))
+the test is repeated in the format for new Gensym-ed vars and it
+fails the second time (ie. #:G1160 is not eq to #:G1160 !).
+*** This is the key problem! ***
+When the test clause returns and 
+(pa::pa-frame-c-slots (pa::frame-type-of frame)) returns, the Format
+breaks.
+
+Nothing looks unusual in the stepper (all vars seem to be vound to
+reasonable values). The reason I think that I can point to the problem
+is that if I pp-frame a class unit not modified by set-cslot, then the
+second time that the form 
+(if #:G9999 #:G9999 <alternate-clause>)
+is evaluated, #:G9999 is eq to #:G9999, and the <alternate-clause> is
+not evaluated.
+
+I hope this helps.
+By the way, my phone is (415) 604-4776.
+
+-Rich
+
+
+
+
+
+
+-------

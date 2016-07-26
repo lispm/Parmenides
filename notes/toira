@@ -1,0 +1,46 @@
+>1. The FORK manual should be part of the Rulekit manual.
+Why?  Maybe the name FORK is misleading.  I had thought that FORK would
+be able to be used independently of Rulekit, even though it was
+motivated by it.
+
+>2. Suggestion: Move section 3. to right after the first paragraph of the
+>Introduction.  Make it section 2.  Make what was section 2, section 3.  And
+>make the rest of the Introduction section 4 - call it Design Decisions or
+>whatever you like.  Finally make what was section 4, section 5.  I'll
+>explain why when I see you.
+I can see section 2 after 3.  My reason for putting the "design decisions"
+in the introduction was because I thought it
+was important that some of the main features were pointed out, before
+jumping in to the specifics - to give the reader a context to
+understand def-frame.  Maybe I should summarize the main features in one
+paragraph, then talk about design decisions in a later section.
+
+>3. Suppose I want to define a general procedure to display the frame classes
+>written in FORK; it's not clear how this could be done in terms of the
+>commands you document.  For one there should be a command to get slot names
+>of a given frame, which as far as I can tell there isn't.  There is such a
+>command in FrameKit and CRL.
+I've been planning on allowing access to slot names and facet names.  I'll
+write the access functions today.
+
+>4. Can inverse relations on any slots be created?  I found this quite useful.
+I'm not sure what you mean by this.
+
+>5. Does def-frame always make a default instance of a frame class.  Can this
+>be turned off?  In some uses of semantic nets instances are only needed when
+>a class or in this case a concept is recognized as having something falling
+>under it; then an instance is created.
+If I can be convinced that it would ever be useful to have a default
+instance turned off, then I will allow this.  But default instances are
+used by the system: when the user makes a new instance, it supplies default
+values by looking them up in the default instance.  So are you saying
+that the user should be able to specify a class which can't have instances?
+If this is useful, it would save a lot of time and memory, because FORK
+wouldn't have to write the maker function either.
+
+>6. I have other comments about: style, typos, gaps etc. which we can discuss
+>later today.
+Sure, I'll be in all day today.
+
+Thanks a lot for the input!
+--Peter

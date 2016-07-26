@@ -1,0 +1,79 @@
+Received: from NERVI.CAE.RI.CMU.EDU by ML.RI.CMU.EDU;  3 May 87 13:53:37 EDT
+Date: Sun, 3 May 87 14:51:02 EDT
+From: Guojun.Zhang@NERVI.CAE.RI.CMU.EDU
+To: pshell@ML.RI.CMU.EDU, zhang@CIVE.RI.CMU.EDU
+
+Peter,		Command ISAS did not seem to work in the following function,
+**back-track. See trace for more details.
+
+(defun **back-track ()
+  (declare (special frame))
+  (format t "## **back-track started to be fired ##~%")
+    (setq top-frames (isas frame))
+    (cond ((eq (get-facet frame 'status 'value) 'I)
+           (back-track top-frames))))
+;    (let ((top-frames (isas frame)))
+;           (format t "## **back-track fired ##~%")
+
+Is this a bug? Or I did not use ISAS in a proper way?
+
+Also, as I said in the previous message, can I use ISAS in a certain way to
+only get the ancestor frame(s) at the next top level? Now, I get all ancestor
+frames by using (isas frame).
+
+In addition, I expected to only print the frame's name (such as ARCHPLAN,
+INPUT, etc.) by using (format t "## Frame ~S processed ##~%" frame) in
+function **c-switch.  But in fact I got the whole frame printed out. See also
+the trace for details. 
+
+(defun **c-switch ()
+  (declare (special frame))
+    (let ((out (get-facet frame 'output 'value))
+          (new-frames (inverse-isas frame)))
+      (cond ((all-P-in out)
+	     (format t "## **c-switch fired ##~%")
+	     (format t "## Frame ~S processed ##~%" frame)
+             (c-switch new-frames)))))             
+
+
+The following is the trace. I will also send a copy of program ag-simu.lisp to
+you. Thanks very much.	    --Guojun
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+* (load "ag-simu.lisp")
+Re-defining class AGENDA
+(0-1 'INPUT)
+Re-defining class INPUT
+Re-defining class ARCHPLAN
+Re-defining class SPACER
+Re-defining class HIRISE-1
+Re-defining class SPEX-1
+Re-defining class ANALYZER
+Re-defining class SPEX-2
+Re-defining class FOOTER-1
+Re-defining class FOOTER-2
+Re-defining class PLANEX-1
+Re-defining class PLANEX-2
+Re-defining class PLANEX-3
+T
+* ## **c-input fired ##
+## **process fired ##
+## P-I produced P ##
+## **c-output fired ##
+## **c-switch fired ##
+## Frame #(INPUT #(1 0 (**C-INPUT)) #((INPUT P) 0 (**PROCESS)) #(P 0 (PROGN
+                                     (**C-OUTPUT)
+                                     (**BACK-TRACK))) #((BLDGPRMTR P) 0 (**C-SWITCH)) #(NIL 0)) processed ##
+## **c-input fired ##
+## **process fired ##
+## P-I produced I ##
+## **back-track started to be fired ##
+Error in function ISAS.
+Wrong type argument, #(ARCHPLAN #(NIL 1) #(1 0 (**C-INPUT)) #((BLDGPRMTR P) 0 (**PROCESS)) #(I 0 (PROGN (**C-OUTPUT) (**BACK-TRACK))) #((GLOBALFUNPLAN N GRID N) 0 (**C-SWITCH))), should have been of type SYMBOL.
+Proceed cases:
+0: Return to Top-Level.
+Debug  (type H for help)
+(SIGNAL #<CONDITIONS:SIMPLE-ERROR.2CCD8>)
+0] 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+

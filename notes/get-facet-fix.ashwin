@@ -1,0 +1,57 @@
+-- Messages from file: /usr0/pshell/afs/Mail/mail.txt --
+   Thursday, 1 October 1992 10:42AM
+
+
+
+Message 22 -- *********************
+Return-Path: <@salvador.mt.cs.cmu.edu,@gatech.edu:ashwin@cc.gatech.edu>
+Received: from salvador.mt.cs.cmu.edu by NL.CS.CMU.EDU id aa01530;
+          29 Sep 92 14:33:40 EDT
+Received: from gatech.edu by SALVADOR.MT.CS.CMU.EDU id aa12296;
+          29 Sep 92 14:33:30 EDT
+Received: from burdell.cc.gatech.edu by gatech.edu (4.1/Gatech-9.1)
+	id AA11134 for pshell@SALVADOR.MT.CS.CMU.EDU; Tue, 29 Sep 92 14:33:23 EDT
+Received: from leo.cc.gatech.edu by burdell.cc.gatech.edu (4.1/SMI-4.1)
+	id AA01024; for pshell@SALVADOR.MT.CS.CMU.EDU; Tue, 29 Sep 92 14:33:04 EDT
+Received: by leo.cc.gatech.edu (4.1/SMI-4.1)
+	id AA04922; Tue, 29 Sep 92 14:32:56 EDT
+Date: Tue, 29 Sep 92 14:32:56 EDT
+From: Ashwin Ram <ashwin@cc.gatech.edu>
+Message-Id: <9209291832.AA04922@leo.cc.gatech.edu>
+To: Peter Shell <pshell@SALVADOR.MT.CS.CMU.EDU>
+Cc: ashwin@cc.gatech.edu, kennethm@cc.gatech.edu, cox@cc.gatech.edu
+Subject: Parmenides problem -- possible fix?
+Reply-To: Ashwin Ram <ashwin@cc.gatech.edu>
+Status: O
+
+Pete,
+
+Following up on the previous bug report, I "fixed" the function
+GET-INSTANCE-FACET by commenting out the following two lines marked
+with ;***
+
+(defun get-instance-facet (frame slotname facetname)
+  (let* ((framename (frame-class frame))
+	 (frame-type (name-to-frame-type framename))
+	 (slot-index (pa-frame-index-plist frame-type))
+	 (slot-spec (getf slot-index slotname))
+	 (snum (car slot-spec))
+	 (facetnum (if (consp (cdr slot-spec))
+		       (getf (cdr slot-spec) facetname))))
+    (cond ;****((not (consp (cdr slot-spec)))
+	  ;**** (ml-cerror :ignore-get-facet :slot-has-no-facets slotname framename))
+	  ((and snum facetnum)
+	   (values (aref (aref frame snum) facetnum) T))
+	  ((null (isas framename)) (values NIL NIL))
+	  (T (some2 #'(lambda (parent)	;;depth-first inheritance
+			(get-facet parent slotname facetname))
+		    (isas framename))))))
+
+All the previous examples appear to work correctly now.  I don't know if this
+will lead to other problems in other situations, but I haven't run across any
+yet.  Do you know if this is an acceptable fix to the problem I reported in
+my previous message?
+
+Thanks,
+Ashwin.
+

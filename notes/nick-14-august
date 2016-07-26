@@ -1,0 +1,132 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 14 Aug 87 14:25:13 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7) id AA11486; Fri, 14 Aug 87 14:21:57 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA10569; Fri, 14 Aug 87 14:20:24 EDT
+Message-Id: <8708141820.AA10569@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: inheriting relations
+Date: Fri, 14 Aug 87 14:20:22 EDT
+
+
+		Peter, 
+
+	I have been working on my simple example all 
+morning. Here are my conclusions. 
+
+	I do not need to use set-value or something like 
+that to get into trouble. In fact, the example included in 
+this mail expresses the bug with def-frame only. 
+
+	The problem comes when I inherit the relation 
+slot and it contains a list of actual frames (vectors). 
+
+	Actually the problems also exist when you inherit 
+any slot that has a list as value which was not set during 
+the initial def-frame. 
+
+	Therefore, you cannot avoid the problem the way 
+you said : set the relations during def-frames. Here is my 
+example : 
+
+---------------------------------------
+> (A)
+Re-defining class REL
+;;; Warning: Redefining MAKE-REL
+Defining class A
+;;; Warning: Redefining MAKE-A
+Defining class B1
+[#<Vector T 2 E4A89B> is not a frame, though #<Vector T 2 E4755B> has relation :INV-REL to it.]
+;;; Warning: Redefining MAKE-B1
+Defining class B2
+[#<Vector T 2 E4EE2B> is not a frame, though #<Vector T 2 E4755B> has relation :INV-REL to it.]
+;;; Warning: Redefining MAKE-B2
+Defining class C
+>>Error: Unknown operator #<Vector T 2 E4EE2B> in (FUNCTION #<Vector T 2 E4EE2B>)
+
+EVAL:
+   Required arg 0 (EXPRESSION): (#<Vector T 2 E4EE2B> #<Vector T 2 E4A89B>)
+
+:A    Abort to Lisp Top Level
+->
+---------------------------------------------
+> (symbol-function 'a)
+#<Interpreted-Function (NAMED-LAMBDA A NIL (BLOCK A (LOAD "shell"))) D5A55F>
+-------------------------------------------------
+cat shell
+(def-frame rel (is-a relation)
+  has-inverses t
+  inverse-name inv-rel)
+
+(setq a
+      (frame
+       (def-frame a (cache *ALL*)
+  inv-rel (value ()))))
+
+(setq b1
+      (frame
+       (def-frame b1 (cache *ALL*)
+  rel (value (list a)))))
+
+(setq b2
+      (frame
+       (def-frame b2 (cache *ALL*)
+  rel (value (list a)))))
+
+(setq c
+      (frame
+       (def-frame c (is-a a))))
+
+(print a)
+(pp-frame a)
+(print b1)
+(pp-frame b1)
+(print b2)
+(pp-frame b2)
+(print c)
+(pp-frame c)
+---------------------------------------
+	If I get rid of the "inv-rel (value ())" in a, I 
+don't have any problem, but the slot inv-rel is created 
+later on only by the first relation through b1 and c 
+doesn't inherit inv-rel at all and no problem occurs. 
+
+	This is probably ok since I probably don't want to 
+inherit slot relations anyway which I stupidely did since 
+now. 
+
+	However, you expect the user (or the system you're 
+building) to modify the slot values after creation of the 
+frame. Therefore, you cannot inherit any list valu of a 
+class if it has been modified. 
+
+	This pinpointed my stupid inheriting of relations, 
+but I am still stuck with the problem of inheriting list 
+values between classes. However, I can create instances of 
+a class which has list slot values. 
+
+	I hope to have made myself a little clearer by 
+now. 
+
+	Some other remarks : 
+- an old one : the creation of the inverse-relation class 
+is not mentioned anymore
+- I had some strange contents of relation slots like : 
+---------------
+> (pp-frame a)
+Frame Class A: (:CACHE (:%CLASS :CHILD))
+CHILD           (:VALUE (#1=#<Vector T 2 C9F8Eb> #1# #2=#<Vector T 2 C98D73> #2#) :DEPTH 0)
+NIL
+---------------
+	I am unfortunately unable to get this behavior 
+again but you might know what it really means. 
+
+	Anyhow, tell me what you think. I might drop by 
+MIT and read my mail just before giong on Monday. 
+Otherwise I will be here today and will get in touch with 
+you when I come back. 
+
+	Thanks for the explanations. 
+
+			NICK
+
+

@@ -1,0 +1,126 @@
+-- Messages from file: /usr/pshell/Mail/my.mail --
+   Tuesday, 23 March 1993 9:57AM
+
+
+
+Message 79 -- *********************
+Return-Path: <@goya.uu.es:luis@uef.es>
+Received: from goya.uu.es by NL.CS.CMU.EDU id aa07144; 23 Mar 93 5:24:31 EST
+Received: from uef.UUCP by Spain.EU.net (EUnet) (5.65c/9.5); Tue, 23 Mar 1993 11:23:52 +0100
+Received:  by uef.es (UUPC/@ v4.07 from Ache, 22Mar92);
+           Tue, 23 Mar 1993 11:02:21 GMT
+To: pshell@NL.CS.CMU.EDU
+References: <CMM.0.90.4.732820039.pshell@NL.CS.CMU.EDU>
+Message-Id: <AAyukhhSL8@uef.es>
+Organization: Union Electrica Fenosa
+From: luis@uef.es (Rafael Plaza)
+Date: Tue, 23 Mar 93 11:02:20 +0000
+Subject: Re: Allegro 4.1
+X-Mailer: BML [MS/DOS Beauty Mail v.1.31]
+
+
+
+Pete:
+
+   The version of Allegro is Allegro CL 4.1 [SPARC; R1] (6/3/92 18:37).
+It is loading the parmenides.lisp file before compiling it. Find below
+the last 30 lines of our parmenides.lisp file:
+
+
+...
+
+
+(defun rename-frame (oldname newname)
+  (let ((frame-class (if (framep oldname) (frame-class oldname))))
+    (cond ((not frame-class)
+           (ml-cerror :skip-rename :no-such-frame-error oldname))
+          ((frame newname)
+           (ml-cerror :skip-rename :frame-exists newname))
+          (T
+           (nsubst newname oldname (instance-names-of frame-class))
+           (setf (get newname :frame) (frame oldname))
+           (remprop oldname :frame)
+           newname))))
+
+(init-parmenides)
+
+;;; Has-inverses and inverse-name slots added 4-1-87 to support inverse relations.
+(eval-when (load eval)
+  (def-frame relation ()
+    :combination-type :FIRST
+    :slots-inherited (value :*ALL*)
+    :has-inverses NIL   ;; Indicates if the relation has inverses.
+    :inverse-name NIL)
+  )
+
+;;;  (Def-frame inverse-relation (:is-a (relation)))
+
+;;; The IS-A and PART-OF relations
+;;; (def-frame is-a (is-a (relation) propagate NIL)
+;;;  combination-type first
+;;;  slots-inherited (value :*ALL*)
+;;;  has-inverses T)
+
+
+
+This is the error message of Allegro when it tries to write the .sparcl
+file:
+
+...
+; Compiling RENAME-FRAME
+; Compiling MAKE-RELATION
+; Writing fasl file "/usr2/cresus/parmenides/parmenides.sparcl"
+Error: No methods applicable for generic function
+       #<STANDARD-GENERIC-FUNCTION MAKE-LOAD-FORM @ #x503dee> with args
+       (Frame RELATION:
+Slots: (:%CLASS RELATION :COMBINATION-TYPE :FIRST :SLOTS-INHERITED
+        (:VALUE :*ALL* :DEPTH 0) :HAS-INVERSES NIL :INVERSE-NAME NIL)
+)
+       of classes (PA-FRAME)
+  [condition type: PROGRAM-ERROR]
+
+Restart actions (select using :continue):
+ 0: Try calling it again
+ 1: retry the compilation of /usr2/cresus/parmenides/parmenides.lisp
+ 2: continue compiling /usr2/cresus/parmenides/parmenides.lisp but generate no
+    output file
+ 3: continue computation
+ 4: retry the load of /usr2/cresus/comercial/dataman/dataman-variables
+
+[changing package from "COMMON-LISP-USER" to "PARMENIDES"]
+[2c] PARM(4): (in-package :user)
+(in-package :user)
+#<The COMMON-LISP-USER package>
+[2c] USER(5): :zo
+:zo
+Evaluation stack:
+
+   (CERROR "Try calling it again" PROGRAM-ERROR ...)
+ ->((METHOD NO-APPLICABLE-METHOD (T))
+      #<STANDARD-GENERIC-FUNCTION MAKE-LOAD-FORM @ #x503dee>
+      Frame PARM:RELATION:
+Slots: (:%CLASS PARM:RELATION :COMBINATION-TYPE ...)
+)
+   (NO-APPLICABLE-METHOD . #<non-lisp object @ #x-800954f>)
+   (MAKE-LOAD-FORM . #<non-lisp object @ #x-800926f>)
+   (COMP::WFASL-RECORD-OBJECT Frame PARM:RELATION:
+Slots: (:%CLASS PARM:RELATION :COMBINATION-TYPE ...)
+ #S(...) ...)
+   (COMP::WFASL-CONVERT-CONSTANTS (# # # ...))
+   (COMP::WFASL-SHARE-SCAN (# # # ...))
+   (COMP::WRITE-FILE-FROM-FASLOBJS-2 (# # # ...)
+                               #<EXCL::BINARY-OUTPUT-FILE-STREAM
+                               "/usr2/cresus/parmenides/parmenides.sparcl" pos 0
+                               @
+                               #x9f7e86>)
+   (COMP::WRITE-FILE-FROM-FASLOBJS (# # # ...)
+                               #p"/usr2/cresus/parmenides/parmenides.sparcl")
+
+... more older frames ...
+[2c] USER(6):...
+
+
+Thanks a lot for your time,
+
+Best regards.
+

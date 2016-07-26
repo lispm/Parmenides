@@ -1,0 +1,53 @@
+Mark,
+
+  yes you can use Parmenides and I would also recommend Frulekit
+(described below):
+
+DESCRIPTION
+
+Introduction
+  PARMENIDES (PropagAting, Rulekit-Motivated ENgine for Instance
+DEScriptions) is a frame-based knowledge representation system.  It is
+influenced by SRL, Framekit, CommonLoops, and the Spice lisp structure
+implementation.  The slot and facet access functions have comparable
+speed to the Slisp slot access functions.  It has some of the Framekit
+and SRL functionality, such as facets, demons, and user-defined
+relations.  However, like Loops, it makes a distinction between classes
+and instances.  This means that instances can only be an instance of one
+class, while classes may be subclasses of (have an is-a relation with)
+more than one class.  Instances may not have any slots that their
+classes don't have.  Classes describe a way to make instances, and
+instances only participate in the frame network through their classes.
+Parmenides is implemented in Common Lisp, so it is assumed that the user
+is familiar with this dialect of Lisp.
+
+  Other features of Parmenides include multiple language messages and
+user-defined relations.
+
+	AVAILABILITY
+
+  Parmenides and Frulekit are available at no charge (or for the cost of
+making a tape) for people and institutions who wish to use it on a
+non-profit basis.  If somebody plans to use it in a commercial
+application, we can work out an arrangement.  Please indicate whether
+you plan to use it in a non-profit or profit way, and we will send you
+the appropriate forms to sign, after which time we can send you the software.
+Also please indicate if you can recieve the software by FTP, by
+cartridge or magtape.
+
+
+KEYWORDS: Frame language, is-a hierarchy, inheritance
+
+CONTACT: send email to pshell@cmu.edu (internet) or contact Barbara Moore,
+Center for Machine Translation, Carnegie Mellow University, 5000 Forbes Ave.,
+Pgh, PA  15213.  412-268-6591
+
+
+RELATED SYSTEM:  I would also suggest that you include on the CD-ROM
+FRulekit, a CommonLisp frame-based rete production system which uses
+Parmenides as the working memory elements (i.e., the rules match against
+and modify Parmenides frames).  Same contact info. and legal status.
+
+
+DOCUMENTS:  We have both a Parmenides and Frulekit technical report at
+the CMT and on-line in Scribe & Postscript.

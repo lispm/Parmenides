@@ -1,0 +1,58 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 19 Jun 87 14:03:48 EDT
+Date: Friday, 19 June 1987 14:02:12 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@cive.ri.cmu.edu
+Subject: One bug didn't go
+Message-ID: <1987.6.19.17.58.14.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I tried again and met the same proble with the inverse relation.  You loaded
+my frame file successfully because I commented out the inverse relation
+"has" last night to see if it was the problem and forgot to change it back.
+Sorry for that.  The frame definitions are in /../usr/fzhao/hi-rise/def.lisp
+and I have put "has" in.  The other problem is gone.  Thanks.  --Fang
+
+--script file
+
+
+[hi-rise]% clisp
+;;; Lucid Common Lisp, Version 1.0.1,  9-Jan-87
+;;; Copyright (C) 1986 by Lucid, Inc.   All Rights Reserved
+;;; Development version -- for internal use only
+
+> (load "ldp")
+Loading Parmenides
+Defining class RELATION
+Parmenides loaded
+
+#P"/usrce0/fzhao/hi-rise/ldp.lisp"
+> (load "ld")
+Loading frame definitions
+Defining class IS-PART-OF
+Defining class HAS
+Defining class IS-ALT
+Defining class USES
+Defining class BUILDING
+Defining class GRID
+Defining class LATERAL
+Defining class GRAVITY
+Defining class 3D-LATERAL
+Defining class 2D-LATERAL
+Defining class MATERIAL
+Defining class LOCATION
+Defining class LAT-EVAL
+Defining class TYP-FRAME
+Defining class COLUMNS
+Defining class BEAMS
+>>Error: (BEAMS) is a malformed property list.
+
+GETF:
+   Required arg 0 (PLACE): (BEAMS)
+   Required arg 1 (INDICATOR): :DEPTH
+   Optional arg 2 (DEFAULT): NIL
+
+:A    Abort to Lisp Top Level
+->
+
+

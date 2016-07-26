@@ -1,0 +1,36 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 23 Mar 87 22:10:22 EST
+Date: Monday, 23 March 1987 22:08:42 EST
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@ml.ri.cmu.edu
+Subject: Parmenides use
+Message-ID: <1987.3.24.2.21.45.Fang.Zhao@cive.ri.cmu.edu>
+
+I am now trying to use Parmenides and have encountered a problem.  Guojun
+Zhang suggested that I contact you.  My problem is that I couldn't define
+any frames after I entered lusid common lisp and loaded "parmenides.vbin".
+Lisp kept giving me the error message 
+
+ERROR: #<Package "USER" 3B281B> should be of type SYMBOL
+
+GET:
+   Required arg 0 (SYMBOL): #<Package "USER" 3B281B>
+
+   Required arg 1 (INDICATOR): CLASSP
+   Optional arg 2 (DEFAULT): NIL
+   
+I couldn't figure out what's wrong.
+
+
+The first frame in the file I tried to load is as follows:
+
+(def-frame part-of (is-a relation propagate nil)
+  combination-type first
+  slot-inherited *ALL*)
+
+I also tried to define the same frame given as an example in the Parmenides
+manual (which has a few pages) but got the same error message.  Note in the
+above frame I used relation which is a symbol instead a list like (relation)
+which is emphasized in the document.
+
+I would appreciate it if you can give me some help on how to fix the problem.
+

@@ -1,0 +1,19 @@
+Ira, here's another interesting philisophical point (to me).
+
+I was thinking about making Parmenides automatically give a frame class
+A an inverse relation slot inverse-R whenever the user declares that
+class to have relation R as a slot and R has inverses.  This amounts to
+saying,  if a thing has some relation to something else, then just by
+looking at the relation, you can tell if other things have that relation
+to it.  E.g., in a meat-eaters world view, the eat relation has inverses
+since animals eat things but are eaten by other animals.  In a vegetarian's
+world view, the eat relation isn't.  A plant is watered by other things,
+but doesn't water things, so the watered-by relation does not have inverses
+the way I defined it.
+
+Does this make sense to you?  I never really thought of it that way before,
+but it seems to make sense.  This property of relations may of course have
+to be localized for certain classes of things.  For instance plants are
+eaten-by things but don't eat things, whereas animals do.
+
+--Peter

@@ -1,0 +1,86 @@
+	Added 31-May-1988:
+do-facets  (<facet-name>  <facet-val>  <slot>  <frame>)  &rest expressions This
+                macro executes the given expressions  for  each  facet  in  the
+                given  <slot>  and  <frame>.  The name of the facet is bound to
+                <facet-name> and the  value  is  bound  to  <facet-val>.    For
+                example:  
+
+                    (do-facets (name val :consumes 'horse)
+                      (format T "~S: ~S~%" name val))
+would print the name and value of each facet in the :consumes slot of the given
+                horse.
+Note that this function only works for faceted slots;  also  it  is  much  more
+                efficient than calling get-facet on each facet.
+
+
+---  March 1988 changes ---
+
+	Added 28-Mar-1988:
+define-facet-getter <classname> <slots> <facets>
+                Parmenides  usually defines access functions for only the value
+                facet.  To cause Parmenides  to  define  access  functions  for
+                facets  other  than  value,  use  this  macro.    For  example,
+                executing: (define-facet-getter house :age :depth)  allows  one
+                to  retrieve the depth of the age of a house quickly by typing:
+                (house-age.depth <house>).  <slots> and <facets> may be  either
+                lists or atoms.
+
+define-facet-setter <classname> <slots> <facets>
+                Analagous  to  define-facet-getter.    Defines  a facet-setting
+                function of the form: (set-<class>-<slot>.<facet> frame value).
+
+define-facet-accessors <classname> <slots> <facets>
+                Defines both a facet-getting and a facet-setting  function  for
+                the specified facet(s).
+
+
+	Took away the :setfable class slot and added these class slots:
+
+                   - :setable  Default:    What  the  parents   explicitly
+                     declare  to be setable.  If the value of this slot is
+                     T, then a set function will be defined for each slot,
+                     analogous  to  the  slot access functions.  These set
+                     functions   are   named    set-<frame><slot>,    e.g.
+                     set-dog-breathes.   Their first argument is the frame
+                     to modify, and the second argument is the  new  value
+                     to  put  in  the  slot.   A set function will also be
+                     defined for the value  facet  for  slots  which  have
+                     facets.    If the value is :setf then, in addition to
+                     the set functions, a setf method for each  slot  will
+                     be defined.  This allows users the full power of setf
+                     methods (at a slight increase  in  size  of  compiled
+                     frame  files),  such  as being able to push on slots.
+                     Finally, if the value of this slot is a non-nil list,
+                     then  the  first  element  of the list should be T or
+                     :setf, and  the  second  element  should  be  a  list
+                     containing  the slots for which a set method is to be
+                     defined.  If the parents explicitly declare slots  as
+                     settable,   then   they  are  also  settable  by  the
+                     children; to override this inheritance,  declare  the
+                     value of :setable to be NIL.
+
+                   - :getters  Default:  all  slots.   Normally, retrieval
+                     functions are written for  each  slot.    This  class
+                     slot, whose value must be a list of slot names, *ALL*
+                     or NIL, may be used  to  force  Parmenides  to  write
+                     retrieval  functions  for  only  specified  slots and
+                     their facets.  It is treated the same way the  :cache
+                     facet   is   treated,  i.e.,  the  keyword  *ALL*  is
+                     recognized, and it is inherited  from  super-classes.
+                     This  makes  Parmenides more efficient when there are
+                     many frames with many slots, and a retrieval function
+                     is not needed for most slots.
+
+	Added save-frame.  This is like pp-frame but writes the frame out
+	in a way that Parmenides can load it back in:
+save-frame  <frame>  &key  :stream  :all-slots  Writes  the  given  <frame>, in
+                Parmenides-readable form, to the specified stream,  or  to  the
+                standard  output if no stream argument is supplied.  :all-slots
+                has a default value of NIL which means that  only  those  slots
+                which differ from the corresponding parent's slots are printed.
+
+
+   9-Mar-88   When inheriting a slot from a super-frame, def-frame will
+		 now inherit all facets in superframe not in inherited slot.
+
+	Fixed a bug in remove-frame which caused it not to delete properly.

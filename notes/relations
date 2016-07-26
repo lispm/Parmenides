@@ -1,0 +1,20 @@
+Received: from C.CS.CMU.EDU by ML.RI.CMU.EDU; 15 Jul 86 10:41:40 EDT
+Received: ID <CARBONELL@C.CS.CMU.EDU>; Tue 15 Jul 86 10:40:15-EDT
+Date: Tue 15 Jul 86 10:40:13-EDT
+From: Jaime.Carbonell@C.CS.CMU.EDU
+Subject: Re: rulekit manual
+To: Peter.Shell@ML.RI.CMU.EDU
+In-Reply-To: Message from "Peter.Shell@ML.RI.CMU.EDU" of Mon 14 Jul 86 19:00:06-EDT
+Message-ID: <12222886382.19.CARBONELL@C.CS.CMU.EDU>
+
+The frameless manual is all we need for the Navy.
+  
+I like the idea of the inhereted & user define relations,
+ however, I don't know if only "isa" as hardwired will do.  How
+do you define inheritance in 'part-of' (the part inherits the "made-from",
+"location", etc slots from the whole, but not the "function", "size",
+"name", etc slots), or 'close-to' which is transitive for only a few steps
+(as opposed to isa & part of that are arbitrarily often transitive).
+  --JC
+-------
+

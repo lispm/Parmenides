@@ -1,0 +1,9 @@
+To propagate down when the inheritance-method is depth-first:
+
+Order the immediate parents, left to right.  The number each parent is
+assigned is relative to the node, and it called the breadth-number.
+Don't worry about parents of parents.
+
+In breadth-first (first value), each slot is marked with 2 "digits", the
+depth and the breadth number, respectively.  The breadth number is the same
+here as it is with depth-first.

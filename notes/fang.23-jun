@@ -1,0 +1,83 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 23 Jun 87 11:54:50 EDT
+Date: Tuesday, 23 June 1987 11:52:53 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@ml.ri.cmu.edu
+Subject: Parmenides
+Message-ID: <1987.6.23.15.20.38.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I am in trouble again.  I have changed 'is-part-of' to have facet (see
+/../ce/usr/fzhao/hi-rise/def-1.lisp) and when a new frame was created and
+slot 'is-part-of' was filled, something went wrong.  I copied a part of the
+code and the script below.  Could you have a look?  What puzzled me is that
+I tried my test.lisp (handle is part of door, and door of truck) which is
+written exactly the same way as my program and everything was fine.  I am
+pretty sure that the problem is 'is-part-of' because it worked before when
+it was facetless and I didn't change anything except 'is-part-of' (though I
+am not using inverse relation 'has' now, I need the value of 'is-part-of' to
+be a list).  By the way, if an instance is part of two instances of aother
+class, and inheritance-type is *ALL*, how will the information to be
+inherited?  Would that be a problem?  -Fang
+
+;***** CODE
+
+(defun wall-uplift-ok (loc-frame)
+.......
+(pp-frame loc-frame)
+      (make-walls walls
+                  :is-part-of '(value loc-frame)
+                  :height (get-slot loc-frame 'story-dim-est)
+                  :thickness 1.0
+                  :length wall-depth
+                  :vmax v
+                  :fcmax (+ fmax fa)
+                  :num-walls number)
+(pp-frame walls)
+      (set-value loc-frame 'has (list walls)))
+    (return t)))
+
+;**** SCRIPT
+
+1 Enter WALL-UPLIFT-OK #:|location-664|
+1.5v = .078541666
+dead load area = 4000
+total building height est. = 145.0
+fmax = .018980905   fa = .671875
+%CLASS          LOCATION          ; corresponing to (pp-frame loc-frame)
+3D-DESCRIPTION  2D-ORTHOGONAL
+RANGE           (:VALUE (STEEL CONCRETE) :DEPTH 2)
+IS-ALT          #:|mat-663|
+USES            NIL
+DIRECTION       NARROW
+2D-DESCRIPTION  SHEAR-WALL
+DEAD-LOAD-EST   125.0
+STORY-DIM-EST   9.666667
+MAT-DESCRIPTION CONCRETE
+EVAL-VALUE      0.0
+EVALUATION      NIL
+NUMBER          4
+INDEPENDENT     4
+CLASS           NEDGE+2
+N1              (2 2 2 2)
+N2              (8 8 8 8)
+W1              (1 5 11 15)
+W2              (1 5 11 15)
+S1              (2 2 2 2)
+S2              (30 30 30 30)
+P-COEFF         NIL
+COL-COORDS      NIL
+NUM-GROUPS      0
+HAS             (:VALUE NIL :DEPTH 1)
+>>Error: The argument to AREF, NIL, is not an array.
+
+AREF:
+   Required arg 0 (ARRAY): NIL
+   Optional arg 1 (I1): 0
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply an array.
+-> 
+

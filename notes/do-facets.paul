@@ -1,0 +1,31 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 10 Jul 88 01:14:08 EDT
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU; 10 Jul 88 01:12:01 EDT
+To: pshell@ml
+Subject: A little problem ...
+Date: Sun, 10 Jul 88 01:11:58 EDT
+Message-ID: <5204.584514718@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+
+Peter;
+
+	I'd like to be able to compile something like the following:
+
+	(dolist (slot slot-list)
+	  (do-facets
+	    (facet val slot 'frame-foo)
+	    (interesting-fn facet val)))
+
+i.e. I'd like to iterate over a couple of slots. The compiler consistently
+gags with a complaint of the form "attempt to compile a call to a fexpr"
+which seems to be wrt to the use of a variable slot, rather than a value.
+
+	Does this require a serious extension of the code? I can live with
+it as it is by repeating the entire form the necessary 3-4 times I guess ...
+
+	Just wondering.
+
+	paul
+

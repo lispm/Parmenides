@@ -1,0 +1,86 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 10 Mar 88 15:08:15 EST
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU; 10 Mar 88 15:05:16 EST
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: set-facet-demons bug 
+In-reply-to: Your message of Thu, 10 Mar 88 11:14:54 -0500.
+Date: Thu, 10 Mar 88 15:05:00 EST
+Message-ID: <3203.574027500@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+Peter;
+
+The actual production is:
+
+(RULE test-management%check-accuracy%find-deviant-reg-dose
+      :LHS ((=!task [object value] =patient [status value] 'active)
+	    (=!patient :name =patient :id =id)
+	    (=!meal-event (LABEL =frame) :name =event :patient-id =id
+			  [mod original] nil
+			  [mod value] =mod (CHECK (numberp =mod))
+			  [dose value] =dose (CHECK (numberp =dose))
+			  [meal value] =meal [when value] =when
+			  (CHECK (wrong-dosep =id =when =meal =dose =mod))))
+      :RHS ((print-star)
+	    (let* ((deviant (- =dose (get-dose =id =when =meal)))
+		   (reason (generate-reason =event 'dose-mod-discrepancy
+					    'confirmed 'inferred
+					    '(numerical-error) nil nil))
+		   (problem (generate-compliance =event 'patient-action
+						 'confirmed reason
+						 'dose-mod-discrepancy)))
+	      ($modify =frame
+		       :mod `(:original ,=mod :value ,deviant
+					:diff-explained-by ,reason)
+		       :problems `(:value ,(cons problem
+						 (get-facet =event :problems
+							    :value))))
+	      (set-facet-demons reason :generates-problem :value problem))))
+
+The only relevent code is the function actually creating the frame:
+
+(defun generate-reason (event explains-situation status source
+			  explanation adjustment consistent)
+  (let ((explain-name (make-explain-name)))
+    ($make-named 'reason explain-name :name explain-name
+		 :patient-id (get-slot event :patient-id)
+		 :when `(:value ,(get-facet event :when :value)
+		         :date ,(get-facet event :when :date)
+			 :time ,(get-facet event :when :time))
+		 :event `(:value ,event)
+		 :explains-situation `(:value ,explains-situation)
+		 :status `(:value ,status)
+		 :explained `(:value ,adjustment
+			      :source ,source
+			      :by ,explanation)
+		 :consistent-with-management-model `(:value ,consistent))
+    (case explains-situation
+      ('reg-mod (set-facet-demons explain-name :current-mod :reg 
+			   (get-facet event :reg-mod :value)))
+      ('LA-mod  (set-facet-demons explain-name :current-mod :LA
+			   (get-facet event :LA-mod :value))))
+    explain-name))
+
+which is apparently working OK, and the code generating a second frame
+which points to the first one:
+
+(defun generate-compliance (event where-problem status reason type)
+  (let ((problem-name (make-problem-name)))
+    ($make-named 'compliance problem-name :name problem-name
+		 :patient-id (get-slot event :patient-id)
+		 :when `(:value ,(get-facet event :when :value)
+		         :date ,(get-facet event :when :date)
+			 :time ,(get-facet event :when :time))
+		 :event `(:value ,event)
+		 :problem-with `(:value ,where-problem)
+		 :status `(:value ,status)
+		 :related-explanation `(:value ,reason)
+		 :type `(:value ,type))
+    problem-name))
+
+I fail to see where either could be screwing up, unless somehow you've
+given me the actual frame and I've accidentally damaged it. Comments?
+
+paul
+

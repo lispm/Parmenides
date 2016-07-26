@@ -1,0 +1,37 @@
+
+Return-Path: <@lhc.nlm.nih.gov:pkarp@nlm.nih.gov>
+Received: from lhc.nlm.nih.gov by ML.RI.CMU.EDU id aa07190;
+          25 Sep 90 10:35:12 EDT
+Received: from tech.nlm.nih.gov (ncbi.nlm.nih.gov) by lhc.nlm.nih.gov (4.0/SMI-4.0)
+	id AA02923; Tue, 25 Sep 90 10:32:41 EDT
+Received: by tech.nlm.nih.gov (4.1/SMI-4.1)
+	id AA10318; Tue, 25 Sep 90 10:34:09 EDT
+Date: Tue, 25 Sep 1990 10:34:08 EDT
+From: Peter Karp <pkarp@ncbi.nlm.nih.gov>
+To: pshell@ML.RI.CMU.EDU
+Subject: parmenides 
+Message-Id: <CMM.0.88.654273248.pkarp@tech.nlm.nih.gov>
+Status: R
+
+Greetings Peter, I am trying to put together a list of frame knowledge
+representation systems that are publicly available (although possibly
+under license and possibly for a fee) now.  I would appreciate your
+sending me a description of the availability of Parmenides.  Here is
+the type of information I am interested in (I know some of this is
+described in the papers you sent me, but some is not):
+
+Is it available via anonymous FTP, and if so how?  If a license is
+required, who should a potential user contact to obtain a license
+agreement?  What if any fee must be paid?  What is the support status
+of the system?  What are the hardware and software (Common Lisp
+dialects supported) requirements?  Can you give one or two references
+to publications that provide an overview of the system?
+
+A number of people have asked me about the availability of frame
+systems, so I plan to send this information to them; I may also
+end up posting it somewhere like comp.ai.
+
+Thanks,
+
+Peter Karp
+

@@ -1,0 +1,74 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 26 Mar 87 11:44:12 EST
+Received: by ATHENA (5.45/4.7)
+	id AA27485; Thu, 26 Mar 87 11:35:05 EST
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER (5.45/4.7)
+	id AA05628; Thu, 26 Mar 87 11:35:38 EST
+Message-Id: <8703261635.AA05628@DEMETER>
+To: pshell@ml.ri.cmu.edu
+Subject: more details
+Date: Thu, 26 Mar 87 11:35:36 EST
+
+
+Pete, here are some more details on my problem with relations.
+The problem is that the message appears only when creating 
+the first instance, but the class creation goes all right.
+The other thing is that I don't even define the inherited 
+slots or write *ALL* at all.
+Last concern would be : what about inverse relations talked
+about in framekit. 
+
+****************
+  THE PROGRAM
+****************
+
+;*******************
+;     CLASSES
+;*******************
+
+(def-frame next-level (is-a (relation))
+  combination-type first)
+
+
+(def-frame level ()
+  name ()
+  top-members (value 'default)
+  members (value 'default)
+  previous-level (value 'default)
+  next-level (value 'default))
+
+
+;*******************
+;     INSTANCES    
+;*******************
+
+(print "here")
+
+(setq top
+      (make-frame 'level 'top
+                  :name (string 'top)
+                  :top-members '(value (building))
+                  :members '(value (building grid))
+                  :next-level '(value functional)))
+
+(print "there")
+
+****************
+  THE SESSION
+****************
+
+>(load "test.lsp")
+Re-defining class NEXT-LEVEL
+;;; Warning: Redefining MAKE-NEXT-LEVEL
+Re-defining class LEVEL
+;;; Warning: Redefining MAKE-LEVEL
+
+"here"
+>>Error: *ALL* should be of type LIST
+
+PROGN:
+Original code: (PROGN (UNLESS (= # 1) (ERROR "Values count mismatch for THE")) (CHECK-TYPE-RUNTIME (CAR #:G303) (QUOTE LIST)))
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+-> 
+

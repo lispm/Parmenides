@@ -1,0 +1,74 @@
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU; 20 May 87 03:13:54 EDT
+Date: 20 May 1987 02:33-EDT 
+From: Hideto.Tomabechi@nl.cs.cmu.edu
+To: PShell@ml.ri.cmu.edu
+Subject: I hope you can help me with this...
+Message-Id: <548490803/tomabech@nl.cs.cmu.edu>
+
+Peter,
+I must apologize for my long messege this time. But I am stuck with
+my code keep giving me an error message.  My problem is when I add-slot
+in the function below, somehow the value 'temp gets bound to some
+other value when this function is called second time.  As you can see
+from my trace below, it is the value calling add-slot that is somehow
+changed and thus, I don't think it is a problem of add-slot...
+Since the function explicitly says (add-slot frame slotname '(:value 'temp)),
+I cannot understand how this can be changed to something else.
+ Do you have any idea what seems to be happening here?  Sorry for this,
+but I've been using T (a dialect of scheme) until two month ago and
+I am not used to the behavior of CMU CLisp yet.
+
+-----
+
+  ;;does set-value if the slot exists, if it doesn't
+  ;;then does add-slot.
+(defun set-or-add-value (frame slotname contents)
+ (if (not (classp frame))
+     (cerror "..error set-or-add-value")
+     (progn (if (and (local-p (class-of frame) slotname)
+                   ;;this ugly check below is unnecessary when local-p
+                   ;;returns nil for non-existent slot.
+                     (if (cadr (multiple-value-call #'list 
+                                    (get-value frame slotname)))))
+                nil ;;if slot exists, do not add it
+                (add-slot frame slotname '(:value 'temp)))
+            (format (so) "~% New slot ~a added." slotname)
+            (set-value frame slotname contents)
+            (format (so) "~% Value of slot ~a set to be ~a" 
+                         slotname contents))))
+
+----
+
+* (trace add-slot)
+ADD-SLOT
+* (eng '(small cell))
+
+Initializing the concept sequence predictions..
+MTRANS-VIEW predicts MTRANS-VIEW
+ Resetting prediction on the first element of sequence: MTRANS-VIEW
+ Creating p-marker: #(MARKER #(MTRANS-VIEW)) 
+ Putting P-marker: #(MARKER #(MTRANS-VIEW)) on MTRANS-VIEW
+ 0: (ADD-SLOT #(MTRANS-VIEW DISEASE-LOC-ORGAN HUMAN #((MTRANS-VIEW HUMAN
+                                                       DISEASE-LOC-ORGAN)
+                                                     0)) :P-MARKER (:VALUE 'TEMP))
+ 0: returned :P-MARKER
+ New slot P-MARKER added.
+ Value of slot P-MARKER set to be (#(MARKER #(MTRANS-VIEW)))
+PHYSICAL-OBJECT predicts FEATURE
+ Resetting prediction on the first element of sequence: FEATURE
+ Creating p-marker: #(MARKER #(PHYSICAL-OBJECT)) 
+ Putting P-marker: #(MARKER #(PHYSICAL-OBJECT)) on FEATURE
+ 0: (ADD-SLOT #(FEATURE) :P-MARKER (:VALUE (#(MARKER #(MTRANS-VIEW))) :DEPTH 0))
+
+  .. ERROR MESSAGE...
+
+
+---
+
+This way, somehow (:value 'temp) transforms to (:VALUE (#(MARKER #(MTRANS-VIEW))) :DEPTH 0))
+This function is only place I use add-slot in my program.  Can you
+think of any reason why this happens?
+
+ -- thank you 
+    hideto
+

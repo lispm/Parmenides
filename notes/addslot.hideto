@@ -1,0 +1,173 @@
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU; 16 May 87 18:54:03 EDT
+Date: 16 May 1987 18:50-EDT 
+From: Hideto.Tomabechi@nl.cs.cmu.edu
+To: PShell@ml
+Subject: add-slot acting wierdly when I pp-frame
+Message-Id: <548203818/tomabech@nl.cs.cmu.edu>
+
+add-slot with :cache T does not seem to be acting correctly yet.
+I pp-framed the frames that I added slot with :cache T and something
+weird shows up as below:
+
+* (pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE (:%CLASS :A-MARKER :P-MARKER :C-MARKER)
+                     :IS-A (*GENERIC-PACKAGE*))
+A-MARKER        (:VALUE NIL :DEPTH 1)
+P-MARKER        (:VALUE NIL :DEPTH 1)
+C-MARKER        (:VALUE NIL :DEPTH 1)
+NIL
+* (pp-frame 'physical-object)
+Frame Class PHYSICAL-OBJECT: (:PROPAGATE T :CACHE
+                              (:%CLASS :A-MARKER :P-MARKER :C-MARKER) :IS-A
+                              (OBJECT))
+A-MARKER        (:VALUE NIL :DEPTH 2)
+P-MARKER        (:VALUE NIL :DEPTH 2)
+C-MARKER        (:VALUE NIL :DEPTH 2)
+NIL
+* (add-slot 'object :test '(value 'bogus) :cache T)
+:TEST
+* (pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE
+                     (:%CLASS :A-MARKER :P-MARKER :C-MARKER :TEST :TEST :TEST
+                      :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                      :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                      :TEST :TEST :TEST :TEST :TEST :TEST :TEST)
+                     :IS-A (*GENERIC-PACKAGE*))
+A-MARKER        (:VALUE NIL :DEPTH 1)
+P-MARKER        (:VALUE NIL :DEPTH 1)
+C-MARKER        (:VALUE NIL :DEPTH 1)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+TEST            (:VALUE BOGUS :DEPTH 0)
+NIL
+* (pp-frame 'physical-object)
+Frame Class PHYSICAL-OBJECT: (:PROPAGATE T :CACHE
+                              (:%CLASS :A-MARKER :P-MARKER :C-MARKER :TEST :TEST
+                               :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                               :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                               :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                               :TEST :TEST)
+                              :IS-A (OBJECT))
+A-MARKER        (:VALUE NIL :DEPTH 2)
+P-MARKER        (:VALUE NIL :DEPTH 2)
+C-MARKER        (:VALUE NIL :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+TEST            (:VALUE BOGUS :DEPTH 2)
+NIL
+* 
+
+  -- hideto
+
+
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU; 16 May 87 23:09:16 EDT
+Date: 16 May 1987 23:03-EDT 
+From: Hideto.Tomabechi@nl.cs.cmu.edu
+To: PShell@ml.ri.cmu.edu
+Subject: More about ADD-SLOT
+Message-Id: <548218991/tomabech@nl.cs.cmu.edu>
+
+I have just found that not only add-slot with :cache T does something
+wierd to the subclasses of the frame, it does something  wierd to the
+super-class of the frame too.  Please see the example below:
+
+* (pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE (:%CLASS :A-MARKER :P-MARKER :C-MARKER)
+                     :IS-A (*GENERIC-PACKAGE*))
+A-MARKER        (:VALUE NIL :DEPTH 1)
+P-MARKER        (:VALUE NIL :DEPTH 1)
+C-MARKER        (:VALUE NIL :DEPTH 1)
+NIL
+* (pp-frame 'physical-object)
+Frame Class PHYSICAL-OBJECT: (:PROPAGATE T :CACHE
+                              (:%CLASS :A-MARKER :P-MARKER :C-MARKER) :IS-A
+                              (OBJECT))
+A-MARKER        (:VALUE NIL :DEPTH 2)
+P-MARKER        (:VALUE NIL :DEPTH 2)
+C-MARKER        (:VALUE NIL :DEPTH 2)
+NIL
+* (add-slot 'physical-object :test '(value 'bogus) :cache T)
+:TEST
+* (pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE
+                     (:%CLASS :A-MARKER :P-MARKER :C-MARKER :TEST :TEST :TEST
+                      :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                      :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST :TEST
+                      :TEST :TEST :TEST)
+                     :IS-A (*GENERIC-PACKAGE*))
+A-MARKER        (:VALUE NIL :DEPTH 1)
+P-MARKER        (:VALUE NIL :DEPTH 1)
+C-MARKER        (:VALUE NIL :DEPTH 1)
+
+...THEN ERROR MESSAGE....
+
+
+ -- hideto
+
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU; 17 May 87 20:11:46 EDT
+Date: 17 May 1987 20:06-EDT 
+From: Hideto.Tomabechi@nl.cs.cmu.edu
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: add-slot acting wierdly when I pp-frame
+Message-Id: <548294768/tomabech@nl.cs.cmu.edu>
+In-Reply-To: Peter.Shell's mail message of Sun, 17 May 87 19:55:30 EDT
+
+Yes I am using RT (PARIS).  
+I have (load "/../wiener/usr/pshell/parmenides/parmenides") in
+init.lisp.  The frame definitions of mine is 
+in /../paris/usr/tomabech/cmt/dmtrans/memory.lisp
+
+ -- hideto
+
+
+

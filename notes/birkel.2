@@ -1,0 +1,44 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 28 Feb 88 16:59:34 EST
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU; 28 Feb 88 16:58:15 EST
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: FRulekit/Parmenides 
+In-reply-to: Your message of Sun, 28 Feb 88 16:37:41 -0500.
+Date: Sun, 28 Feb 88 16:58:12 EST
+Message-ID: <877.573083892@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+
+Thank you. Those two problems are the real serious ones for me.
+I just looked at your code for Remove-Frame and I see that its'
+behavior is consistent with the code. The problem is a design issue.
+You were aware of it in part since you have the comment:
+
+	";;; Should also add frame to a frame freelist"
+
+My problem is that frame names are dynamically created and so long
+as the frame exists (as determined by Frame-P) I increment the name.
+Thus successive runs on the same data generate different names and that
+makes error checking *very* difficult. I can probably try ignoring
+Frame-P and trust that I won't screw things up elsewhere. But the
+freelist approach doesn't sound too hard to implement. As long as
+making a new frame is guaranteed to overwrite *everything*, then
+you've only got 4-5 places where the freelist needs to be manipulated.
+
+Handling the Save-Frame problem will let me live longer with the
+delete problem (using the above hack).
+
+BTW, ...[:slot :facet] 'symbol ... doesn't work, yet
+	..[slot facet] 'symbol ... does!
+The former is how the manual describes things, but I can find
+no examples of either case in /eg/*.lisp. Neither case works when
+the symbol is a number.
+
+paul
+
+------
+
+set-facet-demons (when FRulekit pre- and post-modify demons fire),
+when given a frame and not framename, deletes framename from framename
+list and doesn't put it back.

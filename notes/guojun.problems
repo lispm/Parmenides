@@ -1,0 +1,120 @@
+Received: from A.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 29 Apr 87 10:50:06 EDT
+Date: Wed, 29 Apr 87 10:49:50 EDT
+From: Guojun.Zhang@A.GP.CS.CMU.EDU
+To: ag-simu.lisp@A.GP.CS.CMU.EDU, pshell@ml
+
+(eg) clisp
+CMU Common Lisp M2.7 (17-Apr-87)
+Hemlock M1.7 (17-Apr-87), Compiler M1.6 (17-Apr-87)
+Send bug reports and questions to Gripe.
+* (load "fr.lisp")		## load Parmenides and Fulekit
+Defining class RELATION
+Defining class INVERSE-RELATION
+Defining class PART-OF
+**** parmenides.fasl loaded ****
+Build initialized
+**** build.fasl loaded ****
+Defining class WME
+
+Interpreter initialized
+**** inter.fasl loaded ****
+**** agenda.fasl loaded ****
+T
+* (load "ag-simu.lisp")		## load the simulation system
+Defining class AGENDA
+Defining class INPUT
+Defining class ARCHPLAN
+Defining class SPACER
+Defining class HIRISE-1
+Defining class SPEX-1
+Defining class ANALYZER
+Defining class SPEX-2
+Defining class FOOTER-1
+Defining class FOOTER-2
+Defining class PLANEX-1
+Defining class PLANEX-2
+Defining class PLANEX-3
+T
+* (pp-frame 'INPUT)		## print initial INPUT frame
+%CLASS: INPUT
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 0 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (INPUT N) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (BLDGPRMTR N) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+PASS: (:VALUE NIL :DEPTH 0)
+NIL
+* (0-1 'INPUT)			## turn on switch facet of status slot 
+Error in function INVERSE-ISAS. ## bug with INVERSE-ISAS
+Wrong type argument, #(INPUT #(N 0 1 (**C-INPUT)) #((INPUT P) 0 (**C-OUTPUT)) #((BLDGPRMTR P) 0 (**C-SWITCH)) #(NIL 0)), should have been of type SYMBOL.
+Proceed cases:
+0: Return to Top-Level.
+Debug  (type H for help)
+(SIGNAL #<CONDITIONS:SIMPLE-ERROR.8B90>)
+0] q
+* (pp-frame 'INPUT)		## INPUT fired
+				##   in/output messages' values changed from 
+				##   N to P by firing demons **c-input and 
+%CLASS: INPUT			##   **output
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 1 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (INPUT P) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (BLDGPRMTR P) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+PASS: (:VALUE NIL :DEPTH 0)
+NIL
+* (pp-frame 'ARCHPLAN)		## ARCHPLAN didn't fire
+%CLASS: ARCHPLAN		##   switch's value hasn't been changed, 
+PASS: (:VALUE NIL :DEPTH 1)     ##   indicating demon **c-switch didn't fire
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 0 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (BLDGPRMTR N) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (GLOBALFUNPLAN N GRID N) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+NIL
+* (0-1 'ARCHPLAN)		## turn on ARCHPLAN's switch
+Error in function INVERSE-ISAS.
+Wrong type argument, #(ARCHPLAN #(NIL 1) #(N 0 1 (**C-INPUT)) #((BLDGPRMTR P) 0 (**C-OUTPUT)) #((GLOBALFUNPLAN P GRID P) 0 (**C-SWITCH))), should have been of type SYMBOL.
+Proceed cases:
+0: Return to Top-Level.
+Debug  (type H for help)
+(SIGNAL #<CONDITIONS:SIMPLE-ERROR.9664>)
+0] q
+* (pp-frame 'ARCHPLAN)		## ARCHPLAN was processed
+%CLASS: ARCHPLAN
+PASS: (:VALUE NIL :DEPTH 1)
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 1 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (BLDGPRMTR P) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (GLOBALFUNPLAN P GRID P) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+NIL
+* (pp-frame 'SPACER)		## SPACER was not processed
+%CLASS: SPACER
+PASS: (:VALUE NIL :DEPTH 2)
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 0 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (GLOBALFUNPLAN N GRID N) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (LOCALFUNPLAN N) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+NIL
+* (inverse-isas 'ARCHPLAN)	## inverse-issa works independently
+(HIRISE-1 SPACER)
+* (setq new-frame (inverse-isas 'ARCHPLAN))
+(HIRISE-1 SPACER)
+* new-frame
+(HIRISE-1 SPACER)
+* (c-switch new-frame)		## fire HIRISE-1 and SPACER
+Error in function INVERSE-ISAS. ## funny error message about inverse-isas
+Wrong type argument, #(HIRISE-1 #(NIL 3) #(N 0 1 (**C-INPUT)) #((GRID P) 0 (**C-OUTPUT)) #((STRUCTPLAN P) 0 (**C-SWITCH))), should have been of type SYMBOL.
+Proceed cases:
+0: Return to Top-Level.
+Debug  (type H for help)
+(SIGNAL #<CONDITIONS:SIMPLE-ERROR.A2B8>)
+0] q
+* (pp-frame 'HIRISE-1)		## HIRISE-1 fired
+%CLASS: HIRISE-1
+PASS: (:VALUE NIL :DEPTH 3)
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 1 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (GRID P) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (STRUCTPLAN P) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+NIL
+* (pp-frame 'SPACER)		## SPACER was supposed to have been
+%CLASS: SPACER			## fired but not
+PASS: (:VALUE NIL :DEPTH 2)
+STATUS: (:VALUE N :DEPTH 0 :SWITCH 0 :POST-IF-SET (**C-INPUT))
+INPUT: (:VALUE (GLOBALFUNPLAN N GRID N) :DEPTH 0 :POST-IF-SET (**C-OUTPUT))
+OUTPUT: (:VALUE (LOCALFUNPLAN N) :DEPTH 0 :POST-IF-SET (**C-SWITCH))
+NIL
+* 
+

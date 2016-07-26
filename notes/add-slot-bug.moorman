@@ -1,0 +1,53 @@
+-- Messages from file: /usr0/pshell/mail.txt --
+   Thursday, 23 July 1992 4:13PM
+
+  A  334) 23-Jul Kenneth Moorman Re: PARMENIDES (1926 chars)
+
+
+Message 334 -- *********************
+Return-Path: <@gatech.edu:kennethm@cc.gatech.edu>
+Received: from gatech.edu by SALVADOR.MT.CS.CMU.EDU id aa02627;
+          23 Jul 92 14:10:31 EDT
+Received: from burdell.cc.gatech.edu by gatech.edu (4.1/Gatech-9.1)
+	id AA14806 for pshell@SALVADOR.MT.CS.CMU.EDU; Thu, 23 Jul 92 14:10:20 EDT
+Received: from terminus.cc.gatech.edu by burdell.cc.gatech.edu (4.1/SMI-4.1)
+	id AA22939; for pshell@SALVADOR.MT.CS.CMU.EDU; Thu, 23 Jul 92 14:10:16 EDT
+Received: by terminus.cc.gatech.edu (4.1/SMI-4.1)
+	id AA29274; Thu, 23 Jul 92 14:10:12 EDT
+From: kennethm@cc.gatech.edu (Kenneth Moorman)
+Message-Id: <9207231810.AA29274@terminus.cc.gatech.edu>
+Subject: Re: PARMENIDES
+To: pshell@SALVADOR.MT.CS.CMU.EDU (Peter Shell)
+Date: Thu, 23 Jul 92 14:10:11 EDT
+In-Reply-To: <CMM.0.90.2.711763865.pshell@SALVADOR.MT.CS.CMU.EDU>; from "Peter Shell" at Jul 21, 92 8:11 pm
+X-Mailer: ELM [version 2.3 PL11]
+
+OK, I have all the files and the manuals; I spent this morning and
+afternoon playing with it.   But, I have a problem.   I've tried
+to track it down, but I figured it was time to pass this
+along to you.  
+
+The system will not execute prtest.lisp successfully.  It fails on 
+	(add-slot 'door :size-slot '(value 'big-slot))
+
+Also, it will only fail at this point if the 
+	(make-door 'door1 :is-part-of 'truck1 :width 5 :height 5)
+above it has been executed.  I've checked the documentation, read the
+code, and am unable to track it down further than this.  
+
+The error refers to attempting to adjust a non-adjustable array. I've 
+tried this on two machines (a Sun running Sun Common Lisp and 
+a Sequent Symmetry) with the same error.   I have also reproduced
+it by free-from entering of lines.  As long as the class
+I which to perform an add-slot on has not had an instance
+defined via make, the add-slot works.  Otherwise, it crashes.  
+
+I'll keep tracking but I wanted to pass this along and 
+ask your opinion.  
+ 
+				Thanks, 
+				Kenny
+
+
+
+

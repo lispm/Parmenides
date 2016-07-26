@@ -1,0 +1,19 @@
+
+Received: from ML.RI.CMU.EDU by ML.RI.CMU.EDU; 17 Feb 89 14:07:41 EST
+To: Peter.Shell@ML.RI.CMU.EDU
+cc: Daniel.Borrajo@ML.RI.CMU.EDU, Daniel.Borrajo@ML.RI.CMU.EDU
+Subject: Re: Parmenides 
+In-reply-to: Your message of Fri, 17 Feb 89 13:32:39 -0500.
+Date: Fri, 17 Feb 89 14:07:36 EST
+Message-ID: <13970.603745656@ML.RI.CMU.EDU>
+From: Daniel.Borrajo@ML.RI.CMU.EDU
+Status: R
+
+The files are in /../swift/usr/dborrajo/lisp/ and the ones you will need are:
+   load-parmenides.lisp
+   pa-messages.eng
+   parmenides.lisp
+They are all for you. I'll take build, trace and agenda.
+Thanks and good luck.
+...Daniel
+

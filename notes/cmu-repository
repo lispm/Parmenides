@@ -1,0 +1,109 @@
+-- Messages from file: /usr/pshell/Mail/my.mail --
+   Tuesday, 13 July 1993 8:25PM
+
+
+
+Message 138 -- *********************
+Return-Path: <Mark_Kantrowitz@GLINDA.OZ.CS.CMU.EDU>
+Received: from GLINDA.OZ.CS.CMU.EDU by NL.CS.CMU.EDU id aa10794;
+          5 Jul 93 14:05:39 EDT
+Received: from GLINDA.OZ.CS.CMU.EDU by GLINDA.OZ.CS.CMU.EDU id aa24711;
+          5 Jul 93 14:04:51 EDT
+To: sef+@B.GP.CS.CMU.EDU, dst+@B.GP.CS.CMU.EDU, bam+@A.GP.CS.CMU.EDU, 
+    jef+@F.GP.CS.CMU.EDU, doorenbs+@CENTRO.SOAR.CS.CMU.EDU, 
+    mitchell+@A.GP.CS.CMU.EDU, eric.nyberg@cs.cmu.edu, peter.shell@cs.cmu.edu, 
+    prodigy@cs.cmu.edu, frank.pfenning@cs.cmu.edu, sleator@cs.cmu.edu
+CC: mkant+repository@cs.cmu.edu
+Subject: CMU AI Repository
+Reply-to: mkant@cs.cmu.edu
+Work-Phone: +1 412 268 2582
+Date: Mon, 05 Jul 93 14:04:38 -0400
+Message-ID: <24709.741895478@GLINDA.OZ.CS.CMU.EDU>
+From: Mark Kantrowitz <Mark_Kantrowitz@GLINDA.OZ.CS.CMU.EDU>
+
+
+The 2gb disk for the CMU AI Repository should be installed by the end of this
+week. The purpose of the repository is to contain *all* public domain and freely
+distributable software and publications of interest to AI researchers,
+educators, and students. Raj is enthusiastic about this endeavor.
+
+I hope you will be willing to include your project's software and publications
+in the repository. (The software in question is CMU CL, CMU Simulator
+Collection, Garnet, KR, Soar, THEO, FrameKit, Parmenides, Prodigy, eLP, Link
+Parser, but if there's anything else appropriate, I'd be happy to include it.)
+The repository will be mounted as an AFS disk, so I can set you up with complete
+access to a subdirectory of the repository for the "public release"
+distribution of your software. The benefit to you, besides inclusion in the
+repository and on the CD-ROM, is savings on disk space. With links properly set
+up, there will be no visible difference to you. 
+
+The only change is that compressed files will be compressed with 'gzip' instead
+of 'compress'. I will take care of the work involved in uncompressing and
+gzipping the files. (Gzip is a patent-free compression utility from GNU that
+often achieves better results than the LZW algorithm used in 'compress'. Gzip is
+installed in CS as /usr/misc/.gnu-others/bin/gzip; the version of zcat in that
+directory will work on both compressed and gzipped files. Gzip runs on unix
+boxes, IBM PCs, Amigas, and the Apple Macintosh.)
+
+For your information, I've enclosed a copy of the standard permissions letter
+below. Sales of the CD-ROM version of the repository will support further growth
+of the repository. The price for the CD-ROM is deliberately being kept dirt
+cheap to make it accessible to students.
+
+If you have any questions, please send me mail.
+
+--mark
+mkant@cs.cmu.edu
+
+
+Greetings,
+
+Carnegie Mellon University is establishing an Artificial Intelligence
+Repository to contain public domain and freely distributable software,
+publications, and other materials of interest to AI researchers,
+educators, and students. The AI Repository will be accessible by
+anonymous FTP and AFS without charge. The contents of the repository
+will also be published by Prime Time Freeware as an inexpensive
+mixed-media (Book/CD-ROM) publication.
+
+We would like permission to include the following material(s) in the
+AI Repository and CD-ROM:
+
+
+For software materials it would be helpful, though not absolutely
+necessary, if you would provide us with a brief description, keywords,
+official contact information (names, email/postal addresses, phone
+numbers), and any associated mailing lists.
+
+If there are any other materials which you feel would be appropriate
+for the repository (e.g., refereed publications, tech reports, theses,
+mailing list archives, programs, and other repositories), we would
+appreciate hearing about them.
+
+For your information, here is a precis of the CD-ROM:
+
+  PTF for AI is a periodic collection of AI-related source code and
+  documentation.  PTF for AI in no way modifies the legal restrictions
+  on any package it includes.  The upcoming issue (1-1; Summer, 1993)
+  will consist of an ISO-9660 CD-ROM bound into a ~100 page book.  It
+  will contain ~600 MB of gzipped archives (2+ GB uncompressed and
+  unpacked).  It will sell (list) for $60 US.
+
+Publishing the repository on CD-ROM will make it available to a wider
+audience, and provide more convenient access for sites and individuals
+who want their own copy of the repository.
+
+Please let us know if we may include your work.  Please inform us, as
+well, if there is any reason (cryptography, etc.) why your work may not
+be exportable from the US.
+
+Best regards, 
+
+Mark Kantrowitz
+Archivist, CMU AI Repository
+Editor, PTF for AI
+
+mkant+repository@cs.cmu.edu
+Tel: +1 412-268-2582
+Fax: +1 412-681-5739
+

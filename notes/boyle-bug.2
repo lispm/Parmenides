@@ -1,0 +1,738 @@
+-- Messages from file: /usr0/pshell/mail.txt --
+   Tuesday, 10 March 1992 2:38PM
+
+R A  187) 10-Mar Franklin Boyle  Re: Converting Parmenides an (30596 chars)
+
+
+Message 187 -- *********************
+Return-Path: <fb0m+@andrew.cmu.edu>
+Received: from andrew.cmu.edu by SALVADOR.MT.CS.CMU.EDU id aa14427;
+          10 Mar 92 13:53:11 EST
+Received: by andrew.cmu.edu (5.54/3.15) id <AA10691> for pshell@salvador.mt.cs.cmu.edu; Tue, 10 Mar 92 13:53:06 EST
+Received: via switchmail; Tue, 10 Mar 1992 13:53:05 -0500 (EST)
+Received: from pcs10.andrew.cmu.edu via qmail
+          ID </afs/andrew.cmu.edu/service/mailqs/q000/QF.gdjEKAa00WBOE0enV5>;
+          Tue, 10 Mar 1992 13:53:00 -0500 (EST)
+Received: from pcs10.andrew.cmu.edu via qmail
+          ID </afs/andrew.cmu.edu/usr1/fb0m/.Outgoing/QF.8djEK::00WBO84dFlI>;
+          Tue, 10 Mar 1992 13:52:58 -0500 (EST)
+Received: from mms.0.1.873.MacMail.0.9.CUILIB.3.45.SNAP.NOT.LINKED.pcs10.andrew.cmu.edu.pmax.ul4
+          via MS.5.6.pcs10.andrew.cmu.edu.pmax_ul4;
+          Tue, 10 Mar 1992 13:52:57 -0500 (EST)
+Message-Id: <wdjEK9y00WBOE4dFcP@andrew.cmu.edu>
+Date: Tue, 10 Mar 1992 13:52:58 -0500 (EST)
+From: Franklin Boyle <fb0m+@andrew.cmu.edu>
+To: Peter Shell <pshell@salvador.mt.cs.cmu.edu>
+Subject: Re: Converting Parmenides and FRulekit to MAC 7.0
+Cc: Franklin Boyle <fb0m+@andrew.cmu.edu>
+In-Reply-To: <CMM.0.90.2.700243430.pshell@SALVADOR.MT.CS.CMU.EDU>
+References: <CMM.0.90.2.700243430.pshell@SALVADOR.MT.CS.CMU.EDU>
+
+I FTP'd Parmenides from the directory you indicated and tried to compile
+it, but I'm still getting the same error.  I have a feeling that it's
+because of Allegro CL version 2.0b1 which is a beta version.  The reason
+we need to use it is because the Apple Quadra's apparently won't run
+version 1.3.
+
+Anyway, below is the error again, and then the stack followed by
+its expansion:
+
+           ------------- Loading and Compile error  --------------
+
+Welcome to Macintosh Common Lisp Version 2.0b1!
+? 
+;Loading "Mac IIcx 80mb.:NEW Parmenides:parmenides.lisp"...Parmenides
+1.5, Copyright (c) 1985, 1988 Carnegie Mellon.
+Defining class RELATION
+? 
+;Compiling "Mac IIcx 80mb.:NEW Parmenides:parmenides.lisp"...
+> Error: No applicable primary method for args:
+>         (Frame PARMENIDES:RELATION:
+>        Slots: (:%CLASS PARMENIDES:RELATION :COMBINATION-TYPE :FIRST
+:SLOTS-INHERITED (:VALUE :*ALL* :DEPTH 0) :HAS-INVERSES NIL
+:INVERSE-NAME NIL)
+>        )
+>         to #<Compiled Generic-function MAKE-LOAD-FORM #x591E26>
+> While executing: #<STANDARD-METHOD NO-APPLICABLE-METHOD (T)>
+> Type Command-. to abort.
+See the Restarts~ menu item for further choices.
+
+     
+                 -------------- Stack ----------------
+
+0: CCL::%ERROR
+1: #<STANDARD-METHOD NO-APPLICABLE-METHOD (T)>
+2: Anonymous Function #x4A1516
+3: CCL::FASL-SCAN-USER-FORM
+4: CCL::FASL-SCAN-LFUN-VECTOR
+5: CCL::FASL-SCAN
+6: CCL::%COMPILE-FILE
+7: COMPILE-FILE
+8: CCL::READ-LOOP
+
+
+            ------------ Stack Expansion ------------------
+
+If I expand the 0: level, I get:
+
+Frame Size:      3 values
+Frame Address:   #x4BAB24
+Program Counter: 86
+
+DSAVE0: #<SIMPLE-ERROR #x5F9849>
+0:  (DSAVEO) (4 #<Anonymous Function #x5F15EE>)
+1:  ((Frame PARMENIDES:RELATION:?Slots: (:%CLASS PARMENIDES:RELATION...
+2:  -35642
+
+(Note: the ? in the 1: above was really a 'new paragraph' symbol.
+       Ditto below)
+
+
+
+If I expand the 1: level in the stack, I get:
+
+Frame Size:      2 values
+Frame Address:   #x4BAB2C
+Program Counter: 26
+
+0: (required) #<Compiled Generic-function MAKE-LOAD-FORM #x591E26>
+1: (rest) (Frame PARMENIDES:RELATION:?Slots: (:%CLASS...
+
+
+
+If I expand the 2: level in the stack, I get (expanding the ellipses):
+
+Frame Size:      3 values
+Frame Address:   #x4BAB54
+Program Counter: 30
+
+0: (INHERITED) #<Compiled Generic-function MAKE-LOAD-FORM #x591E26>
+1: #(Frame PARMENIDES:RELATION:
+?Slots: (:%CLASS PARMENIDES:RELATION :COMBINATION-TYPE :FIRST :SLOTS-INHERITED
+        (:VALUE :*ALL* :DEPTH 0) :HAS-INVERSES NIL :INVERSE-NAME NIL)
+
+  NIL)
+2: (Frame PARMENIDES:RELATION:
+Slots: (:%CLASS PARMENIDES:RELATION :COMBINATION-TYPE :FIRST :SLOTS-INHERITED
+        (:VALUE :*ALL* :DEPTH 0) :HAS-INVERSES NIL :INVERSE-NAME NIL)
+)
+
+
+If I expand the 3: level in the stack, I get:
+
+Frame Size:       1 value
+Frame Address     #x4BAB64
+Program Counter:  18
+
+0: (required) Frame PARMENIDES:RELATION:?slots: (:%CLASS....
+
+
+
+If I expand the 4: level in the stack, I get:
+
+Frame Size:       3 values
+Frame Address     #x4BAB6C
+Program Counter:  78
+
+0: (required) #<CCL::LFUN-VECTOR #x5F15E1>
+1: 14
+2: 5
+
+
+
+If I expand the 5: level in the stack, 1 get:
+
+Frame Size:       11 values
+Frame Address     #x4BAB74
+Program Counter:  142
+
+DSAVE0: (4 #<Anonymous Function #x5F15EE>)
+DSAVE1: ((35 #<Compiled-function PARMENIDES:MAKE-RELATION (Non-Global)
+     #x5F1B0E> NIL) (4 #<Anonymous Function #x5F21DE>))
+DSAVE2: NIL
+ASAVE0: #<Symbol-Value-Locative CCL::*FASDUMP-GLOBAL-OFFSETS*>
+ASAVE1: #<Symbol-Value-Locative CCL::*FASDUMP-HASH*>
+0: (#1=#<Package "COMMON-LISP-USER"> (4 #<Anonymous Function #x5AE8FE>) #1#
+ (4 #<Anonymous Function #x5AE966>) (4 #<Anonymous Function #x5AE9CE>)
+ #<Package "PARMENIDES"> (4 #<Anonymous Function #x5AECAE>)
+ (4 #<Anonymous Function #x5AEE16>) (4 #<Anonymous Function #x5AEE9E>)
+ (4 #<Anonymous Function #x5AEF1E>) (4 #<Anonymous Function #x5AEF9E>)
+ (35 #<Compiled-function PARMENIDES:LOAD-MESSAGES (Non-Global)  #x5AF01E> NIL)
+ (37 #<Compiled-function PARMENIDES:GET-MESSAGE (Non-Global)  #x5AF1BE> NIL)
+ (35 #<Compiled-function PARMENIDES::PUT-MESSAGE (Non-Global)  #x5AF23E> NIL)
+ (35 #<Compiled-function PARMENIDES:DEFINE-LANGUAGE (Non-Global)  #x5AF2AE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::LOAD-PARMENIDES (Non-Global)  #x5AF346>
+  NIL)
+ (4 #<Anonymous Function #x5AF466>) (4 #<Anonymous Function #x5AF54E>)
+ (4 #<Anonymous Function #x5AF5C6>) (4 #<Anonymous Function #x5AF61E>)
+ (4 #<Anonymous Function #x5AF696>) (4 #<Anonymous Function #x5AF736>)
+ (4 #<Anonymous Function #x5AF7FE>) (4 #<Anonymous Function #x5AF906>)
+ (4 #<Anonymous Function #x5AFEFE>) (4 #<Anonymous Function #x5B0046>)
+ (37 #<Compiled-function PARMENIDES::MY-MAYBE-NCONC (Non-Global)  #x5B0196>
+  NIL)
+ (37 #<Compiled-function PARMENIDES::MAYBE-COPY-LIST (Non-Global)  #x5B02FE>
+  NIL)
+ (37 #<Compiled-function PARMENIDES::MY-PUSHNEW (Non-Global)  #x5B047E> NIL)
+ (37 #<Compiled-function PARMENIDES:ML-FORMAT (Non-Global)  #x5B059E> NIL)
+ (37 #<Compiled-function PARMENIDES:ML-CERROR (Non-Global)  #x5B06A6> NIL)
+ (37 #<Compiled-function PARMENIDES:ML-ERROR (Non-Global)  #x5B07A6> NIL)
+ (37 #<Compiled-function PARMENIDES::PAFORMAT (Non-Global)  #x5B08A6> NIL)
+ (37
+  #<Compiled-function PARMENIDES::FRIENDLY-FRAME-CLASS (Non-Global)  #x5B0A16>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:PA-CLASS-OF (Non-Global)  #x5B0B96> NIL)
+ (37 #<Compiled-function PARMENIDES::FRAME-TYPE-OF (Non-Global)  #x5B0CCE> NIL)
+ (37 #<Compiled-function PARMENIDES::KEYWORD-TO-CURRENT (Non-Global)  #x5B0DDE>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:ASSURE-CURRENT (Non-Global)  #x5B0EDE> NIL)
+ (35 #<Compiled-function PARMENIDES::CURRENT-TO-KEYWORD (Non-Global)  #x5B106E>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:ASSURE-KEYWORD (Non-Global)  #x5B1166> NIL)
+ (37 #<Compiled-function PARMENIDES::CORRECT-PACKAGE (Non-Global)  #x5B12DE>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:ASSURE-FRAME (Non-Global)  #x5B14F6> NIL)
+ (37 #<Compiled-function PARMENIDES::MAYBE-ASSURE-FRAME (Non-Global)  #x5B16D6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PROPERTY-NAMES (Non-Global)  #x5B1B0E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:KYOTO-LISP-P (Non-Global)  #x5B1BEE> NIL)
+ (35 #<Compiled-function PARMENIDES:CMU-COMMON-LISP-P (Non-Global)  #x5B1CAE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:SYMBOLICS-LISP-P (Non-Global)  #x5B1D6E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:DEC-LISP-P (Non-Global)  #x5B1E2E> NIL)
+ (35 #<Compiled-function PARMENIDES:XEROX-P (Non-Global)  #x5B1EEE> NIL)
+ (35 #<Compiled-function PARMENIDES:LUCID-LISP-P (Non-Global)  #x5B1FAE> NIL)
+ (35 #<Compiled-function PARMENIDES:ALLEGRO-LISP-P (Non-Global)  #x5B206E> NIL)
+ (4 #<Anonymous Function #x5B21E6>) (4 #<Anonymous Function #x5B2266>)
+ (4 #<Anonymous Function #x5B22D6>)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-0 (Non-Global)  #x5B2356> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-1 (Non-Global)  #x5B23CE> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-2 (Non-Global)  #x5B2446> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-3 (Non-Global)  #x5B24BE> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-4 (Non-Global)  #x5B2536> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-5 (Non-Global)  #x5B25AE> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-6 (Non-Global)  #x5B2626> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-7 (Non-Global)  #x5B269E> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-8 (Non-Global)  #x5B2716> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-9 (Non-Global)  #x5B278E> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-10 (Non-Global)  #x5B2806> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-11 (Non-Global)  #x5B287E> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-12 (Non-Global)  #x5B28F6> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-13 (Non-Global)  #x5B296E> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-14 (Non-Global)  #x5B29E6> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-GET-15 (Non-Global)  #x5B2A5E> NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-0 (Non-Global)  #x5B2AD6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-1 (Non-Global)  #x5B2B56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-2 (Non-Global)  #x5B2BD6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-3 (Non-Global)  #x5B2C56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-4 (Non-Global)  #x5B2CD6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-5 (Non-Global)  #x5B2D56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-6 (Non-Global)  #x5B2DD6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-7 (Non-Global)  #x5B2E56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-8 (Non-Global)  #x5B2ED6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-9 (Non-Global)  #x5B2F56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-10 (Non-Global)  #x5B2FD6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-11 (Non-Global)  #x5B3056>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-12 (Non-Global)  #x5B30D6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-13 (Non-Global)  #x5B3156>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-14 (Non-Global)  #x5B31D6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::%AREF-VALUE-GET-15 (Non-Global)  #x5B3256>
+  NIL)
+ (4 #<Anonymous Function #x5B32D6>) (4 #<Anonymous Function #x5B3386>)
+ (4 #<Anonymous Function #x5B3436>) (4 #<Anonymous Function #x5B36C6>)
+ (35 #<Compiled-function PARMENIDES::MAKE-PA-FRAME (Non-Global)  #x5B3746> NIL)
+ (4 #<Anonymous Function #x5B37EE>)
+ (35 #<Compiled-function PARMENIDES::PA-FRAME-P (Non-Global)  #x5B386E> NIL)
+ (4 #<Anonymous Function #x5B396E>) (4 #<Anonymous Function #x5B39EE>)
+ (4 #<Anonymous Function #x5B3A66>) (4 #<Anonymous Function #x5B3C2E>)
+ (37 #<Compiled-function PARMENIDES::FIRST-POSITION (Non-Global)  #x5B3D16>
+  NIL)
+ (37 #<Compiled-function PARMENIDES::GET-FRAME-SIZE (Non-Global)  #x5B3E26>
+  NIL)
+ (37 #<Compiled-function PARMENIDES::CREATE-FRAME (Non-Global)  #x5B3F26> NIL)
+ (37 #<Compiled-function PARMENIDES:GET-FREE-FRAME (Non-Global)  #x5B41F6> NIL)
+ (37 #<Compiled-function PARMENIDES:RELEASE-FRAME (Non-Global)  #x5B4696> NIL)
+ (37 #<Compiled-function PARMENIDES::SOME2 (Non-Global)  #x5B4A5E> NIL)
+ (35 #<Compiled-function PARMENIDES:GET-FACET (Non-Global)  #x5B4B56> NIL)
+ (35 #<Compiled-function PARMENIDES::GET-INSTANCE-FACET (Non-Global)  #x5B4D46>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:GET-VALUE (Non-Global)  #x5B50A6> NIL)
+ (35 #<Compiled-function PARMENIDES:GET-IMMEDIATE-FACET (Non-Global)  #x5B514E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-IMMEDIATE-INSTANCE-FACET (Non-Global)
+    #x5B52B6>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:GET-IMMEDIATE-VALUE (Non-Global)  #x5B5526>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:GET-GENERIC-VALUE (Non-Global)  #x5B55E6>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:GET-VALUE-DEMONS (Non-Global)  #x5B5716>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:GET-FACET-DEMONS (Non-Global)  #x5B57BE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-FACET-DEMONS0 (Non-Global)  #x5B592E>
+  NIL)
+ (4 #<Anonymous Function #x5B5D26>)
+ (37 #<Compiled-function PARMENIDES:FACETEDP (Non-Global)  #x5B5C8E> NIL)
+ (35 #<Compiled-function PARMENIDES:LOCAL-P (Non-Global)  #x5B5DF6> NIL)
+ (35 #<Compiled-function PARMENIDES::FACETED-P2 (Non-Global)  #x5B5F96> NIL)
+ (35 #<Compiled-function PARMENIDES:GET-SLOT (Non-Global)  #x5B6016> NIL)
+ (35 #<Compiled-function PARMENIDES::GET-INSTANCE-SLOT (Non-Global)  #x5B6166>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:GET-IMMEDIATE-SLOT (Non-Global)  #x5B6356>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-IMMEDIATE-INSTANCE-SLOT (Non-Global)
+    #x5B64E6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:PA-GET-SNF-NUMS (Non-Global)  #x5B65FE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-SLOT-NUM (Non-Global)  #x5B6756> NIL)
+ (35 #<Compiled-function PARMENIDES:GET-CSLOT (Non-Global)  #x5B67BE> NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-TO-FACET (Non-Global)  #x5B68C6> NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-TO-FACET-DEMONS (Non-Global)  #x5B69B6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-TO-VALUE (Non-Global)  #x5B6AA6> NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-TO-SLOT (Non-Global)  #x5B6B6E> NIL)
+ (35 #<Compiled-function PARMENIDES::MAYBE-ADD-TO-SLOT (Non-Global)  #x5B6C5E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-TO-CSLOT (Non-Global)  #x5B6D86> NIL)
+ (35 #<Compiled-function PARMENIDES:SET-FACET (Non-Global)  #x5B7096> NIL)
+ (35 #<Compiled-function PARMENIDES:SET-FACET-DEMONS (Non-Global)  #x5B7246>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:SET-VALUE (Non-Global)  #x5B74AE> NIL)
+ (37 #<Compiled-function PARMENIDES:SET-VALUE-DEMONS (Non-Global)  #x5B7636>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::SET-FACET-DEMONS0 (Non-Global)  #x5B7746>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::SET-CLASS&INSTANCES-FACET (Non-Global)
+    #x5B7BA6>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::HANDLE-SET-INVERSE-FACET (Non-Global)
+    #x5B8056>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::SET-INVERSE-FACET (Non-Global)  #x5B829E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PROPAGATE-DOWN (Non-Global)  #x5B884E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PROPAGATE-DOWN-DFS (Non-Global)  #x5B895E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MODIFY-FACET-PLIST (Non-Global)  #x5B8B1E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MODIFY-SLOT-PLIST (Non-Global)  #x5B8C36>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::SET-INSTANCE-SLOT (Non-Global)  #x5B8CFE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::HANDLE-SET-INVERSE-SLOT (Non-Global)
+    #x5B8F7E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::SET-INVERSE-SLOT (Non-Global)  #x5B91B6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:SET-SLOT (Non-Global)  #x5B974E> NIL)
+ (35 #<Compiled-function PARMENIDES:SET-CSLOT (Non-Global)  #x5B98BE> NIL)
+ (35 #<Compiled-function PARMENIDES::MARK-CLASSNAME (Non-Global)  #x5B9BAE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MARKED-P (Non-Global)  #x5B9C3E> NIL)
+ (35 #<Compiled-function PARMENIDES::INIT-PROPAGATE (Non-Global)  #x5B9CAE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::NUM-INSTANCES-OF-CLASS (Non-Global)
+    #x5B9D5E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:MODIFY-FRAME (Non-Global)  #x5B9DCE> NIL)
+ (35 #<Compiled-function PARMENIDES:MODIFY-FRAME-DEMONS (Non-Global)  #x5BA26E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:REMOVE-FRAME (Non-Global)  #x5BA786> NIL)
+ (35 #<Compiled-function PARMENIDES::REMOVE-FRAME-CLASS (Non-Global)  #x5BAA0E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:CLEAR-INSTANCES (Non-Global)  #x5BAC1E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::REMOVE-FRAME-INSTANCE (Non-Global)  #x5BAF7E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:REPLACE-FRAME (Non-Global)  #x5BB0BE> NIL)
+ (35 #<Compiled-function PARMENIDES:COPY-FRAME (Non-Global)  #x5BB2F6> NIL)
+ (37 #<Compiled-function PARMENIDES:FAST-COPY-FRAME (Non-Global)  #x5BB53E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::COPY-ADJUSTABLE-ARRAY (Non-Global)  #x5BB62E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::COPY-NESTED-STRUCTURE (Non-Global)  #x5BB716>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PA-COPY-ARRAY (Non-Global)  #x5BB7FE> NIL)
+ (35 #<Compiled-function PARMENIDES::COPY-ARRAY-SLOTS (Non-Global)  #x5BB8AE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:DUP-ARRAY (Non-Global)  #x5BB9EE> NIL)
+ (35 #<Compiled-function PARMENIDES::COPY-VECTOR (Non-Global)  #x5BBA66> NIL)
+ (35 #<Compiled-function PARMENIDES::COPY-GENERIC-THING (Non-Global)  #x5BBB2E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PA-FRAME-PRINTER (Non-Global)  #x5BBBD6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::VECTOR-EQL (Non-Global)  #x5BBC96> NIL)
+ (35 #<Compiled-function PARMENIDES::MAYBE-QUOTE (Non-Global)  #x5BBD6E> NIL)
+ (35 #<Compiled-function PARMENIDES:PP-FRAME (Non-Global)  #x5BBE06> NIL)
+ (35 #<Compiled-function PARMENIDES:SAVE-FRAME (Non-Global)  #x5BC026> NIL)
+ (35 #<Compiled-function PARMENIDES:WRITE-FRAME (Non-Global)  #x5BC23E> NIL)
+ (35 #<Compiled-function PARMENIDES::WRITE-SLOT-VALUE (Non-Global)  #x5BC6AE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PRINTABLE-SLOT-P (Non-Global)  #x5BC8F6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::WRITE-HEADER (Non-Global)  #x5BCACE> NIL)
+ (35 #<Compiled-function PARMENIDES:GET-ATOMIC-VALUE (Non-Global)  #x5BCD56>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:DEFINE-FACET-GETTER (Non-Global)  #x5BCE76>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:DEFINE-FACET-SETTER (Non-Global)  #x5BCF4E>
+  NIL)
+ (37
+  #<Compiled-function PARMENIDES:DEFINE-FACET-ACCESSORS (Non-Global)  #x5BD026>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-FACET-ACCESSOR0 (Non-Global)
+    #x5BD0A6>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-FACET-GETTER-FOR-SLOT (Non-Global)
+    #x5BD286>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-GETTER-FOR-FACET (Non-Global)
+    #x5BD4FE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PA-EVAL (Non-Global)  #x5BD7EE> NIL)
+ (35 #<Compiled-function PARMENIDES::ASSURE-ISA-LIST (Non-Global)  #x5BD85E>
+  NIL)
+ (37 #<Compiled-function PARMENIDES:DEF-FRAME (Non-Global)  #x5BE0BE> NIL)
+ (37 #<Compiled-function PARMENIDES::CHECK-SLOT (Non-Global)  #x5BE8D6> NIL)
+ (35 #<Compiled-function PARMENIDES::KEYWORDIZE-PLIST (Non-Global)  #x5BE9EE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:KEYWORDIZE-CPLIST (Non-Global)  #x5BEB2E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-UPDATE-RANGE-CLASSES (Non-Global)
+    #x5BEC9E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::UPDATE-RANGE-CLASS-VALUE (Non-Global)
+    #x5BEFAE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::UPDATE-RANGE-CLASS-CPLIST-VALUE (Non-Global)
+    #x5BF1D6>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-DEFINE-INVERSE-RELATION-CLASS
+(Non-Global) 
+    #x5BF2D6>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-ADD-INVERSE-NAME (Non-Global)
+    #x5BF3D6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::ASSURE-LIST (Non-Global)  #x5BF4E6> NIL)
+ (35 #<Compiled-function PARMENIDES::ANNOUNCE-DEFINE (Non-Global)  #x5BF54E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::CHECK-PARENTS (Non-Global)  #x5BF6CE> NIL)
+ (35
+  #<Compiled-function PARMENIDES::WRITE-MAKER-FUNCTION (Non-Global)  #x5BF766>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:DEF-FRAME* (Non-Global)  #x5BF85E> NIL)
+ (35 #<Compiled-function PARMENIDES::EVAL-PLIST (Non-Global)  #x5BF8DE> NIL)
+ (35
+  #<Compiled-function PARMENIDES::INVERTIBLE-RELATION (Non-Global)  #x5BF996>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::FIND-REL-SLOTS (Non-Global)  #x5BFA4E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::FIND-RELATION-FRAMES (Non-Global)  #x5BFB0E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::COMPUTE-ISAS (Non-Global)  #x5BFBDE> NIL)
+ (35 #<Compiled-function PARMENIDES::ALL-GRANDPARENTS (Non-Global)  #x5BFC5E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::COMPUTE-INVERSE-ISAS (Non-Global)  #x5BFD4E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::ADD-CLASS (Non-Global)  #x5BFE56> NIL)
+ (35 #<Compiled-function PARMENIDES::NAME-TO-FRAME (Non-Global)  #x5BFECE> NIL)
+ (35 #<Compiled-function PARMENIDES:FRAME (Non-Global)  #x5BFF3E> NIL)
+ (35 #<Compiled-function PARMENIDES:ISA-P (Non-Global)  #x5BFFD6> NIL)
+ (35 #<Compiled-function PARMENIDES:CLASSP (Non-Global)  #x5C0096> NIL)
+ (35 #<Compiled-function PARMENIDES::FRAME-CLASS-P (Non-Global)  #x5C014E> NIL)
+ (35 #<Compiled-function PARMENIDES:NAME-TO-FRAME-TYPE (Non-Global)  #x5C0216>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:GET-SLOT-NAMES (Non-Global)  #x5C036E> NIL)
+ (35 #<Compiled-function PARMENIDES:SLOTP (Non-Global)  #x5C04A6> NIL)
+ (37 #<Compiled-function PARMENIDES:DO-FACETS (Non-Global)  #x5C089E> NIL)
+ (35 #<Compiled-function PARMENIDES:FRAME-CLASS (Non-Global)  #x5C0C1E> NIL)
+ (35 #<Compiled-function PARMENIDES:ISAS (Non-Global)  #x5C0C96> NIL)
+ (35 #<Compiled-function PARMENIDES:IMMEDIATE-ISAS (Non-Global)  #x5C0FBE> NIL)
+ (35 #<Compiled-function PARMENIDES:INVERSE-ISAS (Non-Global)  #x5C12E6> NIL)
+ (35 #<Compiled-function PARMENIDES::SET-INVERSE-ISAS (Non-Global)  #x5C162E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:FRAMEP (Non-Global)  #x5C169E> NIL)
+ (35 #<Compiled-function PARMENIDES:ISA-INSTANCE (Non-Global)  #x5C17DE> NIL)
+ (35 #<Compiled-function PARMENIDES:ISA-OR-INSTANCE (Non-Global)  #x5C1BBE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:FRAME-INSTANCE-P (Non-Global)  #x5C1F3E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:INSTANCE-NAMES-OF (Non-Global)  #x5C206E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:INSTANCES-OF (Non-Global)  #x5C21BE> NIL)
+ (35 #<Compiled-function PARMENIDES:SET-INSTANCES-OF (Non-Global)  #x5C230E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES:DELETE-CLASS-INSTANCE (Non-Global)  #x5C2466>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::CALL-FORM-ON-SUBINSTANCES (Non-Global)
+    #x5C25CE>
+  NIL)
+ (37
+  #<Compiled-function PARMENIDES:WITH-ALL-SUBINSTANCES-OF (Non-Global)
+    #x5C2796>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::CALL-FORM-ON-SUBCLASSES (Non-Global)
+    #x5C288E>
+  NIL)
+ (37
+  #<Compiled-function PARMENIDES:WITH-ALL-SUBCLASSES-OF (Non-Global)  #x5C2A06>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MAYBE-INSTANCES-OF (Non-Global)  #x5C2AFE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-GET-FRAME-NAME (Non-Global)  #x5C2C36>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:GET-FRAME-NAME (Non-Global)  #x5C2D66> NIL)
+ (35 #<Compiled-function PARMENIDES:NAME-FRAME (Non-Global)  #x5C2E7E> NIL)
+ (35
+  #<Compiled-function PARMENIDES::UNIQUE-INSTANCE-NAME (Non-Global)  #x5C2FCE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-SLOT (Non-Global)  #x5C3106> NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAKE-NEW-DEFAULT-SLOT (Non-Global)  #x5C381E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:ADD-CSLOT (Non-Global)  #x5C389E> NIL)
+ (35 #<Compiled-function PARMENIDES::MAKE-FRAME-SLOT (Non-Global)  #x5C3B06>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-MAKE-FRAME-SLOT (Non-Global)  #x5C3C3E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAKE-DEFAULT-FRAME-SLOT (Non-Global)
+    #x5C3CBE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:MAKE-FRAME (Non-Global)  #x5C3E56> NIL)
+ (35 #<Compiled-function PARMENIDES::DO-SLOT (Non-Global)  #x5C3EC6> NIL)
+ (35 #<Compiled-function PARMENIDES::MAYBE-COPY-VECTOR (Non-Global)  #x5C40BE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::HANDLE-SET-INVERSE-VAL (Non-Global)
+    #x5C412E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES:MAKE-FRAME0 (Non-Global)  #x5C4296> NIL)
+ (35 #<Compiled-function PARMENIDES:FAST-MAKE-FRAME0 (Non-Global)  #x5C48F6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::CHECK-SLOT-ARGS (Non-Global)  #x5C4EFE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GENERIC-INHERIT (Non-Global)  #x5C522E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::FIND-PROPAGATEP (Non-Global)  #x5C5476>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::CREATE-SF-ENTRY (Non-Global)  #x5C5896>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::IA-FACETPLIST-APPEND (Non-Global)  #x5C5936>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-MAKE-SLOT-FROM-VAL (Non-Global)
+    #x5C59CE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MAKE-DEFAULT-FRAME (Non-Global)  #x5C5D56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PARM-VALUEIFY (Non-Global)  #x5C6086> NIL)
+ (35 #<Compiled-function PARMENIDES::ORDERED-UNION (Non-Global)  #x5C6126> NIL)
+ (35 #<Compiled-function PARMENIDES::MAKE-INDEX-PLIST1 (Non-Global)  #x5C620E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MAKE-NEW-PLIST (Non-Global)  #x5C633E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MAKE-NEW-FACETS (Non-Global)  #x5C63C6>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::COMBINE-CACHE-SLOTS (Non-Global)  #x5C64CE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::COMBINE-GETTER-SLOTS (Non-Global)  #x5C6666>
+  NIL)
+ (37 #<Compiled-function PARMENIDES::GET-SET-TYPE (Non-Global)  #x5C690E> NIL)
+ (37 #<Compiled-function PARMENIDES::GET-SETABLE-SLOTS (Non-Global)  #x5C6A2E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::COMBINE-SETABLE-SLOTS (Non-Global)  #x5C6ADE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::TRANSLATE-ALL (Non-Global)  #x5C6D36> NIL)
+ (35 #<Compiled-function PARMENIDES::TRANSLATE-ALL2 (Non-Global)  #x5C6DCE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::TRANSLATE-ALL3 (Non-Global)  #x5C6E56>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::FIND-FRAME-SLOTS (Non-Global)  #x5C6EC6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::FIND-SPECS (Non-Global)  #x5C6FCE> NIL)
+ (35 #<Compiled-function PARMENIDES::ALL-FRAME-SLOTS (Non-Global)  #x5C70E6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::FIND-FRAME-CSLOTS (Non-Global)  #x5C7166>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::COMBINE-SLOTS (Non-Global)  #x5C7256> NIL)
+ (35 #<Compiled-function PARMENIDES::PLIST-UNION (Non-Global)  #x5C735E> NIL)
+ (35 #<Compiled-function PARMENIDES::CLASSIFY (Non-Global)  #x5C7466> NIL)
+ (35 #<Compiled-function PARMENIDES::GET-APPENDP (Non-Global)  #x5C7576> NIL)
+ (35
+  #<Compiled-function PARMENIDES::FIND-INHERITED-SLOTS (Non-Global)  #x5C75FE>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-SLOT-REF (Non-Global)  #x5C766E> NIL)
+ (35 #<Compiled-function PARMENIDES::GET-SLOT-UNFACETED (Non-Global)  #x5C7716>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-SLOT-FACETED (Non-Global)  #x5C777E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-FIRST-SLOT-SPEC (Non-Global)  #x5C782E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-SLOT-SPEC0 (Non-Global)  #x5C7936>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-SLOT-SPECS (Non-Global)  #x5C79DE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-INHERITED-SLOT-NAMES (Non-Global)
+    #x5C7B26>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-SPECIFIED-SLOTS (Non-Global)  #x5C7B9E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::MAYBE-CAR (Non-Global)  #x5C7CFE> NIL)
+ (35
+  #<Compiled-function PARMENIDES::PLIST-UNION-NO-PROPAGATE (Non-Global)
+    #x5C7D8E>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::COMBINE-SLOTS2 (Non-Global)  #x5C7F26>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PLIST-UNION* (Non-Global)  #x5C807E> NIL)
+ (35 #<Compiled-function PARMENIDES::PLIST-UNION-2* (Non-Global)  #x5C81E6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PLIST-COMBINE (Non-Global)  #x5C8376> NIL)
+ (35
+  #<Compiled-function PARMENIDES::SIMPLE-PLIST-COMBINE (Non-Global)  #x5C854E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-FPLIST-APPEND (Non-Global)  #x5C8726>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::ADD-FACETS (Non-Global)  #x5C88EE> NIL)
+ (35 #<Compiled-function PARMENIDES::FIND-EXTRA-FACETS (Non-Global)  #x5C8B06>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::FPLIST-ASSURE-LIST (Non-Global)  #x5C8C06>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::GET-COMBOTYPE (Non-Global)  #x5C8D06> NIL)
+ (35 #<Compiled-function PARMENIDES::PROPAGATE-INIT (Non-Global)  #x5C8E8E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::PROPAGATE-INIT-PLIST (Non-Global)  #x5C8F7E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::MAYBE-PROPAGATE-INIT-FACET-PLIST (Non-Global)
+    #x5C90E6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::PROPAGATE-UPDATE (Non-Global)  #x5C9256>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::DELETE-SLOT (Non-Global)  #x5D75C6> NIL)
+ (37 #<Compiled-function PARMENIDES::GETABLEP (Non-Global)  #x5DD55E> NIL)
+ (35
+  #<Compiled-function PARMENIDES::WRITE-ACCESSOR-FUNCTIONS (Non-Global)
+    #x5E1BBE>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DYNAMIC-DEFINE-GENERIC-SLOT-ACCESSOR
+(Non-Global) 
+    #x5E2946>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-GENERIC-SLOT-ACCESSOR (Non-Global)
+    #x5E587E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::GET-AREF-SLOT-ACCESSOR (Non-Global)
+    #x5E606E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-SLOT-ACCESSOR (Non-Global)  #x5E6626>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-AREF-SLOT-ACCESSOR (Non-Global)
+    #x5E79C6>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-REF-SLOT-FACET-ACCESSOR (Non-Global)
+    #x5E8066>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-AREF-SLOT-FACET-ACCESSOR (Non-Global)
+    #x5E8FB6>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::DEFINE-SLOT-SETTER (Non-Global)  #x5E9A9E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-SLOT-SETF-METHOD (Non-Global)
+    #x5EA226>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::WRITE-FACET-REFS (Non-Global)  #x5EB56E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-FACET-SETTER-FN (Non-Global)
+    #x5ECD7E>
+  NIL)
+ (35
+  #<Compiled-function PARMENIDES::DEFINE-FACET-SETF-METHOD (Non-Global)
+    #x5ED626>
+  NIL)
+ (35 #<Compiled-function PARMENIDES::RENAME-FRAME (Non-Global)  #x5EE50E> NIL)
+ (35 #<Compiled-function PARMENIDES::INIT-PARMENIDES (Non-Global)  #x5EECDE>
+  NIL)
+ (4 #<Anonymous Function #x5EF0C6>) (4 #<Anonymous Function #x5F15EE>)
+ (35 #<Compiled-function PARMENIDES:MAKE-RELATION (Non-Global)  #x5F1B0E> NIL)
+ (4 #<Anonymous Function #x5F21DE>))
+1: (DSAVE0) #<Symbol-Value-Locative CCL::*OUTSTANDING-DEFERRED-WARNINGS*>
+2: (DSAVE1) NIL
+3: (DSAVE2) 0
+4: (ASAVE0) "Mac IIcx 80mb.:NEW Parmenides:parmenides.lisp"
+5: (ASAVE1) #P"Mac IIcx 80mb.:NEW Parmenides:parmenides.fasl"
+6: CCL::*FASDUMP-HASH* (SAVED-SPECIAL) #<Unbound>
+7: CCL::*FASDUMP-READ-PACKAGE* (SAVED-SPECIAL) #<Unbound>
+8: CCL::*FASDUMP-GLOBAL-OFFSETS* (SAVED-SPECIAL) #<Unbound>
+9: NIL
+10: #<Anonymous Function #x5F15EE>
+
+Hope this helps.
+
+-Frank
+
+

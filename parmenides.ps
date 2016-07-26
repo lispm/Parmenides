@@ -1,0 +1,4066 @@
+%!PS-Adobe-2.0
+%%Title: parmenides.mss
+%%DocumentFonts: (atend)
+%%Creator: Peter Shell and Scribe 7(1700)
+%%CreationDate: 22 April 1991 16:00
+%%Pages: (atend)
+%%EndComments
+% PostScript Prelude for Scribe.
+/BS {/SV save def 0.0 792.0 translate .01 -.01 scale} bind def
+/ES {showpage SV restore} bind def
+/SC {setrgbcolor} bind def
+/FMTX matrix def
+/RDF {WFT SLT 0.0 eq 
+  {SSZ 0.0 0.0 SSZ neg 0.0 0.0 FMTX astore}
+  {SSZ 0.0 SLT neg sin SLT cos div SSZ mul SSZ neg 0.0 0.0 FMTX astore}
+  ifelse makefont setfont} bind def
+/SLT 0.0 def
+/SI { /SLT exch cvr def RDF} bind def
+/WFT /Courier findfont def
+/SF { /WFT exch findfont def RDF} bind def
+/SSZ 1000.0 def
+/SS { /SSZ exch 100.0 mul def RDF} bind def
+/AF { /WFT exch findfont def /SSZ exch 100.0 mul def RDF} bind def
+/MT /moveto load def
+/XM {currentpoint exch pop moveto} bind def
+/UL {gsave newpath moveto dup 2.0 div 0.0 exch rmoveto
+   setlinewidth 0.0 rlineto stroke grestore} bind def
+/LH {gsave newpath moveto setlinewidth
+   0.0 rlineto
+   gsave stroke grestore} bind def
+/LV {gsave newpath moveto setlinewidth
+   0.0 exch rlineto
+   gsave stroke grestore} bind def
+/BX {gsave newpath moveto setlinewidth
+   exch
+   dup 0.0 rlineto
+   exch 0.0 exch neg rlineto
+   neg 0.0 rlineto
+   closepath
+   gsave stroke grestore} bind def
+/BX1 {grestore} bind def
+/BX2 {setlinewidth 1 setgray stroke grestore} bind def
+/PB {/PV save def newpath translate
+    100.0 -100.0 scale pop /showpage {} def} bind def
+/PE {PV restore} bind def
+/GB {/PV save def newpath translate rotate
+    div dup scale 100.0 -100.0 scale /showpage {} def} bind def
+/GE {PV restore} bind def
+/FB {dict dup /FontMapDict exch def begin} bind def
+/FM {cvn exch cvn exch def} bind def
+/FE {end /original-findfont /findfont load def  /findfont
+   {dup FontMapDict exch known{FontMapDict exch get} if
+   original-findfont} def} bind def
+/BC {gsave moveto dup 0 exch rlineto exch 0 rlineto neg 0 exch rlineto closepath clip} bind def
+/EC /grestore load def
+/SH /show load def
+/MX {exch show 0.0 rmoveto} bind def
+/W {0 32 4 -1 roll widthshow} bind def
+/WX {0 32 5 -1 roll widthshow 0.0 rmoveto} bind def
+/RC {100.0 -100.0 scale
+612.0 0.0 translate
+-90.0 rotate
+.01 -.01 scale} bind def
+/URC {100.0 -100.0 scale
+90.0 rotate
+-612.0 0.0 translate
+.01 -.01 scale} bind def
+/RCC {100.0 -100.0 scale
+0.0 -792.0 translate 90.0 rotate
+.01 -.01 scale} bind def
+/URCC {100.0 -100.0 scale
+-90.0 rotate 0.0 792.0 translate
+.01 -.01 scale} bind def
+%%EndProlog
+%%Page: 0 1
+BS
+0 SI
+15 /Helvetica-Bold AF
+14551 14054 MT
+(PARMENIDES: A Class-Based Frame System)SH
+13 SS 
+27132 39828 MT
+(Version 1.5)SH
+10 /Helvetica AF
+27654 42361 MT
+(22 April 1991)SH
+/Helvetica-Bold SF
+28015 51012 MT
+(Peter Shell)SH
+26737 52249 MT
+(Jaime Carbonell)SH
+/Helvetica SF
+20424 58400 MT
+(Copyright)SH
+/Symbol SF
+24981 XM
+(\343)SH
+/Helvetica SF
+26049 XM
+(1991 Carnegie)
+278 W( Mellon University)SH
+ES
+%%Page: 1 2
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 1)SH
+12 SS 
+7200 8075 MT
+(1. Introduction)SH
+10 SS 
+8312 9312 MT
+(PARMENIDES)SH
+/Helvetica SF
+15419 XM
+(\050PropagAting, Rulekit-Motivated ENgine)
+162 W( for Instance DEScriptions\051 is a frame-based)161 W
+7200 10549 MT
+(knowledge representation system.  It is influenced by)SH
+/Helvetica-Bold SF
+30933 XM
+(SRL)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Bold SF
+33489 XM
+(Framekit)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Bold SF
+38214 XM
+(CommonLoops)SH
+/Helvetica SF
+(, and the Spice lisp)1 W
+7200 11786 MT
+(structure implementation.  The slot and facet access functions have comparable)
+93 W( speed to the Slisp slot)92 W
+7200 13023 MT
+(access functions.  It has some of the Framekit and SRL)
+215 W( functionality, such as facets, demons, and)216 W
+7200 14260 MT
+(user-defined relations.  However, like Loops, it makes a distinction between)
+45 W( classes and instances.  This)44 W
+7200 15497 MT
+(means that instances can only be)
+24 W( an instance of one class, while classes may be subclasses of \050have an)25 W
+/Helvetica-Oblique SF
+7200 16734 MT
+(is-a)SH
+/Helvetica SF
+9167 XM
+(relation with\051 more than one)
+78 W( class.  Instances may not have any slots that their classes don't have.)77 W
+7200 17971 MT
+(Classes describe a way to make)
+81 W( instances, and instances only participate in the frame network through)82 W
+7200 19208 MT
+(their classes.  By storing much of)
+47 W( the frame information at the class level, the amount of storage needed)46 W
+7200 20445 MT
+(for instances is reduced.  For now, classes can not also be instances,)
+80 W( but this could be implemented in)81 W
+7200 21682 MT
+(the future.)
+100 W( Parmenides)
+477 W( is implemented in Common Lisp, so it is assumed that the user is familiar with)99 W
+7200 22919 MT
+(this dialect of Lisp.)SH
+8312 25297 MT
+(The name is in recognition of Plato's)127 W
+/Helvetica-Oblique SF
+25597 XM
+(Parmenides)SH
+/Helvetica SF
+31337 XM
+(dialogue, in which he is)
+127 W( confronted with the "third)128 W
+7200 26534 MT
+(person argument".  This is)
+232 W( the notion that in order to describe and generate instances through the)231 W
+7200 27771 MT
+(generative powers of classes, the classes in turn need a meta-class to generate them, and so on.)
+74 W( This)428 W
+7200 29008 MT
+(argument is used as an excuse not to implement meta-classes in this frame system.)SH
+8312 31386 MT
+(Other features of)SH
+/Helvetica-Bold SF
+16094 XM
+(Parmenides)SH
+/Helvetica SF
+22041 XM
+(include:)SH
+/Symbol SF
+9242 32858 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(Propagation)SH
+/Helvetica SF
+15650 XM
+(instead of)SH
+/Helvetica-Oblique SF
+20264 XM
+(inheritance)SH
+/Helvetica SF
+(. See)
+278 W( the section on propagation for more details.)SH
+/Symbol SF
+9242 34673 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(Optional facets)20 W
+/Helvetica SF
+(. Usually,)
+318 W( slots contain facets, which can)
+20 W( be thought of as annotated property)19 W
+9980 35816 MT
+(lists of a slot.  For)
+5 W( example, one might want to store both a value and degree of certainty with)6 W
+9980 36959 MT
+(some slots.  However, if only one value and no facets)
+62 W( need be stored, then the slot may be)61 W
+9980 38102 MT
+(declared to not have facets, thus making access to and representation)
+194 W( of that slot more)195 W
+9980 39245 MT
+(efficient.)SH
+/Symbol SF
+9242 41060 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(Extendable Frames)20 W
+/Helvetica SF
+(. Since)
+318 W( frames are represented as adjustable arrays, it is possible)
+20 W( to add)19 W
+9980 42203 MT
+(slots and facets dynamically \050i.e., after the class has been defined\051.)SH
+/Symbol SF
+9242 44018 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(Class slots)102 W
+/Helvetica SF
+(.)SH
+/Helvetica-Bold SF
+15954 XM
+(Parmenides)SH
+/Helvetica SF
+22003 XM
+(supports class slots, which are ways)
+102 W( to specify meta-information)103 W
+9980 45161 MT
+(about the classes, and apply not to any particular instance or slot, but the class itself.)
+98 W( For)473 W
+9980 46304 MT
+(example, the)SH
+/Helvetica-Oblique SF
+15983 XM
+(propagate)SH
+/Helvetica SF
+20764 XM
+(attribute is a class slot.)SH
+/Symbol SF
+9242 48119 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(Pre-access)SH
+/Helvetica SF
+15272 XM
+(and)SH
+/Helvetica-Oblique SF
+17231 XM
+(post-access)SH
+/Helvetica SF
+22858 XM
+(demons.)SH
+/Helvetica-Bold SF
+27277 XM
+(Parmenides)SH
+/Helvetica SF
+33238 XM
+(allows demons to called both before and)14 W
+9980 49262 MT
+(after access to values.  See the section on demons.)SH
+/Symbol SF
+9242 51077 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(Multiple Language Messages)209 W
+/Helvetica SF
+(. Parmenides)
+696 W( messages)
+209 W( may be displayed in a number of)208 W
+9980 52220 MT
+(languages. The)
+380 W( currently supported languages are English and Spanish, although it is easy)51 W
+9980 53363 MT
+(to add messages in new languages.  See section 6 for details.)SH
+/Symbol SF
+9242 55178 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(User-Defined Relations)28 W
+/Helvetica SF
+(. The)334 W
+/Helvetica-Oblique SF
+23263 XM
+(instance)SH
+/Helvetica SF
+27293 XM
+(and)SH
+/Helvetica-Oblique SF
+29267 XM
+(is-a)SH
+/Helvetica SF
+31184 XM
+(relations are special hard-wired relations, but)28 W
+9980 56321 MT
+(the user may define his/her own relations as frames.  Inverse relations are also supported.)SH
+/Symbol SF
+9242 58136 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(User frame files)171 W
+/Helvetica SF
+(. Files)
+620 W( containing)171 W
+/Helvetica-Bold SF
+26066 XM
+(def-frame)SH
+/Helvetica SF
+31071 XM
+(commands may be compiled when a set of)171 W
+9980 59279 MT
+(frames is known to be stable.  After that, the compiled)
+174 W( frame file may be loaded without)173 W
+9980 60422 MT
+(having to load in the source)
+19 W( frame file, resulting in considerable loading and executing speed)20 W
+9980 61565 MT
+(up.)SH
+/Symbol SF
+9242 63380 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(A freelist of frames)8 W
+/Helvetica SF
+(.)SH
+/Helvetica-Bold SF
+19190 XM
+(Parmenides)SH
+/Helvetica SF
+25145 XM
+(uses a)8 W
+/Helvetica-Oblique SF
+28385 XM
+(freelist)SH
+/Helvetica SF
+31616 XM
+(in order to more efficiently manage memory.)7 W
+9980 64523 MT
+(Whenever a frame is removed, it is put on the freelist, and when)
+83 W( a new frame is needed, if)84 W
+9980 65666 MT
+(there is one of)
+115 W( the appropriate type already on the freelist, then that one is recycled.  The)114 W
+9980 66809 MT
+(function)SH
+/Helvetica-Bold SF
+13856 XM
+(remove-frame)SH
+/Helvetica SF
+(, described below, releases frames to the freelist, which means)
+96 W( that)97 W
+9980 67952 MT
+(you shouldn't expect to be able to use the frame after calling them.)SH
+ES
+%%Page: 2 3
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 2)SH
+12 SS 
+7200 8075 MT
+(2. Propagation and Caching versus Inheritance)SH
+10 /Helvetica AF
+8312 9312 MT
+(Inheritance is a process)
+53 W( by which properties of frames are inferred from other related frames, typically)52 W
+7200 10549 MT
+(through is-a or instance links.  Many frame and)
+149 W( schema languages perform inheritance at the time of)150 W
+7200 11786 MT
+(retrieval. This)
+284 W( saves space because when values are shared by a whole tree of frames, they only need)
+3 W( to)2 W
+7200 13023 MT
+(be stored)
+49 W( in one place.  For example, the fact that animals breathe air need only be stored in the animal)50 W
+7200 14260 MT
+(class frame, and not in any subclasses, such as mammal or dog,)
+59 W( since the breathes slot of a dog frame)58 W
+7200 15497 MT
+(can be inherited)
+6 W( from the animal frame.  However, retrieving can be very slow if retrieving with inheritance)7 W
+7200 16734 MT
+(is performed often.)
+201 W( Also,)
+679 W( if other programs use a frame network as a data base, then if a class is)200 W
+7200 17971 MT
+(changed, it will not necessarily know the implications of this change unless it tests all of its data again.)SH
+8312 20349 MT
+(For these reasons, an alternative to)
+129 W( inheritance,)130 W
+/Helvetica-Oblique SF
+30672 XM
+(caching)SH
+/Helvetica SF
+(, of selected slots and values, is allowed in)130 W
+/Helvetica-Bold SF
+7200 21586 MT
+(Parmenides)SH
+/Helvetica SF
+(. Caching)
+326 W( a value simply means storing that value directly)
+24 W( in a frame.  If a slot is designated)23 W
+7200 22823 MT
+(a)SH
+/Helvetica-Oblique SF
+8087 XM
+(cached)SH
+/Helvetica SF
+11642 XM
+(slot by a class, then the slot and its values will be stored in all subclasses of that class.)
+53 W( Thus,)386 W
+7200 24060 MT
+(instead of performing inheritance at access time,)11 W
+/Helvetica-Bold SF
+29064 XM
+(Parmenides)SH
+/Helvetica SF
+35022 XM
+(is able)
+11 W( to retrieve the data directly from the)10 W
+7200 25297 MT
+(frame. For)
+414 W( example, suppose the)68 W
+/Helvetica-Oblique SF
+22837 XM
+(animal)SH
+/Helvetica SF
+26128 XM
+(class is first defined with a slot)68 W
+/Helvetica-Oblique SF
+40331 XM
+(\050breathes \050value)
+68 W( 'air\051\051)69 W
+/Helvetica SF
+50317 XM
+(and that)69 W
+7200 26534 MT
+(the)SH
+/Helvetica-Oblique SF
+8996 XM
+(breathes)SH
+/Helvetica SF
+13293 XM
+(slot is defined to be)128 W
+/Helvetica-Oblique SF
+22827 XM
+(cached)SH
+/Helvetica SF
+(. If)
+534 W( a)128 W
+/Helvetica-Oblique SF
+29065 XM
+(dog)SH
+/Helvetica SF
+31139 XM
+(frame is defined as)128 W
+/Helvetica-Oblique SF
+40376 XM
+(is-a animal)127 W
+/Helvetica SF
+(, the slot)127 W
+/Helvetica-Oblique SF
+49776 XM
+(\050breathes)SH
+7200 27771 MT
+(\050value 'air\051\051)58 W
+/Helvetica SF
+12594 XM
+(is immediately stored)
+58 W( in the)59 W
+/Helvetica-Oblique SF
+25280 XM
+(dog)SH
+/Helvetica SF
+27285 XM
+(frame \050unless of course if the dog frame were to provide its)59 W
+7200 29008 MT
+(own specification of the)115 W
+/Helvetica-Oblique SF
+18332 XM
+(breathes)SH
+/Helvetica SF
+22616 XM
+(slot\051. Whenever)
+507 W( an instance of dog is made, that instance also gets)114 W
+7200 30245 MT
+(that slot as a default cached value.)SH
+8312 32623 MT
+(Cached slots are designated by)
+92 W( the)93 W
+/Helvetica-Oblique SF
+24819 XM
+(cache)SH
+/Helvetica SF
+27858 XM
+(class slot \050see the description of the)93 W
+/Helvetica-Bold SF
+44683 XM
+(def-frame)SH
+/Helvetica SF
+49610 XM
+(command)SH
+7200 33860 MT
+(for the details of designating cached slots\051.)
+103 W( The)
+482 W( tradeoff of cached slots is that it takes more space to)102 W
+7200 35097 MT
+(cache all values.  Thus, if)
+87 W( a system never need know if Fido the dog breathes, then it shouldn't specify)88 W
+7200 36334 MT
+(the breathes slot as cached.  Standard inheritance is still performed if a cached value can't be found in)
+38 W( a)37 W
+7200 37571 MT
+(frame \050see the Command Summary, below\051.)SH
+8312 39949 MT
+(Under some circumstances, it may be necessary to change a class definition after it and)
+205 W( its sub-)206 W
+7200 41186 MT
+(classes have already been defined.  To ensure that the correct values are always cached, in the event)98 W
+7200 42423 MT
+(that a class is changed,)
+277 W( the change is propagated to the sub-classes and instances.  There is a)278 W
+7200 43660 MT
+(distinction between)50 W
+/Helvetica-Oblique SF
+16082 XM
+(cached)SH
+/Helvetica SF
+19634 XM
+(and)SH
+/Helvetica-Oblique SF
+21630 XM
+(local)SH
+/Helvetica SF
+(. A)
+378 W( cached value is one that is stored directly)
+50 W( in a frame, but which)49 W
+7200 44897 MT
+(could have been inherited from somewhere else.  A local value is one which was originally stored in the)65 W
+7200 46134 MT
+(frame \050i.e., not inherited from somewhere else\051.)28 W
+/Helvetica-Bold SF
+28987 XM
+(Parmenides)SH
+/Helvetica SF
+34962 XM
+(retains the distinction between cached)
+28 W( and)27 W
+8 SS 
+45196 47020 MT
+(1)SH
+10 SS 
+7200 47371 MT
+(local slots by keeping a special)143 W
+/Helvetica-Oblique SF
+22064 XM
+(depth)SH
+/Helvetica SF
+24988 XM
+(facet on slots that participate in propagation)144 W
+45641 XM
+(. The)
+566 W( depth facet)144 W
+7200 48608 MT
+(indicates from how far up in the frame hierarchy the value was inherited.  When)
+42 W( the depth is 0, the value)41 W
+7200 49845 MT
+(is local.  If a)
+101 W( slot has a depth which is less than the depth of a slot which is trying to propagate a new)102 W
+7200 51082 MT
+(value to it, then that value won't be propagated to it.  The)89 W
+/Helvetica-Oblique SF
+33817 XM
+(local-p)SH
+/Helvetica SF
+37129 XM
+(function tells whether)
+89 W( or not a certain)88 W
+7200 52319 MT
+(slot has a local value.)SH
+8312 54697 MT
+(Propagation is done according to the global system flag)
+186 W( !!inheritance-type, so that when a cached)187 W
+7200 55934 MT
+(value is)
+109 W( retrieved, it will be the same as if the specified inheritance type was performed.  !!Inheritance-)108 W
+7200 57171 MT
+(type must be a keyword, and its value may be either)76 W
+/Helvetica-Oblique SF
+31380 XM
+(:dfs)SH
+/Helvetica SF
+33346 XM
+(\050depth-first\051 or)76 W
+/Helvetica-Oblique SF
+40056 XM
+(:bfs)SH
+/Helvetica SF
+42023 XM
+(\050breadth-first\051. It)
+432 W( is initially)77 W
+7200 58408 MT
+(set to)SH
+/Helvetica-Oblique SF
+9924 XM
+(:dfs)SH
+/Helvetica SF
+(. \050Note)
+278 W( that currently)SH
+/Helvetica-Oblique SF
+21151 XM
+(:bfs)SH
+/Helvetica SF
+23041 XM
+(is not currently implemented\051.)SH
+12 /Helvetica-Bold AF
+7200 62163 MT
+(3. Parmenides Commands)SH
+10 SS 
+8312 63400 MT
+(Parmenides)SH
+/Helvetica SF
+14348 XM
+(commands are)
+89 W( divided into the following categories:  Class definition, instance creation,)88 W
+7200 64637 MT
+(data retrieval, data storage, predicates, and miscellaneous commands.)SH
+10800 50 7200 70292 UL
+6 SS 
+8090 71687 MT
+(1)SH
+8 SS 
+8424 72000 MT
+(That is, slots which have facets and whose class have the)SH
+/Helvetica-Oblique SF
+29145 XM
+(propagate)SH
+/Helvetica SF
+32970 XM
+(property.)SH
+ES
+%%Page: 3 4
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 3)SH
+11 SS 
+7200 8002 MT
+(3.1. Class Definition Commands)SH
+10 /Helvetica AF
+8312 9239 MT
+(It is necessary to define a class before making frame instances, since)
+237 W( classes are prototypes of)238 W
+7200 10476 MT
+(instances.)SH
+/Helvetica-BoldOblique SF
+10800 12348 MT
+(def-frame <name> <cplist>)
+299 W( &rest <slot-descriptions>)298 W
+/Helvetica SF
+37579 XM
+(Top level frame definition function.)298 W
+9000 13491 MT
+(Defines a frame)
+158 W( class of name)159 W
+/Helvetica-Oblique SF
+23735 XM
+(<name>)SH
+/Helvetica SF
+27841 XM
+(and makes a default instance of it with the given default)159 W
+9000 14634 MT
+(values. Default)
+332 W( values are evaluated at run time.  Defines a)
+27 W( make function for that class, defines slot)26 W
+9000 15777 MT
+(access functions for each slot, and defines facet access functions for the first facet \050typically)23 W
+/Helvetica-Oblique SF
+50197 XM
+(value)SH
+/Helvetica SF
+(\051 in)24 W
+9000 16920 MT
+(each slot in)136 W
+/Helvetica-Oblique SF
+14744 XM
+(<slot-descriptions>)SH
+/Helvetica SF
+(. Optionally)
+550 W( defines set and setf methods)
+136 W( for slots and facets \050see)135 W
+9000 18063 MT
+(section 7.2 of)15 W
+/Helvetica-Bold SF
+15271 XM
+(Common Lisp, the Language)15 W
+/Helvetica SF
+29333 XM
+(by Guy Steele for an explanation of)
+15 W( setf methods\051.  The)16 W
+9000 19206 MT
+(arguments will now be described.)SH
+/Helvetica-Bold SF
+7200 22095 MT
+(3.1.1. slot-descriptions)SH
+/Helvetica-Oblique SF
+10800 23238 MT
+(<slot-descriptions>)SH
+/Helvetica SF
+19470 XM
+(is a list of slot descriptions, which are of the form:)SH
+/Courier-Bold SF
+9000 25043 MT
+(<slot-description> := <slot-name> <slot-contents>)SH
+9000 26174 MT
+(<slot-contents> :=  <constant> | <facet-plist>)SH
+9000 27305 MT
+(<facet-plist> :=)
+1200 W( '\050')
+600 W( {<facet-name> <default-value>}+ '\051')SH
+9000 28436 MT
+(<default-value> :=  \050any lisp object\051)SH
+9000 29567 MT
+(<facet-name> :=)
+1800 W( <slot-name>)600 W
+9000 30698 MT
+(<slot-name> :=)
+2400 W( :<symbol>)600 W
+9000 31829 MT
+(<constant> is any atom, including NIL.)SH
+9000 32960 MT
+(a <constant> in the facet field denotes a facet-less slot.)SH
+9000 34091 MT
+(Note: constants are not evaluated, but default-values are.)SH
+9000 36353 MT
+(Example of a faceted slot:)SH
+9000 37484 MT
+(:height \050:value 'tall :time-inferred 23 :certainty 1.0\051)SH
+9000 39746 MT
+(Example of a slot without facets:)SH
+9000 40877 MT
+(:height NIL)SH
+/Helvetica SF
+9000 42737 MT
+(A value facet with default value)
+19 W( NIL is automatically inserted into slots that have facets but don't have)18 W
+9000 43880 MT
+(a value facet.)SH
+10800 45506 MT
+(Note that slot descriptions may be inherited from other classes, as described in)
+255 W( the)256 W
+/Helvetica-Oblique SF
+51221 XM
+(<is-a>)SH
+/Helvetica SF
+9000 46649 MT
+(description, below.)SH
+/Helvetica-Bold SF
+7200 49538 MT
+(3.1.2. cplist)SH
+/Helvetica-Oblique SF
+10800 50681 MT
+(<cplist>)SH
+/Helvetica SF
+14751 XM
+(is a class plist, which is the way to define class slots.  It has the same syntax as)226 W
+/Helvetica-Oblique SF
+9000 51824 MT
+(<slot-descriptions>)SH
+/Helvetica SF
+(, and can also be inherited from super-classes.  Certain class variables are)295 W
+9000 52967 MT
+(recognized by the system.  For efficiency, they are all facetless.  These are:)SH
+/Symbol SF
+11042 54439 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:is-a)SH
+/Helvetica SF
+13966 XM
+(Default: NIL.  An ordered list of class)
+19 W( names which the given class is a sub-class of.)18 W
+11780 55582 MT
+(Slot and other cplist descriptions are inherited from the superclasses.  When)
+165 W( there is)166 W
+11780 56725 MT
+(more than)
+83 W( one description of the same slot or cplist in the superclass list, the first such)82 W
+11780 57868 MT
+(superclass in the)205 W
+/Helvetica-Oblique SF
+20176 XM
+(is-a)SH
+/Helvetica SF
+('s list is used.  Local descriptions take precedence for the)205 W
+/Helvetica-Oblique SF
+49609 XM
+(is-a)SH
+/Helvetica SF
+11780 59011 MT
+(relation. Because)416 W
+/Helvetica-Bold SF
+20269 XM
+(Parmenides)SH
+/Helvetica SF
+26285 XM
+(performs propagation instead)
+69 W( of inheritance, it needs to)68 W
+11780 60154 MT
+(have all the information about the superclasses at class definition)
+14 W( time.  Thus, frame files)15 W
+11780 61297 MT
+(should define the highest level frames first, working down.)SH
+/Symbol SF
+11042 63112 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:cache)SH
+/Helvetica SF
+15120 XM
+(The default is the union of what all the parents cache.  A)116 W
+/Helvetica-Oblique SF
+41809 XM
+(cache)SH
+/Helvetica SF
+44871 XM
+(slot in a)
+116 W( class)115 W
+11780 64255 MT
+(means that that)
+31 W( slot specification is inherited by any sub-classes of the class.  The value)32 W
+11780 65398 MT
+(of the)113 W
+/Helvetica-Oblique SF
+14786 XM
+(cache)SH
+/Helvetica SF
+17845 XM
+(class slot, if specified, should either be a list of the names of the)
+113 W( slots to)112 W
+11780 66541 MT
+(cache, or the symbol :*ALL*, in which case all slots in the current class will be)
+89 W( cached.)90 W
+11780 67684 MT
+(The list of slots to cache)
+81 W( is added to what all the parents cache; thus, cached slots are)80 W
+11780 68827 MT
+(themselves cached)
+53 W( to all the descendants of the class which defined them.  To override)54 W
+11780 69970 MT
+(caching what the parents cache, explicitly specify NIL as the value of this c-slot.)SH
+/Symbol SF
+11042 71785 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:setable)SH
+/Helvetica SF
+15618 XM
+(Default: The)
+394 W( slots which the parent classess explicitly declare to be)
+58 W( setable.  If)57 W
+ES
+%%Page: 4 5
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 4)SH
+10 /Helvetica AF
+11780 7929 MT
+(the value of this slot is)69 W
+/Helvetica-Oblique SF
+22310 XM
+(T)SH
+/Helvetica SF
+(, then)
+69 W( a)70 W
+/Helvetica-Bold SF
+26744 XM
+(set)SH
+/Helvetica SF
+28537 XM
+(function will be defined for each slot, analogous to)70 W
+11780 9072 MT
+(the slot access functions.  These set functions are named)296 W
+/Helvetica-Bold SF
+40475 XM
+(set-)SH
+/Helvetica-Oblique SF
+(<frame><slot>)SH
+/Helvetica SF
+(, e.g.)295 W
+/Helvetica-Bold SF
+11780 10215 MT
+(set-dog-breathes)SH
+/Helvetica SF
+(. Their)
+292 W( first argument is the frame to modify, and the second)
+7 W( argument)8 W
+11780 11358 MT
+(is the new value to put in)
+55 W( the slot.  A set function will also be defined for the)54 W
+/Helvetica-Oblique SF
+46330 XM
+(value)SH
+/Helvetica SF
+49052 XM
+(facet)SH
+11780 12501 MT
+(for slots which have facets.  If the value is)94 W
+/Helvetica-Oblique SF
+31451 XM
+(:setf)SH
+/Helvetica SF
+33713 XM
+(then, in addition)
+94 W( to the set functions, a)95 W
+11780 13644 MT
+(setf method for each slot will be defined.  This allows users the full power of setf methods)2 W
+11780 14787 MT
+(\050at a slight increase in size of compiled frame files\051, such as being able to push onto)148 W
+11780 15930 MT
+(slots. Finally,)
+564 W( if the)
+143 W( value of this slot is a non-nil list, then the first element of the list)142 W
+11780 17073 MT
+(should be)151 W
+/Helvetica-Oblique SF
+16696 XM
+(T)SH
+/Helvetica SF
+17736 XM
+(or)SH
+/Helvetica-Oblique SF
+19054 XM
+(:setf)SH
+/Helvetica SF
+(, and the second element should be a list)
+151 W( containing the slots for)152 W
+11780 18216 MT
+(which a)110 W
+/Helvetica-Oblique SF
+15668 XM
+(set)SH
+/Helvetica SF
+17390 XM
+(method is to be defined.  If the parents)
+110 W( explicitly declare slots as settable,)109 W
+11780 19359 MT
+(then they are also settable by the children; to override this inheritance, declare the value)34 W
+11780 20502 MT
+(of)SH
+/Helvetica-Oblique SF
+12892 XM
+(:setable)SH
+/Helvetica SF
+16672 XM
+(to be NIL.)SH
+/Symbol SF
+11042 22317 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:getters)SH
+/Helvetica SF
+15551 XM
+(Default: all slots.  Normally, retrieval functions)
+158 W( are written for each slot.  This)157 W
+11780 23460 MT
+(class slot, whose value must be a)
+29 W( list of slot names, :*ALL* or NIL, may be used to force)30 W
+/Helvetica-Bold SF
+11780 24603 MT
+(Parmenides)SH
+/Helvetica SF
+17909 XM
+(to write)
+182 W( retrieval functions for only specified slots and their facets.  It is)181 W
+11780 25746 MT
+(treated the same)
+53 W( way the)54 W
+/Helvetica-Oblique SF
+23554 XM
+(:cache)SH
+/Helvetica SF
+26832 XM
+(facet is treated, i.e., the keyword :*ALL* is recognized,)54 W
+11780 26889 MT
+(and it is inherited from super-classes.  This makes)193 W
+/Helvetica-Bold SF
+36024 XM
+(Parmenides)SH
+/Helvetica SF
+42164 XM
+(more efficient when)193 W
+11780 28032 MT
+(there are)
+94 W( many frames with many slots, and a retrieval function is not needed for most)95 W
+11780 29175 MT
+(slots.)SH
+/Symbol SF
+11042 30990 MT
+(\267)SH
+/Helvetica SF
+11780 XM
+(If you use FRulekit, the)140 W
+/Helvetica-Oblique SF
+22984 XM
+(:getters)SH
+/Helvetica SF
+26736 XM
+(slot should not be altered since it should normally be)139 W
+11780 32133 MT
+(:*ALL, which is the default.)SH
+/Symbol SF
+11042 33948 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:propagate)SH
+/Helvetica SF
+16968 XM
+(Default: T. If true, then Def-frame will enable the)
+129 W( class to participate in the)130 W
+11780 35091 MT
+(propagation process when a class is)
+82 W( changed.  Since the propagation process requires)81 W
+11780 36234 MT
+(that the slot that is being changed)
+102 W( has at least a value and depth facet,)103 W
+/Helvetica-Bold SF
+44895 XM
+(def-frame)SH
+/Helvetica SF
+49832 XM
+(will)SH
+11780 37377 MT
+(automatically add)
+73 W( these facets in faceted slots of frames that participate in propagation.)72 W
+11780 38520 MT
+(If propagation is)
+27 W( not going to be needed, then turning propagation off will result in saving)28 W
+11780 39663 MT
+(space. If)
+400 W( a frame is propagatable, then all of its parents and descendants must also)
+61 W( be)60 W
+11780 40806 MT
+(propagatable; otherwise an error)
+85 W( will occur.  Note that slots may be cached even when)86 W
+11780 41949 MT
+(propagation is turned off, since propagation only takes effect when slots are)
+137 W( modified,)136 W
+11780 43092 MT
+(and the)SH
+/Helvetica-Oblique SF
+15394 XM
+(cache)SH
+/Helvetica SF
+18340 XM
+(attribute takes effect when frame classes are defined.)SH
+/Symbol SF
+11042 44907 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:if-needed)SH
+/Helvetica SF
+16525 XM
+(Default: NIL.  Demons)
+20 W( may be specified both as class slots and as slot facets.)21 W
+11780 46050 MT
+(See section 5, below, for a description of this and the next two demon class slots.)SH
+/Symbol SF
+11042 47865 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:pre-if-set)SH
+/Helvetica SF
+16281 XM
+(Default: NIL.)SH
+/Symbol SF
+11042 49680 MT
+(\267)SH
+/Helvetica-Oblique SF
+11780 XM
+(:post-if-set)SH
+/Helvetica SF
+16726 XM
+(Default: NIL.)SH
+10800 51306 MT
+(In addition to the)95 W
+/Helvetica-Oblique SF
+18852 XM
+(is-a)SH
+/Helvetica SF
+20836 XM
+(relation, user-defined relations may be class slot names.)
+95 W( For)
+466 W( example, if)94 W
+9000 52449 MT
+(the user defines the)8 W
+/Helvetica-Oblique SF
+18093 XM
+(part-of)SH
+/Helvetica SF
+21269 XM
+(relation and the)8 W
+/Helvetica-Oblique SF
+28464 XM
+(table)SH
+/Helvetica SF
+30918 XM
+(frame, then in the class slot plist,)8 W
+/Helvetica-Oblique SF
+45758 XM
+(part-of table)8 W
+/Helvetica SF
+51388 XM
+(would)SH
+9000 53592 MT
+(be allowed.)
+90 W( Since)
+456 W( class slots are meant to modify the definition of the class, user-defined relations)89 W
+9000 54735 MT
+(should be put into class slots when they)
+63 W( affect which slots the class would contain.  See the section)64 W
+9000 55878 MT
+(on relations, below, for more details.)SH
+/Helvetica-Bold SF
+7200 58767 MT
+(3.1.3. Discussion)SH
+/Helvetica SF
+10800 59910 MT
+(Access functions take a frame instance as argument.)
+83 W( Every)
+442 W( slot has an associated slot access)82 W
+9000 61053 MT
+(function, which has the name)84 W
+/Helvetica-Oblique SF
+22649 XM
+(<framename>)SH
+/Helvetica SF
+(-)SH
+/Helvetica-Oblique SF
+(<slotname>)SH
+/Helvetica SF
+(. For)
+446 W( example, the)
+84 W( function)85 W
+/Helvetica-Bold SF
+47333 XM
+(person-height)SH
+/Helvetica SF
+9000 62196 MT
+(would return the height of a)
+153 W( person instance.  Regardless of whether the slot has facets, the slot)152 W
+9000 63339 MT
+(access function will return that slot.  If the slot)
+1 W( has no facets, then the value will be the value stored by)2 W
+9000 64482 MT
+(the user; otherwise it will be a slot data structure containing all facets fillers.)
+8 W( If)
+293 W( the)7 W
+/Helvetica-Oblique SF
+45482 XM
+(:setable)SH
+/Helvetica SF
+49269 XM
+(class facet)7 W
+9000 65625 MT
+(is true, then)24 W
+/Helvetica-Bold SF
+14575 XM
+(Parmenides)SH
+/Helvetica SF
+20546 XM
+(would define the function)24 W
+/Helvetica-Bold SF
+31982 XM
+(set-person-height)SH
+/Helvetica SF
+(, which takes)
+24 W( a frame instance)25 W
+9000 66768 MT
+(and value as)
+246 W( arguments, and stores the given value in the)245 W
+/Helvetica-Oblique SF
+37600 XM
+(:height)SH
+/Helvetica SF
+41125 XM
+(slot of the specified person)245 W
+9000 67911 MT
+(instance. If)386 W
+/Helvetica-Oblique SF
+14554 XM
+(:setable)SH
+/Helvetica SF
+18388 XM
+(is set to)54 W
+/Helvetica-Oblique SF
+22274 XM
+(:setf)SH
+/Helvetica SF
+(, then in addition, the person)54 W
+/Helvetica-Oblique SF
+37385 XM
+(height)SH
+/Helvetica SF
+40441 XM
+(slot is setf-able, e.g., one may)55 W
+9000 69054 MT
+(perform:)SH
+/Helvetica-Oblique SF
+13279 XM
+(\050push 10 \050person-height person1\051\051)SH
+/Helvetica SF
+(.)SH
+10800 70680 MT
+(For slots with facets, a slot access function for)
+68 W( the first facet of that slot will be defined in a way)67 W
+9000 71823 MT
+(similar to slot functions for)
+44 W( frames with no facets, except facet names will be separated from slots by)45 W
+ES
+%%Page: 5 6
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 5)SH
+10 /Helvetica AF
+9000 7929 MT
+(a "." rather than a dash \050to distinguish slots)
+85 W( from facets\051. For example, if the)84 W
+/Helvetica-Oblique SF
+43937 XM
+(size)SH
+/Helvetica SF
+46077 XM
+(slot for the house)84 W
+9000 9072 MT
+(frame had a)112 W
+/Helvetica-Oblique SF
+14950 XM
+(value)SH
+/Helvetica SF
+17731 XM
+(facet, then the value of size of a house would be retrieved through the function)113 W
+/Helvetica-Oblique SF
+9000 10215 MT
+(house-size.value)SH
+/Helvetica SF
+(. If)
+511 W( the)116 W
+/Helvetica-Oblique SF
+20304 XM
+(:setable)SH
+/Helvetica SF
+24200 XM
+(class facet is true, then a set function will also be defined for the)116 W
+9000 11358 MT
+(house/size/value facet.)
+188 W( If)
+655 W( it is set to)189 W
+/Helvetica-Oblique SF
+26574 XM
+(:setf)SH
+/Helvetica SF
+28931 XM
+(then that facet will also be setf-able; e.g., it would be)189 W
+9000 12501 MT
+(possible to modify the)121 W
+/Helvetica-Oblique SF
+19433 XM
+(value)SH
+/Helvetica SF
+22221 XM
+(of the)120 W
+/Helvetica-Oblique SF
+25241 XM
+(size)SH
+/Helvetica SF
+27417 XM
+(slot of a house instance by saying:)120 W
+/Helvetica-Oblique SF
+43821 XM
+(\050setf \050house-size.value)120 W
+9000 13644 MT
+(house1\051 <new-size-value>\051)SH
+/Helvetica SF
+(.)SH
+10800 15270 MT
+(It is important)
+3 W( to note that there are two different ways to refer to frames in)4 W
+/Helvetica-Bold SF
+43933 XM
+(Parmenides)SH
+/Helvetica SF
+(. Classes)286 W
+9000 16413 MT
+(are always referred to by name, as in Framekit, and are defined by)133 W
+/Helvetica-Bold SF
+40464 XM
+(def-frame)SH
+/Helvetica SF
+(.)SH
+/Helvetica-Oblique SF
+46120 XM
+(Instances)SH
+/Helvetica SF
+(, on the)132 W
+9000 17556 MT
+(other hand, should be)
+22 W( thought of as abstract data structures which are created by the make functions)23 W
+9000 18699 MT
+(\050below\051, and which)
+10 W( the access functions operate on.  However, the make functions allow one to name)9 W
+9000 19842 MT
+(an instance.  This gives the user two different ways to refer to the same instance.)SH
+/Helvetica-Bold SF
+7200 22731 MT
+(3.1.4. Examples of Def-frame)SH
+/Courier-Bold SF
+9000 24536 MT
+(\050def-frame animal \050cache :*ALL*\051)SH
+10200 25667 MT
+(:consumes yes)SH
+10200 26798 MT
+(:reproduces \050:value 'sexually\051\051)SH
+/Helvetica SF
+9000 28658 MT
+(This defines)
+89 W( a class named)90 W
+/Helvetica-Oblique SF
+21843 XM
+(animal)SH
+/Helvetica SF
+(, which has no superclasses and has)90 W
+/Helvetica-Oblique SF
+42037 XM
+(consumes)SH
+/Helvetica SF
+46962 XM
+(and)SH
+/Helvetica-Oblique SF
+48998 XM
+(reproduces)SH
+/Helvetica SF
+9000 29801 MT
+(slots. The)
+596 W( functions)159 W
+/Helvetica-Oblique SF
+18807 XM
+(animal-consumes)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Oblique SF
+27357 XM
+(animal-reproduces)SH
+/Helvetica SF
+(, and)159 W
+/Helvetica-Oblique SF
+38456 XM
+(animal-reproduces.value)SH
+/Helvetica SF
+49840 XM
+(would be)158 W
+9000 30944 MT
+(defined. Since)
+608 W( the)165 W
+/Helvetica-Oblique SF
+18221 XM
+(consumes)SH
+/Helvetica SF
+23221 XM
+(slot has no facets, there is no)
+165 W( need for an)166 W
+/Helvetica-Oblique SF
+43497 XM
+(animal-consumes.value)SH
+/Helvetica SF
+9000 32087 MT
+(function. All)
+278 W( of its slots are cached into its descendants.)SH
+10800 33713 MT
+(The function)172 W
+/Helvetica-Bold SF
+16925 XM
+(make-animal)SH
+/Helvetica SF
+23433 XM
+(would be defined, and it would take the keywords)172 W
+/Helvetica-Oblique SF
+47048 XM
+(:consumes)SH
+/Helvetica SF
+52332 XM
+(and)SH
+/Helvetica-Oblique SF
+9000 34856 MT
+(:reproduces)SH
+/Helvetica SF
+14719 XM
+(as arguments.)
+161 W( To)
+601 W( make an instance of animal with reproduces value NO, we would)162 W
+9000 35999 MT
+(issue the following command:)SH
+/Helvetica-Oblique SF
+9000 37142 MT
+(\050setq a1 \050make-animal 'a1 :reproduces '\050:value NO\051\051\051)SH
+/Helvetica SF
+9000 38285 MT
+(This makes an animal which doesn't reproduce, calls it a1,)
+58 W( and binds it to the lisp variable a1.  Note)57 W
+9000 39428 MT
+(that since we didn't specify the)SH
+/Helvetica-Oblique SF
+22840 XM
+(consumes)SH
+/Helvetica SF
+27675 XM
+(slot, it receives as default 'yes.)SH
+10800 41054 MT
+(Note the placement)
+249 W( of colons ":" to designate keywords.  Slot and facet names are stored)250 W
+9000 42197 MT
+(internally as keywords so that the dependence on which package)
+277 W( the user is in is minimized.)276 W
+9000 43340 MT
+(However,)SH
+/Helvetica-Bold SF
+13630 XM
+(def-frame)SH
+/Helvetica SF
+18593 XM
+(and the slot and)
+129 W( facet retrieval and storage functions take either keywords or)130 W
+9000 44483 MT
+(non-keywords as slot and facet arguments; they will)
+48 W( coerce slot and facet names to keywords if they)47 W
+9000 45626 MT
+(are not already.  Thus, it is slightly more efficient to use keywords as arguments, but not necessary.)61 W
+9000 46769 MT
+(Frame names are not stored as keywords.)SH
+10800 48395 MT
+(Every good document needs a transporter frame, so we'll define it as:)SH
+/Courier-Bold SF
+9000 50200 MT
+(\050def-frame transporter \050cache \050function\051\051)SH
+10200 51331 MT
+(:function ptrans)SH
+10200 52462 MT
+(:user \050:value 'rider\051\051)SH
+/Helvetica SF
+10800 54322 MT
+(This defines a frame class)151 W
+/Helvetica-Oblique SF
+23447 XM
+(transporter)SH
+/Helvetica SF
+(, with slots)150 W
+/Helvetica-Oblique SF
+33678 XM
+(function)SH
+/Helvetica SF
+37608 XM
+(and)SH
+/Helvetica-Oblique SF
+39704 XM
+(user)SH
+/Helvetica SF
+(. The)578 W
+/Helvetica-Oblique SF
+44934 XM
+(function)SH
+/Helvetica SF
+48864 XM
+(slot has no)150 W
+9000 55465 MT
+(facets - its default value is)SH
+/Helvetica-Oblique SF
+20783 XM
+(ptrans)SH
+/Helvetica SF
+(.)SH
+10800 57091 MT
+(Now we can define a more complex frame, horse, in terms of these two frames:)SH
+/Courier-Bold SF
+9000 58896 MT
+(\050def-frame horse \050is-a \050animal transporter\051\051)SH
+10200 60027 MT
+(:consumes \050:value 'oats :when 'daily\051\051)SH
+/Helvetica SF
+10800 61887 MT
+(The horse class will have the slots:)149 W
+/Helvetica-Oblique SF
+27571 XM
+(consumes, reproduces,)149 W
+/Helvetica SF
+38540 XM
+(and)SH
+/Helvetica-Oblique SF
+40635 XM
+(function)SH
+/Helvetica SF
+(. Note)
+576 W( that)
+149 W( while the)150 W
+9000 63030 MT
+(horse class obtains the)118 W
+/Helvetica-Oblique SF
+19977 XM
+(reproduces)SH
+/Helvetica SF
+25375 XM
+(and)SH
+/Helvetica-Oblique SF
+27439 XM
+(function)SH
+/Helvetica SF
+31337 XM
+(slots from the)
+118 W( animal and transporter classes, the)117 W
+/Helvetica-Oblique SF
+9000 64173 MT
+(consumes)SH
+/Helvetica SF
+13874 XM
+(slot is locally defined as)39 W
+/Helvetica-Oblique SF
+24851 XM
+(\050:value 'oats :when 'daily\051)39 W
+/Helvetica SF
+36511 XM
+(instead. Also,)
+356 W( note that the)39 W
+/Helvetica-Oblique SF
+49142 XM
+(user)SH
+/Helvetica SF
+51404 XM
+(slot is)40 W
+9000 65316 MT
+(not inherited from transporter since it is not in the)SH
+/Helvetica-Oblique SF
+30954 XM
+(cache)SH
+/Helvetica SF
+33900 XM
+(list of transporter.)SH
+8312 67694 MT
+(The slot and facet-access functions are fast because they are pre-compiled.  However, they)
+78 W( can only)77 W
+7200 68931 MT
+(be used if the programmer knows the class, slot and facet names)
+198 W( at code-writing \050or compile\051 time;)199 W
+7200 70168 MT
+(otherwise, the more general functions such as)SH
+/Helvetica-Bold SF
+27876 XM
+(get-facet)SH
+/Helvetica SF
+32321 XM
+(and)SH
+/Helvetica-Bold SF
+34267 XM
+(set-facet)SH
+/Helvetica SF
+38657 XM
+(\050described below\051 should be used.)SH
+ES
+%%Page: 6 7
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 6)SH
+10 /Helvetica AF
+8312 7929 MT
+(Note that in order to retrieve a value)
+17 W( using inheritance or demons, one can't use the simple slot-access)16 W
+7200 9166 MT
+(functions defined by Def-frame; rather, one should use)17 W
+/Helvetica-Bold SF
+31738 XM
+(get-facet)SH
+/Helvetica SF
+36201 XM
+(or)SH
+/Helvetica-Bold SF
+37386 XM
+(get-facet-demons.)SH
+/Helvetica SF
+46590 XM
+(Perhaps demon-)18 W
+7200 10403 MT
+(checking should be compiled into the slot-access functions; however, this would take much extra space.)SH
+/Helvetica-BoldOblique SF
+10800 12275 MT
+(def-frame* <name> <cplist> <slots>)49 W
+/Helvetica SF
+28115 XM
+(The non-macro form of)48 W
+/Helvetica-Bold SF
+38755 XM
+(def-frame)SH
+/Helvetica SF
+43637 XM
+(\050i.e., evaluates all of its)48 W
+9000 13418 MT
+(arguments\051. Note)
+278 W( that)SH
+/Helvetica-Oblique SF
+19227 XM
+(<slots>)SH
+/Helvetica SF
+22729 XM
+(is not a rest argument in this function.)SH
+11 /Helvetica-Bold AF
+7200 17100 MT
+(3.2. Commands that Make Instances)SH
+10 /Helvetica AF
+8312 18337 MT
+(In the following functions, where the argument)55 W
+/Helvetica-Oblique SF
+29374 XM
+(<frame>)SH
+/Helvetica SF
+33432 XM
+(occurs, either the name of a frame or a frame)56 W
+7200 19574 MT
+(instance may be given.)SH
+/Helvetica-BoldOblique SF
+10800 21446 MT
+(make-frame <classname> <instance-name> . <slot-values>)252 W
+/Helvetica SF
+40184 XM
+(This is a general function for)251 W
+9000 22589 MT
+(making instances of the given)370 W
+/Helvetica-Oblique SF
+24301 XM
+(<classname>)SH
+/Helvetica SF
+(.)SH
+/Helvetica-Oblique SF
+31822 XM
+(<instance-name>)SH
+/Helvetica SF
+40196 XM
+(is the name)
+370 W( of the instance)371 W
+9000 23732 MT
+(\050optionally nil for no name\051, since)234 W
+/Helvetica-Bold SF
+25354 XM
+(Parmenides)SH
+/Helvetica SF
+31535 XM
+(functions may take frame)
+234 W( names as arguments.)233 W
+/Helvetica-Oblique SF
+9000 24875 MT
+(<slot-values>)SH
+/Helvetica SF
+15492 XM
+(has the same)
+267 W( syntax as)268 W
+/Helvetica-Oblique SF
+27613 XM
+(<slot-contents>)SH
+/Helvetica SF
+34996 XM
+(of)SH
+/Helvetica-Bold SF
+36376 XM
+(def-frame)SH
+/Helvetica SF
+41478 XM
+(except the slot names are)268 W
+9000 26018 MT
+(keywords.)SH
+/Helvetica-Bold SF
+14095 XM
+(Make-frame)SH
+/Helvetica SF
+19949 XM
+(returns an abstract data structure)
+19 W( which represents an instance of the frame,)18 W
+9000 27161 MT
+(and provides the default slot values that are described by the frame class.)
+77 W( For)
+433 W( slots without facets,)78 W
+9000 28304 MT
+(any lisp object)
+149 W( may be given; for slots with facets, a facet-plist should be given as the value.  All)148 W
+9000 29447 MT
+(arguments are evaluated.  For example, to make an instance of an)106 W
+/Helvetica-Oblique SF
+40010 XM
+(animal)SH
+/Helvetica SF
+43340 XM
+(defined by the previous)107 W
+/Helvetica-Bold SF
+9000 30590 MT
+(def-frame)SH
+/Helvetica SF
+13834 XM
+(example, we could write:)SH
+/Courier-Bold SF
+9000 32395 MT
+(\050make-frame 'animal 'a1)SH
+13800 33526 MT
+(:reproduces '\050:value usually-not\051\051)SH
+/Helvetica SF
+9000 35386 MT
+(This returns a new instance of animal, called a1,)
+104 W( with a)103 W
+/Helvetica-Oblique SF
+34707 XM
+(reproduces)SH
+/Helvetica SF
+40090 XM
+(slot value of)103 W
+/Helvetica-Oblique SF
+46013 XM
+(usually-not)SH
+/Helvetica SF
+(. Note)484 W
+9000 36529 MT
+(that since we didn't specify the)4 W
+/Helvetica-Oblique SF
+22864 XM
+(consumes)SH
+/Helvetica SF
+27703 XM
+(slot, it gets the default value)
+4 W( of yes.  Note also that for each)5 W
+9000 37672 MT
+(class <classname> defined, a make function called)241 W
+/Helvetica-Bold SF
+33530 XM
+(make-<classname>)SH
+/Helvetica SF
+43220 XM
+(is defined; for example)240 W
+/Helvetica-Bold SF
+9000 38815 MT
+(make-animal)SH
+/Helvetica SF
+15336 XM
+(would be defined when the animal class is defined.)SH
+/Helvetica-BoldOblique SF
+10800 40441 MT
+(make-frame0 <classname>)
+216 W( <instance-name> <slot-values>)217 W
+/Helvetica SF
+39792 XM
+(Same syntax and definition as)217 W
+/Helvetica-Bold SF
+9000 41584 MT
+(make-frame)SH
+/Helvetica SF
+(, except)SH
+/Helvetica-Oblique SF
+18393 XM
+(<slot-values>)SH
+/Helvetica SF
+24618 XM
+(is a list instead of a rest argument.)SH
+11 /Helvetica-Bold AF
+7200 45266 MT
+(3.3. Data Retrieval Commands)SH
+10 /Helvetica-BoldOblique AF
+10800 47138 MT
+(get-facet <frame> <slotname> <facetname>)179 W
+/Helvetica SF
+32358 XM
+(This function returns multiple values.  The first)178 W
+9000 48281 MT
+(value returned is the filler found in the specified facet of the slot of the given frame.  If the given slot)
+9 W( is)10 W
+9000 49424 MT
+(not cached in the frame, then it tries to inherit the)
+10 W( value from the parents.  It searches the parents in a)9 W
+9000 50567 MT
+(left-to-right, depth-first)
+112 W( fashion.  If either the slot or the facet cannot be found, it returns NIL as the)113 W
+9000 51710 MT
+(second value \050it also returns NIL for the)
+68 W( first value in this case\051; if it is found then it returns T as the)67 W
+9000 52853 MT
+(second value.)SH
+10800 54479 MT
+(It works on both frame classes and instances.  When a)
+202 W( class is given,)203 W
+/Helvetica-Oblique SF
+44645 XM
+(get-facet)SH
+/Helvetica SF
+49017 XM
+(returns the)203 W
+9000 55622 MT
+(default value for that facet. <frame> may be either the name of a frame or a frame data structure.)SH
+/Helvetica-BoldOblique SF
+10800 57248 MT
+(get-value <frame> <slotname>)252 W
+/Helvetica SF
+26229 XM
+(Equivalent to:)252 W
+/Helvetica-Bold SF
+33070 XM
+(get-facet <frame>)
+252 W( <slotname> :value)251 W
+/Helvetica SF
+(. For)780 W
+9000 58391 MT
+(example,)SH
+/Helvetica-Oblique SF
+13335 XM
+(\050get-value 'horse :consumes\051)SH
+/Helvetica SF
+26506 XM
+(would return values 'oats and T.)SH
+/Helvetica-BoldOblique SF
+10800 60017 MT
+(get-immediate-facet <frame> <slotname> <facetname>)168 W
+/Helvetica SF
+37594 XM
+(The same as)169 W
+/Helvetica-Bold SF
+44159 XM
+(get-facet)SH
+/Helvetica SF
+48773 XM
+(except only)169 W
+9000 61160 MT
+(retrieves data from the given frame \050i.e., doesn't perform inheritance\051.  Thus)
+314 W( it is faster than)313 W
+/Helvetica-Bold SF
+9000 62303 MT
+(get-facet)SH
+/Helvetica SF
+(. Also)
+402 W( returns two values.  The second)
+62 W( value is nil if the given slot is not local in the given)63 W
+9000 63446 MT
+(frame.)SH
+/Helvetica-BoldOblique SF
+10800 65072 MT
+(get-immediate-value <frame> <slotname>)550 W
+/Helvetica SF
+32401 XM
+(Equivalent to:)549 W
+/Helvetica-Bold SF
+39836 XM
+(get-immediate-facet <frame>)549 W
+9000 66215 MT
+(<slotname> :value)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 67841 MT
+(get-value-demons <frame> <slotname>)920 W
+/Helvetica SF
+32400 XM
+(Equivalent to:)920 W
+/Helvetica-Bold SF
+40577 XM
+(get-facet-demons <frame>)920 W
+9000 68984 MT
+(<slotname> :value)SH
+/Helvetica SF
+(. See)
+278 W( section 5 for an explanation of demons.)SH
+/Helvetica-BoldOblique SF
+10800 70610 MT
+(get-slot <frame> <slotname>)330 W
+/Helvetica SF
+25684 XM
+(Returns the)
+330 W( slot <slotname> for frame <frame>, attempting)329 W
+9000 71753 MT
+(inheritance if the slot is)
+202 W( not found locally.  Like)203 W
+/Helvetica-Bold SF
+31647 XM
+(get-facet)SH
+/Helvetica SF
+(, it returns two values.  The first value)203 W
+ES
+%%Page: 7 8
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 7)SH
+10 /Helvetica AF
+9000 7929 MT
+(returned is the value found in)
+89 W( the specified slot; the second value returned is T iff the specified slot)88 W
+9000 9072 MT
+(could be found.  The difference between)5 W
+/Helvetica-Bold SF
+27157 XM
+(get-slot)SH
+/Helvetica SF
+31052 XM
+(and)SH
+/Helvetica-Bold SF
+33004 XM
+(get-value)SH
+/Helvetica SF
+37678 XM
+(is that)6 W
+/Helvetica-Bold SF
+40636 XM
+(get-value)SH
+/Helvetica SF
+45310 XM
+(gets the value facet)6 W
+9000 10215 MT
+(of the slot \050therefore assuming that the slot has facets\051, whereas)86 W
+/Helvetica-Bold SF
+38682 XM
+(get-slot)SH
+/Helvetica SF
+42657 XM
+(is normally used for slots)85 W
+9000 11358 MT
+(without facets, since it returns whatever data structure is stored at the slot level \050not the facet level\051.)SH
+/Helvetica-BoldOblique SF
+10800 12984 MT
+(get-immediate-slot <frame> <slotname>)15 W
+/Helvetica SF
+30018 XM
+(Like)SH
+/Helvetica-Bold SF
+32145 XM
+(get-slot)SH
+/Helvetica SF
+36049 XM
+(except doesn't try)
+15 W( inheritance.  Thus it is)16 W
+9000 14127 MT
+(faster than)SH
+/Helvetica-Bold SF
+14003 XM
+(get-slot)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 15753 MT
+(get-generic-value <frame> <slotname>)7 W
+/Helvetica SF
+29384 XM
+(A cross between)7 W
+/Helvetica-Bold SF
+37075 XM
+(get-facet)SH
+/Helvetica SF
+41526 XM
+(and)SH
+/Helvetica-Bold SF
+43478 XM
+(get-slot)SH
+/Helvetica SF
+(. If)
+290 W( <slotname>)6 W
+9000 16896 MT
+(does not have facets in <frame>, then this is)
+29 W( equivalent to)30 W
+/Helvetica-Bold SF
+35170 XM
+(get-slot)SH
+/Helvetica SF
+(. If)
+338 W( <slotname> has facets, then it)30 W
+9000 18039 MT
+(is equivalent to)SH
+/Helvetica-Bold SF
+15948 XM
+(get-value)SH
+/Helvetica SF
+20616 XM
+(\050it return the value facet of the slot\051.)SH
+/Helvetica-BoldOblique SF
+10800 19665 MT
+(get-cslot <frame>)
+331 W( <slotname>)330 W
+/Helvetica SF
+26241 XM
+(Returns the value of the class slot <slotname> for frame)330 W
+9000 20808 MT
+(<frame>. Sample)
+278 W( class slot names are)SH
+/Helvetica-Oblique SF
+26618 XM
+(:propagate)SH
+/Helvetica SF
+31677 XM
+(and)SH
+/Helvetica-Oblique SF
+33623 XM
+(:setable)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 22434 MT
+(get-facet-demons <frame> <slotname> <facetname>)183 W
+/Helvetica SF
+36541 XM
+(Like)SH
+/Helvetica-Bold SF
+38836 XM
+(get-facet)SH
+/Helvetica SF
+(, except)
+183 W( if it gets a NIL)184 W
+9000 23577 MT
+(cached value, tries running first, the local if-needed demons, then the if-needed)
+66 W( demons attached to)65 W
+9000 24720 MT
+(the frame.  Doesn't try inheritance.)SH
+10800 26346 MT
+(To check that a slot is local, use)SH
+/Helvetica-Bold SF
+25251 XM
+(local-p)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 27972 MT
+(local-p <frame> <slotname>)23 W
+/Helvetica SF
+24375 XM
+(Returns T iff the slot named)23 W
+/Helvetica-Oblique SF
+37074 XM
+(<slotname>)SH
+/Helvetica SF
+42600 XM
+(is local in)
+23 W( the given frame)24 W
+9000 29115 MT
+(\050i.e., if the)40 W
+/Helvetica-Oblique SF
+13789 XM
+(:depth)SH
+/Helvetica SF
+16887 XM
+(facet of the slot)
+40 W( is equal to 0\051.  Being local means that it must have gotten its value)39 W
+9000 30258 MT
+(from a)97 W
+/Helvetica-Bold SF
+12306 XM
+(set-facet)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Bold SF
+17072 XM
+(setf)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Bold SF
+19504 XM
+(make-frame)SH
+/Helvetica SF
+25493 XM
+(or a set function if it's an instance, or from a)98 W
+/Helvetica-Bold SF
+46191 XM
+(set-facet)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Bold SF
+50957 XM
+(setf)SH
+/Helvetica SF
+53111 XM
+(or)SH
+/Helvetica-Bold SF
+9000 31401 MT
+(def-frame)SH
+/Helvetica SF
+13917 XM
+(if it's a class.  If the slot)
+83 W( has no facets then it is defined to be local, although if it doesn't)82 W
+9000 32544 MT
+(have a depth facet, then it is)
+46 W( defined to not be local.  To get a feel for the depth facet and localness,)47 W
+9000 33687 MT
+(try defining some classes, subclasses and instances, then check the depth of various slots in them.)SH
+/Helvetica-BoldOblique SF
+10800 35313 MT
+(pa-class-of <frame>)57 W
+/Helvetica SF
+20640 XM
+(Given a frame, returns the name)
+57 W( of the class that the frame is an instance)56 W
+9000 36456 MT
+(of.)SH
+/Helvetica-BoldOblique SF
+10800 38082 MT
+(isas <class>)163 W
+/Helvetica SF
+17298 XM
+(Given the class, returns an ordered list of all the classnames that)164 W
+/Helvetica-Oblique SF
+48223 XM
+(<class>)SH
+/Helvetica SF
+52111 XM
+(is-a,)SH
+9000 39225 MT
+(including superclasses of superclasses.  For example,)22 W
+/Helvetica-Oblique SF
+33385 XM
+(\050isas 'horse\051)22 W
+/Helvetica SF
+39152 XM
+(would return \050animal transporter\051.)22 W
+9000 40368 MT
+(If animal was is-a living-thing, then)SH
+/Helvetica-Oblique SF
+24561 XM
+(\050isas 'horse\051)SH
+/Helvetica SF
+30284 XM
+(would return \050animal transporter living-thing\051.)SH
+/Helvetica-BoldOblique SF
+10800 41994 MT
+(immediate-isas <class>)107 W
+/Helvetica SF
+22465 XM
+(Like)SH
+/Helvetica-Bold SF
+24684 XM
+(isas)SH
+/Helvetica SF
+(, but only returns the immediate ancestors \050i.e., the value of)108 W
+9000 43137 MT
+(the)SH
+/Helvetica-Oblique SF
+10675 XM
+(is-a)SH
+/Helvetica SF
+12571 XM
+(c-slot\051. For)
+292 W( example, if animal was is-a)
+7 W( living-thing, then)6 W
+/Helvetica-Oblique SF
+37812 XM
+(\050immediate-isas 'horse\051)6 W
+/Helvetica SF
+48492 XM
+(would return)6 W
+9000 44280 MT
+(\050animal transporter\051.)SH
+/Helvetica-BoldOblique SF
+10800 45906 MT
+(inverse-isas <class>)130 W
+/Helvetica SF
+21067 XM
+(Returns a list of class)
+130 W( names which are the immediate is-a of the given)131 W
+/Helvetica-Oblique SF
+9000 47049 MT
+(<class>)SH
+/Helvetica SF
+(. For example, both \050inverse-isas 'animal\051 and \050inverse-isas 'transporter\051 would)
+201 W( return the)200 W
+9000 48192 MT
+(singleton \050horse\051.  Note that inverse-isas only returns immediate inverse-isas, in)
+74 W( contrast to the way)75 W
+9000 49335 MT
+(isas returns)13 W
+/Helvetica-Oblique SF
+14471 XM
+(all)SH
+/Helvetica SF
+15761 XM
+(isas. This)
+302 W( is because)12 W
+/Helvetica-Bold SF
+25658 XM
+(inverse-isas)SH
+/Helvetica SF
+31729 XM
+(is used for marker propagation, where it is desired)12 W
+9000 50478 MT
+(to have only the immediate ancestors of the given class.  However, it is often)
+7 W( useful to know if a given)8 W
+9000 51621 MT
+(class is is-a another class, even if indirectly.  This function returns NIL if the argument is not)
+46 W( a class,)45 W
+9000 52764 MT
+(because only classes have inverse-isas.)SH
+/Helvetica-BoldOblique SF
+10800 54390 MT
+(instances-of <class>)211 W
+/Helvetica SF
+21338 XM
+(Returns a list of the instances of the)
+211 W( given frame class, including the)212 W
+9000 55533 MT
+(instance representing the class.)SH
+/Helvetica-BoldOblique SF
+10800 57159 MT
+(set-instances-of <class>)
+215 W( <instances>)214 W
+/Helvetica SF
+29396 XM
+(Sets the instances of the given class.  This function)214 W
+9000 58302 MT
+(should be used with care.)SH
+/Helvetica-BoldOblique SF
+10800 59928 MT
+(instance-names-of <class>)191 W
+/Helvetica SF
+24243 XM
+(Returns a list of the names)
+191 W( of the instances of the given frame)192 W
+9000 61071 MT
+(class. Doesn't)
+278 W( include any instances which don't have names.)SH
+/Helvetica-BoldOblique SF
+10800 62697 MT
+(With-All-Subinstances-Of <class>)
+594 W( <lambda>)593 W
+/Helvetica-Oblique SF
+33809 XM
+(Example: \050with-all-subinstances-of 'relation)593 W
+9000 63840 MT
+(#'\050lambda \050instance\051 \050pp-frame instance\051\051\051)SH
+/Helvetica SF
+10800 65466 MT
+(This macro can be used to perform some function on instances of a class, as well as)
+246 W( the)247 W
+9000 66609 MT
+(instances of all the classes under the given class)
+92 W( in the hierarchy.  The given <lambda> must be a)91 W
+9000 67752 MT
+(lambda which takes one argument, the instance.  This macro runs that lambda on)
+68 W( every instance of)69 W
+9000 68895 MT
+(<class> and the instances of every)
+200 W( class which is-a <class>, including the instance representing)199 W
+9000 70038 MT
+(classes. To)
+278 W( filter out instances representing classes, use)SH
+/Helvetica-Bold SF
+34566 XM
+(classp)SH
+/Helvetica SF
+(, below.)SH
+/Helvetica-BoldOblique SF
+10800 71664 MT
+(get-slot-names <frame>)23 W
+/Helvetica SF
+22405 XM
+(Returns a list containing the names of all the local)
+23 W( \050cached\051 slots of the)24 W
+ES
+%%Page: 8 9
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 8)SH
+10 /Helvetica AF
+9000 7929 MT
+(given frame.  Note that slot names are generally referred)
+166 W( to as keywords, and are always stored)165 W
+9000 9072 MT
+(internally as keywords.)SH
+/Helvetica-BoldOblique SF
+10800 10698 MT
+(do-facets \050<facet-name>)
+1 W( <facet-val> <slot> <frame>\051 &rest expressions)2 W
+/Helvetica SF
+44771 XM
+(This macro executes)2 W
+9000 11841 MT
+(the given expressions for)
+52 W( each facet in the given <slot> and <frame>.  The name of the facet \050which)51 W
+9000 12984 MT
+(will always be a)
+181 W( keyword\051 is bound to <facet-name> and the value is bound to <facet-val>.  For)182 W
+9000 14127 MT
+(example:)SH
+/Courier SF
+11400 15533 MT
+(\050do-facets \050name val :consumes 'horse\051)SH
+12600 16564 MT
+(\050format T "~S: ~S~%" name val\051\051)SH
+/Helvetica SF
+10800 18190 MT
+(would print the name and value of each facet in the)SH
+/Helvetica-Oblique SF
+33702 XM
+(:consumes)SH
+/Helvetica SF
+38815 XM
+(slot of the given)SH
+/Helvetica-Oblique SF
+46097 XM
+(horse)SH
+/Helvetica SF
+(.)SH
+10800 19816 MT
+(Note that this function only works for faceted slots; also it is)
+168 W( much more efficient than calling)167 W
+/Helvetica-Bold SF
+9000 20959 MT
+(get-facet)SH
+/Helvetica SF
+13445 XM
+(on each facet.)SH
+11 /Helvetica-Bold AF
+7200 24641 MT
+(3.4. Data Storage Commands)SH
+10 /Helvetica-BoldOblique AF
+10800 26513 MT
+(set-facet <frame> <slotname> <facetname> <newvalue>)22 W
+/Helvetica SF
+37645 XM
+(Sets the facet of the slot of)
+22 W( the given)23 W
+9000 27656 MT
+(frame \050class or)
+80 W( instance\051 to the given)79 W
+/Helvetica-Oblique SF
+26228 XM
+(<newvalue>)SH
+/Helvetica SF
+(. If)
+436 W( it's a class, then the value will be propagated)79 W
+9000 28799 MT
+(down to all sub-classes and instances.  Of course set-facet will not)
+79 W( work \050and will cause an error\051 if)80 W
+9000 29942 MT
+(one tries to set a facet of a slot which doesn't have facets.)SH
+/Helvetica-BoldOblique SF
+10800 31568 MT
+(set-value <frame> <slotname> <newvalue>)231 W
+/Helvetica SF
+32290 XM
+(Equivalent to:)231 W
+/Helvetica-Bold SF
+39089 XM
+(\050set-facet <frame>)
+231 W( <slotname>)230 W
+9000 32711 MT
+(:value <newvalue>\051)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 34337 MT
+(set-slot <frame> <slotname> <newvalue>)8 W
+/Helvetica SF
+30619 XM
+(Sets the value of the slot of the)
+8 W( given frame \050class or)9 W
+9000 35480 MT
+(instance\051 to the given)225 W
+/Helvetica-Oblique SF
+19683 XM
+(<newvalue>)SH
+/Helvetica SF
+(. Does)
+728 W( not propagate)
+225 W( to the instances or sub-classes or fire)224 W
+9000 36623 MT
+(demons, since there are no facets on the slot to tell)
+4 W( Parmenides whether it is a local value or what the)5 W
+9000 37766 MT
+(demons are.)SH
+/Helvetica-BoldOblique SF
+10800 39392 MT
+(set-cslot <class> <cslotname> <newvalue>)53 W
+/Helvetica SF
+31690 XM
+(Sets the)
+53 W( value of the class slot of the given frame)52 W
+9000 40535 MT
+(class to the given)15 W
+/Helvetica-Oblique SF
+17064 XM
+(<newvalue>)SH
+/Helvetica SF
+(. Note)
+308 W( that unlike)15 W
+/Helvetica-Bold SF
+30591 XM
+(set-slot)SH
+/Helvetica SF
+(, this function only works)
+15 W( with classes.  Does)16 W
+9000 41678 MT
+(not propagate to the instances or sub-classes.)SH
+/Helvetica-BoldOblique SF
+10800 43304 MT
+(set-facet-demons <frame>)
+93 W( <slotname> <facetname> <newvalue>)92 W
+/Helvetica SF
+42163 XM
+(Same as set-facet, except)92 W
+9000 44447 MT
+(also fires any pre-if-set and post-if-set demons it finds attached to the slot or frame class.)SH
+/Helvetica-BoldOblique SF
+10800 46073 MT
+(set-value-demons <frame> <slotname> <newvalue>)586 W
+/Helvetica SF
+37877 XM
+(Equivalent to:)587 W
+/Helvetica-Bold SF
+45388 XM
+(\050set-facet-demons)SH
+9000 47216 MT
+(<frame> <slotname> :value <newvalue>\051)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 48842 MT
+(add-to-facet <frame> <slotname> <facetname> <filler>)261 W
+/Helvetica SF
+38060 XM
+(Adds the given)
+261 W( filler to the list of)260 W
+9000 49985 MT
+(values stored in the position in)SH
+/Helvetica-Oblique SF
+22729 XM
+(<frame>)SH
+/Helvetica SF
+26731 XM
+(specified by)SH
+/Helvetica-Oblique SF
+32289 XM
+(<slotname>)SH
+/Helvetica SF
+37792 XM
+(and)SH
+/Helvetica-Oblique SF
+39738 XM
+(<facetname>)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 51611 MT
+(add-to-value <frame> <slotname> <filler>)23 W
+/Helvetica SF
+30678 XM
+(Adds the given filler to the list of values stored)
+23 W( in the)24 W
+/Helvetica-Oblique SF
+9000 52754 MT
+(value)SH
+/Helvetica SF
+11668 XM
+(facet of)SH
+/Helvetica-Oblique SF
+15226 XM
+(<slotname>)SH
+/Helvetica SF
+20729 XM
+(in)SH
+/Helvetica-Oblique SF
+21785 XM
+(<frame>)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 54380 MT
+(add-to-slot <frame> <slotname> <filler>)314 W
+/Helvetica SF
+31062 XM
+(Adds the given filler to the list of values under)313 W
+/Helvetica-Oblique SF
+9000 55523 MT
+(<slotname>)SH
+/Helvetica SF
+14503 XM
+(in)SH
+/Helvetica-Oblique SF
+15559 XM
+(<frame>)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 57149 MT
+(add-to-cslot <class> <cslotname>)
+20 W( <filler>)21 W
+/Helvetica SF
+30780 XM
+(Adds the given filler to the list of values under class-)21 W
+9000 58292 MT
+(slot)SH
+/Helvetica-Oblique SF
+10834 XM
+(<cslotname>)SH
+/Helvetica SF
+16837 XM
+(in class)SH
+/Helvetica-Oblique SF
+20449 XM
+(<class>)SH
+/Helvetica SF
+(. Note)
+278 W( that the first argument must be a frame class.)SH
+/Helvetica-BoldOblique SF
+10800 59918 MT
+(add-to-facet-demons <frame> <slotname> <facetname> <filler>)7 W
+/Helvetica SF
+40957 XM
+(Adds the)
+7 W( given filler to the list)6 W
+9000 61061 MT
+(of values stored in the position in)284 W
+/Helvetica-Oblique SF
+25829 XM
+(<frame>)SH
+/Helvetica SF
+30115 XM
+(specified by)284 W
+/Helvetica-Oblique SF
+36241 XM
+(<slotname>)SH
+/Helvetica SF
+42028 XM
+(and)SH
+/Helvetica-Oblique SF
+44258 XM
+(<facetname>)SH
+/Helvetica SF
+(. Since)848 W
+/Helvetica-Bold SF
+9000 62204 MT
+(add-to-facet-demons)SH
+/Helvetica SF
+19449 XM
+(uses)SH
+/Helvetica-Bold SF
+22121 XM
+(set-facet-demons)SH
+/Helvetica SF
+(, it runs)
+282 W( the same demons that would be run by)281 W
+/Helvetica-Bold SF
+9000 63347 MT
+(set-facet-demons)SH
+/Helvetica SF
+(.)SH
+11 /Helvetica-Bold AF
+7200 67029 MT
+(3.5. Predicates)SH
+10 /Helvetica-BoldOblique AF
+10800 68901 MT
+(framep <frame>)SH
+/Helvetica SF
+18581 XM
+(Returns T iff <frame> is a valid frame class or instance.)SH
+/Helvetica-BoldOblique SF
+10800 70527 MT
+(frame-instance-p <frame>)SH
+/Helvetica SF
+23304 XM
+(Returns T iff <frame> is an instance of a frame.)SH
+ES
+%%Page: 9 10
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51065 XM
+(PAGE 9)SH
+10 /Helvetica-BoldOblique AF
+10800 7929 MT
+(classp <frame>)341 W
+/Helvetica SF
+19042 XM
+(Returns T iff)
+341 W( <frame> is a frame class.  Note that the default instance)342 W
+9000 9072 MT
+(representing classes are considered both classes and instances.)SH
+/Helvetica-BoldOblique SF
+10800 10698 MT
+(slotp <frame> <slot>)SH
+/Helvetica SF
+20860 XM
+(Returns T iff <slot> is a slot in <frame>.)SH
+/Helvetica-BoldOblique SF
+10800 12324 MT
+(facetedp <class> <slot-name>)183 W
+/Helvetica SF
+25856 XM
+(Returns T if the given)
+183 W( slot in the given class is faceted, NIL)182 W
+9000 13467 MT
+(otherwise.)SH
+/Helvetica-BoldOblique SF
+10800 15093 MT
+(isa-p <classname1> <classname2>)668 W
+/Helvetica SF
+29648 XM
+(Returns T iff)668 W
+/Helvetica-Oblique SF
+37376 XM
+(<classname1>)SH
+/Helvetica SF
+44825 XM
+(is a)
+668 W( sub-class of)669 W
+/Helvetica-Oblique SF
+9000 16236 MT
+(<classname2>)SH
+/Helvetica SF
+(, i.e.,)78 W
+/Helvetica-Oblique SF
+18104 XM
+(<classname1>)SH
+/Helvetica SF
+24962 XM
+(is under)77 W
+/Helvetica-Oblique SF
+28951 XM
+(<classname2>)SH
+/Helvetica SF
+35809 XM
+(in the is-a hierarchy, or if)77 W
+/Helvetica-Oblique SF
+47497 XM
+(<classname1>)SH
+/Helvetica SF
+9000 17379 MT
+(is the same as)SH
+/Helvetica-Oblique SF
+15725 XM
+(<classname2>)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 19005 MT
+(isa-instance <frame> <classname>)147 W
+/Helvetica SF
+28028 XM
+(Returns T iff the given frame is an instance of the class)148 W
+9000 20148 MT
+(named)SH
+/Helvetica-Oblique SF
+12335 XM
+(<classname>)SH
+/Helvetica SF
+(, or any of its superclasses.)SH
+/Helvetica-Bold SF
+30676 XM
+(isa-instance)SH
+/Helvetica SF
+36734 XM
+(could be defined as:)SH
+/Courier-Bold SF
+9000 21953 MT
+(\050member <classname> \050isas \050pa-class-of <frame>\051\051\051)SH
+/Helvetica-BoldOblique SF
+10800 23813 MT
+(isa-or-instance <frame> <classname>)62 W
+/Helvetica SF
+29106 XM
+(A combination)
+62 W( of)61 W
+/Helvetica-Bold SF
+37016 XM
+(isa-p)SH
+/Helvetica SF
+39689 XM
+(and)SH
+/Helvetica-Bold SF
+41696 XM
+(isa-instance)SH
+/Helvetica SF
+(. Returns)
+400 W( T iff)61 W
+/Helvetica-Oblique SF
+9000 24956 MT
+(<frame>)SH
+/Helvetica SF
+13002 XM
+(is a subclass of)SH
+/Helvetica-Oblique SF
+20116 XM
+(<classname>)SH
+/Helvetica SF
+26341 XM
+(or is an instance of)SH
+/Helvetica-Oblique SF
+35012 XM
+(<classname>)SH
+/Helvetica SF
+41237 XM
+(or any of its superclasses.)SH
+11 /Helvetica-Bold AF
+7200 28638 MT
+(3.6. Miscellaneous Commands)SH
+10 /Helvetica-BoldOblique AF
+10800 30510 MT
+(frame <framename>)86 W
+/Helvetica SF
+20754 XM
+(Given the name of a frame, this returns the actual)
+86 W( frame.  Frame classes)87 W
+9000 31653 MT
+(are generally referred to by name, whereas instances can be referred to)
+138 W( by either name or actual)137 W
+9000 32796 MT
+(frame. When)
+278 W( the name of a frame class is given to)SH
+/Helvetica-Bold SF
+31843 XM
+(frame)SH
+/Helvetica SF
+(, the default frame instance is returned.)SH
+/Helvetica-BoldOblique SF
+10800 34422 MT
+(pp-frame <frame> &key :stream :all-slots)29 W
+/Helvetica SF
+30618 XM
+(Pretty-prints the given)29 W
+/Helvetica-Oblique SF
+40709 XM
+(<frame>)SH
+/Helvetica SF
+(, which)
+29 W( may be either)30 W
+9000 35565 MT
+(an instance or a class.  The keyword)169 W
+/Helvetica-Oblique SF
+26859 XM
+(:stream)SH
+/Helvetica SF
+30640 XM
+(defaults to the standard output \050e.g.,)
+169 W( the terminal\051.)168 W
+/Helvetica-Oblique SF
+9000 36708 MT
+(:all-slots)SH
+/Helvetica SF
+12945 XM
+(has a default value of T, which means that all slots are printed \050but see)SH
+/Helvetica-Bold SF
+44516 XM
+(save-frame)SH
+/Helvetica SF
+(\051.)SH
+/Helvetica-BoldOblique SF
+10800 38334 MT
+(save-frame <frame> &key :stream :all-slots)18 W
+/Helvetica SF
+31565 XM
+(Writes the given)18 W
+/Helvetica-Oblique SF
+39067 XM
+(<frame>)SH
+/Helvetica SF
+(, in Parmenides-readable)19 W
+9000 39477 MT
+(form, to the specified stream, or to the standard output if no stream argument is)
+84 W( supplied.)83 W
+/Helvetica-Oblique SF
+50333 XM
+(:all-slots)SH
+/Helvetica SF
+9000 40620 MT
+(has a default value of NIL which means that)
+158 W( only those slots which differ from the corresponding)159 W
+9000 41763 MT
+(parent's slots are printed.)SH
+/Helvetica-BoldOblique SF
+10800 43389 MT
+(copy-frame <frame>)179 W
+/Helvetica SF
+20995 XM
+(Returns a copy of the given frame.  The data structures)
+179 W( which are the)178 W
+9000 44532 MT
+(values of the facets are not)
+69 W( copied.  Note that this function views <frame> as a frame instance, and)70 W
+9000 45675 MT
+(doesn't copy any of the class information.  This is because it isn't possible)
+27 W( for two different classes to)26 W
+9000 46818 MT
+(have the same instances, since instances are instances of only one class.)SH
+/Helvetica-BoldOblique SF
+10800 48444 MT
+(remove-frame <frame>)104 W
+/Helvetica SF
+22068 XM
+(Removes the given frame \050instance or class\051.)
+104 W( If)488 W
+/Helvetica-Oblique SF
+44459 XM
+(frame)SH
+/Helvetica SF
+47398 XM
+(is an instance,)105 W
+9000 49587 MT
+(then it will be un-linked from its class \050i.e., the)
+218 W( result of)217 W
+/Helvetica-Bold SF
+35844 XM
+(instances-of <class-of-frame>)217 W
+/Helvetica SF
+50727 XM
+(will not)217 W
+9000 50730 MT
+(include)SH
+/Helvetica-Oblique SF
+12599 XM
+(<frame>)SH
+/Helvetica SF
+(\051. It)584 W
+/Helvetica-Oblique SF
+18783 XM
+(frame)SH
+/Helvetica SF
+21770 XM
+(is a class, then the)
+153 W( class will be removed from the list of inverse-isas)154 W
+9000 51873 MT
+(which each of its parents contain, and each of its children classes will no longer have it)
+175 W( as their)174 W
+9000 53016 MT
+(parent. All)
+492 W( other data structures pertaining to that class will be deleted, so that it will no)
+107 W( longer be)108 W
+9000 54159 MT
+(considered a frame or a class.)SH
+/Helvetica-BoldOblique SF
+10800 55785 MT
+(define-facet-getter <classname> <slots> <facets>)SH
+/Helvetica-Bold SF
+9000 56928 MT
+(Parmenides)SH
+/Helvetica SF
+15121 XM
+(usually defines)
+174 W( access functions for only the)173 W
+/Helvetica-Oblique SF
+36120 XM
+(value)SH
+/Helvetica SF
+38961 XM
+(facet. To)
+624 W( cause)173 W
+/Helvetica-Bold SF
+47046 XM
+(Parmenides)SH
+/Helvetica SF
+53166 XM
+(to)SH
+9000 58071 MT
+(define access functions for facets other than)300 W
+/Helvetica-Oblique SF
+30944 XM
+(value)SH
+/Helvetica SF
+(, use this macro.)
+300 W( For)
+879 W( example, executing:)301 W
+/Helvetica-Oblique SF
+9000 59214 MT
+(\050define-facet-getter house)
+48 W( :age :depth\051)47 W
+/Helvetica SF
+26532 XM
+(allows one to retrieve the)47 W
+/Helvetica-Oblique SF
+38161 XM
+(depth)SH
+/Helvetica SF
+40988 XM
+(of the)47 W
+/Helvetica-Oblique SF
+43862 XM
+(age)SH
+/Helvetica SF
+45855 XM
+(of a house quickly)47 W
+9000 60357 MT
+(by typing:)SH
+/Helvetica-Oblique SF
+13558 XM
+(\050house-age.depth <house>\051)SH
+/Helvetica SF
+(. <slots>)
+278 W( and <facets> may be either lists or atoms.)SH
+/Helvetica-BoldOblique SF
+10800 61983 MT
+(define-facet-setter <classname> <slots> <facets>)SH
+/Helvetica SF
+9000 63126 MT
+(Analagous to)1026 W
+/Helvetica-Bold SF
+17167 XM
+(define-facet-getter)SH
+/Helvetica SF
+(. Defines)
+2330 W( a facet-setting function)
+1026 W( of the form:)1027 W
+/Helvetica-Oblique SF
+9000 64269 MT
+(\050set-<class>-<slot>.<facet> frame value\051)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 65895 MT
+(define-facet-accessors <classname> <slots> <facets>)SH
+/Helvetica SF
+9000 67038 MT
+(Defines both a facet-getting and a facet-setting function for the specified facet\050s\051.)SH
+/Helvetica-BoldOblique SF
+10800 68664 MT
+(add-slot <classname> <slot-name> <slot-contents> &key cache)SH
+/Helvetica-Oblique SF
+9000 69807 MT
+(example: \050add-slot)
+89 W( 'horse :rider '\050value 'person\051\051)88 W
+/Helvetica SF
+31035 XM
+(Augments the given class by adding the slot <slot-)88 W
+9000 70950 MT
+(name> with description)60 W
+/Helvetica-Oblique SF
+19712 XM
+(<slot-contents>)SH
+/Helvetica SF
+26887 XM
+(to the class.  Only works for classes,)
+60 W( since instances should)61 W
+ES
+%%Page: 10 11
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+50620 XM
+(PAGE 10)SH
+10 /Helvetica AF
+9000 7929 MT
+(never have slots that their classes don't have.)
+14 W( Propagates)
+304 W( the change to all instances of the class.  If)13 W
+/Helvetica-Oblique SF
+9000 9072 MT
+(cache)SH
+/Helvetica SF
+12003 XM
+(is true, then adds the)57 W
+/Helvetica-Oblique SF
+21905 XM
+(<slot-name>)SH
+/Helvetica SF
+27798 XM
+(to the list of slots to cache, and)
+57 W( propagates the added slot)58 W
+9000 10215 MT
+(to all subclasses of)SH
+/Helvetica-Oblique SF
+17726 XM
+(<classname>)SH
+/Helvetica SF
+(.)SH
+/Helvetica-BoldOblique SF
+10800 11841 MT
+(add-cslot <classname> <slot-name> <slot-contents>)SH
+/Helvetica-Oblique SF
+9000 12984 MT
+(Example: \050add-cslot 'horse :rider)
+107 W( 'person\051)106 W
+/Helvetica SF
+28094 XM
+(Augments the class slot of the given class by adding the)106 W
+9000 14127 MT
+(slot <slot-name> with description)50 W
+/Helvetica-Oblique SF
+24039 XM
+(<slot-contents>)SH
+/Helvetica SF
+31204 XM
+(to the class's class-slot data structure.  Only works)50 W
+9000 15270 MT
+(for classes.  Doesn't propagates the change to instances of the class.)SH
+12 /Helvetica-Bold AF
+7200 19025 MT
+(4. Relations)SH
+10 SS 
+8312 20262 MT
+(Parmenides)SH
+/Helvetica SF
+14289 XM
+(allows users to define their own relations, in order to allow links between)
+30 W( frame instances)29 W
+7200 21499 MT
+(and classes other than the standard)370 W
+/Helvetica-Oblique SF
+25596 XM
+(is-a)SH
+/Helvetica SF
+27855 XM
+(and)SH
+/Helvetica-Oblique SF
+30172 XM
+(instance)SH
+/Helvetica SF
+34545 XM
+(links. Relations)
+1020 W( are defined as classes)371 W
+7200 22736 MT
+(themselves, through)29 W
+/Helvetica-Bold SF
+16539 XM
+(def-frame)SH
+/Helvetica SF
+(. User-defined)
+334 W( relations allow one to specify which slots to inherit through)28 W
+7200 23973 MT
+(the relation, and how to)
+55 W( combine values inherited from other frames.  Relations may also have inverses,)56 W
+7200 25210 MT
+(in which case certain bookkeeping is automatically performed by the system.)SH
+11 /Helvetica-Bold AF
+7200 28892 MT
+(4.1. Relation Slots Recognized by the System)SH
+10 /Symbol AF
+9242 30364 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(slots-inherited)SH
+/Helvetica SF
+16554 XM
+(Has a value facet since it can be a list of atoms.)72 W
+/Helvetica-Oblique SF
+39167 XM
+(Slots-inherited)SH
+/Helvetica SF
+45908 XM
+(should be a)71 W
+9980 31507 MT
+(list of <slot-name> that are inherited)
+40 W( from the parent frame.  An extended syntax also allows)41 W
+9980 32650 MT
+(the list \050<slot-name> <combination-type>\051 to be used in the place of a <slot-name> in the)
+11 W( list.)10 W
+9980 33793 MT
+(This allows)
+354 W( individual slots to have combination types which aren't the same as the)355 W
+/Helvetica-Oblique SF
+9980 34936 MT
+(combination-type)SH
+/Helvetica SF
+17920 XM
+(for the relation class.  The keyword :*ALL* is)
+48 W( also recognized for the value)47 W
+9980 36079 MT
+(of this slot.)SH
+/Symbol SF
+9242 37894 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(combination-type)SH
+/Helvetica SF
+17997 XM
+(Facet-less since its value is an atom.  The)125 W
+/Helvetica-Oblique SF
+38018 XM
+(combination-type)SH
+/Helvetica SF
+46036 XM
+(slot defines)126 W
+9980 39037 MT
+(how values are combined with a frame from the parent)
+136 W( frame.  Currently its value can be)135 W
+9980 40180 MT
+(either)SH
+/Helvetica-Oblique SF
+13128 XM
+(:first)SH
+/Helvetica SF
+(,)SH
+/Helvetica-Oblique SF
+15942 XM
+(:append)SH
+/Helvetica SF
+20203 XM
+(or)SH
+/Helvetica-Oblique SF
+21739 XM
+(:nconc)SH
+/Helvetica SF
+(.)SH
+/Helvetica-Oblique SF
+26257 XM
+(:First)SH
+/Helvetica SF
+29126 XM
+(means that the most local)
+369 W( frame's value has)370 W
+9980 41323 MT
+(precedence;)SH
+/Helvetica-Oblique SF
+15769 XM
+(:append)SH
+/Helvetica SF
+19669 XM
+(and)SH
+/Helvetica-Oblique SF
+21623 XM
+(:nconc)SH
+/Helvetica SF
+24855 XM
+(mean to append or nconc)
+8 W( the values from the related frame)7 W
+9980 42466 MT
+(to get the result.)SH
+/Symbol SF
+9242 44281 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(has-inverses)SH
+/Helvetica SF
+16144 XM
+(T or NIL \050facetless\051.  If)
+218 W( true, then the relation is defined to have inverses.)219 W
+9980 45424 MT
+(Inverse relations are supported in a variety of ways in)10 W
+/Helvetica-Bold SF
+33979 XM
+(Parmenides)SH
+/Helvetica SF
+(. When)
+298 W( a class which)
+10 W( is a)9 W
+9980 46567 MT
+(relation with inverses is)
+40 W( defined, the class corresponding to its inverse is also defined.  Also,)41 W
+9980 47710 MT
+(when an instance-making)
+112 W( function or a data-storage function such as)111 W
+/Helvetica-Bold SF
+41885 XM
+(set-slot)SH
+/Helvetica SF
+45830 XM
+(or)SH
+/Helvetica-Bold SF
+47108 XM
+(set-facet)SH
+/Helvetica SF
+9980 48853 MT
+(stores a value on a)
+27 W( slot)28 W
+/Helvetica-Oblique SF
+20705 XM
+(<relation-slot>)SH
+/Helvetica SF
+27347 XM
+(which is a relation with inverses, the value)28 W
+/Helvetica-Oblique SF
+46467 XM
+(<range>)SH
+/Helvetica SF
+50498 XM
+(is)SH
+9980 49996 MT
+(assumed to be a frame.  If it is, then)189 W
+/Helvetica-Oblique SF
+28045 XM
+(<range>)SH
+/Helvetica SF
+32237 XM
+(should have)
+189 W( a slot)188 W
+/Helvetica-Oblique SF
+41328 XM
+(<inverse-relation-slot>)SH
+/Helvetica SF
+9980 51139 MT
+(whose name)
+247 W( is the same as the inverse relation corresponding to)248 W
+/Helvetica-Oblique SF
+41831 XM
+(<relation-slot>)SH
+/Helvetica SF
+(. The)774 W
+/Helvetica-Oblique SF
+9980 52282 MT
+(<range>)SH
+/Helvetica SF
+14032 XM
+(frame will)
+49 W( automatically have the original frame added to the list of values stored in)48 W
+9980 53425 MT
+(its)SH
+/Helvetica-Oblique SF
+11334 XM
+(<inverse-relation-slot>)SH
+/Helvetica SF
+(. When)
+430 W( a class is defined to have a relation)
+76 W( slot, and the value of)77 W
+9980 54568 MT
+(that slot is)
+92 W( another class \050<range>\051, then the inverse relation slot corresponding to that slot)91 W
+9980 55711 MT
+(will be added to the <range> frame, and the value will be the original frame.  The examples)62 W
+9980 56854 MT
+(below will make this more concrete.)SH
+/Symbol SF
+9242 58669 MT
+(\267)SH
+/Helvetica-Oblique SF
+9980 XM
+(inverse-names)SH
+/Helvetica SF
+17058 XM
+(Symbol \050facetless\051.)
+243 W( The)
+763 W( name to be given to the inverse relation if the)242 W
+9980 59812 MT
+(relation has inverses.  Ignored if the relation does not have inverses.  This is the)
+39 W( name used)40 W
+9980 60955 MT
+(to make the inverse relation class when a)
+79 W( relation class is defined, and is also the name of)78 W
+9980 62098 MT
+(the slot)
+72 W( which is updated when a frame is stored in a relation slot.  If not supplied, then the)73 W
+9980 63241 MT
+(inverse name is)
+224 W( constructed by concatenating "inverse-" to the beginning of the relation)223 W
+9980 64384 MT
+(name.)SH
+ES
+%%Page: 11 12
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+50620 XM
+(PAGE 11)SH
+11 SS 
+7200 8002 MT
+(4.2. Examples of Relations)SH
+10 /Helvetica AF
+8312 9239 MT
+(For example, suppose the)SH
+/Helvetica-Oblique SF
+20151 XM
+(part-of)SH
+/Helvetica SF
+23319 XM
+(relation were defined as follows:)SH
+/Courier SF
+10800 10645 MT
+(\050def-frame part-of \050:is-a relation :propagate nil\051)SH
+12000 11676 MT
+(:combination-type :FIRST)SH
+12000 12707 MT
+(:slots-inherited \050:value '\050location made-from\051\051)SH
+12000 13738 MT
+(:has-inverses T)SH
+12000 14769 MT
+(:inverse-name contains\051)SH
+/Helvetica SF
+8312 17147 MT
+(Since)SH
+/Helvetica-Oblique SF
+11217 XM
+(part-of)SH
+/Helvetica SF
+14511 XM
+(is defined to have inverses in this example, the system would automatically define)
+126 W( the)127 W
+/Helvetica-Oblique SF
+7200 18384 MT
+(contains)SH
+/Helvetica SF
+11202 XM
+(relation \050if it hadn't already been defined\051 as:)SH
+/Courier SF
+10800 19790 MT
+(\050def-frame contains \050:is-a relation :propagate nil\051)SH
+12000 20821 MT
+(:has-inverses T)SH
+12000 21852 MT
+(:inverse-name part-of\051)SH
+/Helvetica SF
+8312 24230 MT
+(In order to)
+76 W( define a frame which is)75 W
+/Helvetica-Oblique SF
+24254 XM
+(part-of)SH
+/Helvetica SF
+27497 XM
+(another, use)75 W
+/Helvetica-Oblique SF
+33484 XM
+(part-of)SH
+/Helvetica SF
+36727 XM
+(in the class slot plist.  For example, to)75 W
+7200 25467 MT
+(make)SH
+/Helvetica-Oblique SF
+9923 XM
+(leg)SH
+/Helvetica SF
+11535 XM
+(a part-of)SH
+/Helvetica-Oblique SF
+15537 XM
+(table)SH
+/Helvetica SF
+(, first define the table frame, then type:)SH
+/Courier SF
+9600 26873 MT
+(\050def-frame leg \050part-of table\051)SH
+10800 27904 MT
+(:function \050:value 'support\051\051)SH
+/Helvetica SF
+8312 30282 MT
+(Since the)139 W
+/Helvetica-Oblique SF
+13037 XM
+(part-of)SH
+/Helvetica SF
+16344 XM
+(relation was defined to inherit the slots)139 W
+/Helvetica-Oblique SF
+34603 XM
+(location)SH
+/Helvetica SF
+38466 XM
+(and)SH
+/Helvetica-Oblique SF
+40551 XM
+(made-from)SH
+/Helvetica SF
+(, the)139 W
+/Helvetica-Oblique SF
+47887 XM
+(leg)SH
+/Helvetica SF
+49638 XM
+(frame will)140 W
+7200 31519 MT
+(receive these slots from)66 W
+/Helvetica-Oblique SF
+18301 XM
+(table)SH
+/Helvetica SF
+(. Also,)
+410 W( since)66 W
+/Helvetica-Oblique SF
+26680 XM
+(part-of)SH
+/Helvetica SF
+29913 XM
+(has inverses, and that inverse is named)65 W
+/Helvetica-Oblique SF
+48265 XM
+(contains)SH
+/Helvetica SF
+(, the)65 W
+/Helvetica-Oblique SF
+7200 32756 MT
+(table)SH
+/Helvetica SF
+9742 XM
+(frame will have)96 W
+/Helvetica-Oblique SF
+16976 XM
+(leg)SH
+/Helvetica SF
+18684 XM
+(added to its)96 W
+/Helvetica-Oblique SF
+24421 XM
+(contains)SH
+/Helvetica SF
+28520 XM
+(class slot. \050If it didn't already have a contains class slot,)97 W
+7200 33993 MT
+(then that slot will be added\051.)SH
+8312 36371 MT
+(Note that the class\050es\051 that a frame is a relation to need not be a list if it is only in relation to one frame.)SH
+8312 38749 MT
+(Instances may also have relations with other instances)
+115 W( or classes.  Since slots can not be added to)114 W
+7200 39986 MT
+(instances, instances may inherit only values)
+69 W( from other frames.  The relation is specified as an instance)70 W
+7200 41223 MT
+(slot when defining the class.  For example,)
+102 W( in order to make different instances of legs part-of different)101 W
+7200 42460 MT
+(instances of tables, the leg frame would be defined thusly:)SH
+/Courier SF
+9600 43866 MT
+(\050def-frame leg \050part-of table\051)SH
+10800 44897 MT
+(:part-of table)SH
+10800 45928 MT
+(:function \050:value 'sit-on\051\051)SH
+/Helvetica SF
+8312 48306 MT
+(This would cause)94 W
+/Helvetica-Bold SF
+16597 XM
+(Parmenides)SH
+/Helvetica SF
+22638 XM
+(to add the)95 W
+/Helvetica-Oblique SF
+27649 XM
+(contains)SH
+/Helvetica SF
+31746 XM
+(instance slot to the)95 W
+/Helvetica-Oblique SF
+40742 XM
+(table)SH
+/Helvetica SF
+43283 XM
+(frame if it didn't already)95 W
+7200 49543 MT
+(exist.)SH
+/Helvetica-Oblique SF
+10090 XM
+(Leg)SH
+/Helvetica SF
+12036 XM
+(would be added to the list of values of the)SH
+/Helvetica-Oblique SF
+30714 XM
+(contains)SH
+/Helvetica SF
+34716 XM
+(slot of)SH
+/Helvetica-Oblique SF
+37662 XM
+(table)SH
+/Helvetica SF
+(.)SH
+8312 51921 MT
+(To inherit values from table frames,)
+73 W( when a leg instance is made, a table is given as the value of the)72 W
+/Helvetica-Oblique SF
+7200 53158 MT
+(part-of)SH
+/Helvetica SF
+10368 XM
+(slot:)SH
+/Courier SF
+9600 54564 MT
+(\050make-leg 'leg1)SH
+12000 55595 MT
+(:part-of 'table1\051)SH
+/Helvetica-Oblique SF
+8312 57973 MT
+(leg1)SH
+/Helvetica SF
+10480 XM
+(would be added to the list of values in the)SH
+/Helvetica-Oblique SF
+29102 XM
+(contains)SH
+/Helvetica SF
+33104 XM
+(slot of)SH
+/Helvetica-Oblique SF
+36050 XM
+(table1)SH
+/Helvetica SF
+(.)SH
+8312 60351 MT
+(Currently the)52 W
+/Helvetica-Oblique SF
+14418 XM
+(is-a)SH
+/Helvetica SF
+16359 XM
+(relation is special, so)
+52 W( if the user defines the is-a relation, it will not affect inheritance)53 W
+7200 61588 MT
+(through)SH
+/Helvetica-Oblique SF
+10869 XM
+(is-a)SH
+/Helvetica SF
+12758 XM
+(specified as a class slot.)SH
+12 /Helvetica-Bold AF
+7200 65343 MT
+(5. Demons)SH
+10 /Helvetica AF
+8312 66580 MT
+(Instead of having only one type of demon associated with)
+36 W( access functions,)35 W
+/Helvetica-Bold SF
+42370 XM
+(Parmenides)SH
+/Helvetica SF
+48352 XM
+(provides two)35 W
+7200 67817 MT
+(different types.  Sometimes it is useful to perform some action before a slot is set \050for example, to delete)44 W
+7200 69054 MT
+(the old slot value from some data)
+312 W( base\051, and then perform another action afterwards.  Similarly,)311 W
+7200 70291 MT
+(sometimes it is useful to perform some action both before a retrieve request \050e.g., to compute the)
+36 W( value\051,)37 W
+7200 71528 MT
+(and after the request \050e.g., to update a data base\051.)SH
+ES
+%%Page: 12 13
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+50620 XM
+(PAGE 12)SH
+10 /Helvetica AF
+8312 7929 MT
+(Demons \050corresponding)
+173 W( to methods in object-based languages\051 are single s-expressions which are)172 W
+7200 9166 MT
+(evaluated when certain facets are accessed \050set or)
+6 W( retrieved\051.  Since demons can be stored as both class)7 W
+7200 10403 MT
+(slots and slot facets, they can be associated with either a class or a)
+138 W( slot, or both.  When a demon is)137 W
+7200 11640 MT
+(evaluated, the following lisp variables are)
+62 W( locally set \050although)63 W
+/Helvetica-Oblique SF
+35385 XM
+(specially)SH
+/Helvetica SF
+39560 XM
+(bound - see p. 157 of)63 W
+/Helvetica-Bold SF
+49667 XM
+(Common)SH
+7200 12877 MT
+(Lisp, The Language)SH
+/Helvetica SF
+(, by Guy L. Steele, Jr.\051:)SH
+/Symbol SF
+9242 14349 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(framename -- the name of the frame that is being accessed)SH
+/Symbol SF
+9242 16164 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(slotname -- the name of the slot being accessed)SH
+/Symbol SF
+9242 17979 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(facetname -- the name of the facet being accessed)SH
+/Symbol SF
+9242 19794 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(frame -- the actual frame data structure \050not the name\051 being accessed)SH
+/Symbol SF
+9242 21609 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(snum -- slot number of the slot)SH
+/Symbol SF
+9242 23424 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(facetnum -- facet number)SH
+/Symbol SF
+9242 25239 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(newval -- value being stored \050only for demons which set values\051)SH
+8312 27617 MT
+(The following demons types are recognized by)SH
+/Helvetica-Bold SF
+29210 XM
+(Parmenides)SH
+/Helvetica SF
+(.)SH
+/Symbol SF
+9242 29089 MT
+(\267)SH
+/Helvetica-Bold SF
+9980 XM
+(if-needed)SH
+/Helvetica SF
+(. When)554 W
+/Helvetica-Bold SF
+18562 XM
+(get-facet-demons)SH
+/Helvetica SF
+27311 XM
+(is used to retrieve a facet, the following algorithm is)137 W
+9980 30232 MT
+(used:)SH
+12204 31633 MT
+(1.)SH
+13316 XM
+(Try to get an immediate value.)SH
+12204 33448 MT
+(2.)SH
+13316 XM
+(If there is no immediate value \050i.e., if)
+32 W( the value stored there is NIL\051, then try to invoke)33 W
+13316 34591 MT
+(the if-needed demon stored on that slot.)SH
+12204 36406 MT
+(3.)SH
+13316 XM
+(If there is no demon on that slot, then try calling a demon stored on the class.)SH
+/Symbol SF
+9242 38221 MT
+(\267)SH
+/Helvetica-Bold SF
+9980 XM
+(pre-if-set)SH
+/Helvetica SF
+(. When)424 W
+/Helvetica-Bold SF
+18201 XM
+(set-facet-demons)SH
+/Helvetica SF
+26831 XM
+(is used to set the value of a facet, before the frame is)73 W
+9980 39364 MT
+(changed, any pre-if-set demons stored on either the slot or the class will be evaluated.)SH
+/Symbol SF
+9242 41179 MT
+(\267)SH
+/Helvetica-Bold SF
+9980 XM
+(post-if-set)SH
+/Helvetica SF
+(. When)458 W
+/Helvetica-Bold SF
+18807 XM
+(set-facet-demons)SH
+/Helvetica SF
+27454 XM
+(is used to set the value)
+90 W( of a facet, after the frame is)91 W
+9980 42322 MT
+(changed, any post-if-set demons stored on either the slot or the class will be evaluated.)SH
+8312 44700 MT
+(In summary, when the)SH
+/Helvetica-Bold SF
+18427 XM
+(set-facet-demons)SH
+/Helvetica SF
+26984 XM
+(command is issued, the following sequence occurs:)SH
+9424 46101 MT
+(1.)SH
+10536 XM
+(Execute any)SH
+/Helvetica-Bold SF
+16317 XM
+(pre-if-set)SH
+/Helvetica SF
+20873 XM
+(demons associated with the slot.)SH
+9424 47916 MT
+(2.)SH
+10536 XM
+(Execute any)SH
+/Helvetica-Bold SF
+16317 XM
+(pre-if-set)SH
+/Helvetica SF
+20873 XM
+(demons associated with the class.)SH
+9424 49731 MT
+(3.)SH
+10536 XM
+(Set the facet to the new value.)SH
+9424 51546 MT
+(4.)SH
+10536 XM
+(Execute any)SH
+/Helvetica-Bold SF
+16317 XM
+(post-if-set)SH
+/Helvetica SF
+21428 XM
+(demons associated with the slot.)SH
+9424 53361 MT
+(5.)SH
+10536 XM
+(Execute any)SH
+/Helvetica-Bold SF
+16317 XM
+(post-if-set)SH
+/Helvetica SF
+21428 XM
+(demons associated with the class.)SH
+12 /Helvetica-Bold AF
+7200 57116 MT
+(6. Multiple Language Messages)SH
+10 /Helvetica AF
+8312 58353 MT
+(Parmenides can produce its messages in a number of languages.  Although)
+67 W( it currently supports only)66 W
+7200 59590 MT
+(English and Spanish, it is easy to add new languages through message files.  When Parmenides)
+191 W( is)192 W
+7200 60827 MT
+(loaded, it loads a message file)
+71 W( for the appropriate language.  When installing Parmenides, the definition)70 W
+7200 62064 MT
+(of the Parmenides directory must)
+281 W( be set - change the variable *PA-PATHNAME*, near the top of)282 W
+7200 63301 MT
+(parmenides.lisp. The)
+568 W( language can also be set by)
+145 W( changing the variable *LANGUAGE*.  The current)144 W
+7200 64538 MT
+(language can be changed by calling)45 W
+/Helvetica-Bold SF
+23702 XM
+(define-language)SH
+/Helvetica SF
+31693 XM
+(with the name of the appropriate language.)
+45 W( "eng")370 W
+7200 65775 MT
+(defines English, and "esp" defines Spanish.)SH
+ES
+%%Page: 13 14
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+50620 XM
+(PAGE 13)SH
+12 SS 
+7200 8075 MT
+(7. Compiling User Frame Files)SH
+10 /Helvetica AF
+8312 9312 MT
+(As mentioned previously, user frame files \050i.e., files containing Def-frame\051 may be compiled when)
+19 W( a set)18 W
+7200 10549 MT
+(of frames is known to be stable.)
+91 W( After)
+462 W( that, the compiled frame file may be loaded in without having to)92 W
+7200 11786 MT
+(load in the source frame file.  \050compiled file extensions for spice lisp are .fasl; for the Symbolics they)
+50 W( are)49 W
+7200 13023 MT
+(.bin\051. This)
+352 W( results in considerable loading and executing speed up, since in the act of compiling the)
+37 W( files,)38 W
+7200 14260 MT
+(the Def-frame command is executed and all)
+91 W( the access and make functions are defined.  However, the)90 W
+7200 15497 MT
+(Parmenides program should be loaded)
+32 W( in before the frame files are either compiled or loaded, in order to)33 W
+7200 16734 MT
+(get the definitions of the general Parmenides functions \050such as get-facet\051.)SH
+12 /Helvetica-Bold AF
+7200 20489 MT
+(8. Future enhancements)SH
+10 /Symbol AF
+9242 21961 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(Frame classes should be able to be declared)
+56 W( to not have instances if they are only used for)55 W
+9980 23104 MT
+(concepts. For)
+300 W( example, one probably wouldn't make any instances of the animal class if)
+11 W( one)12 W
+9980 24247 MT
+(had sub-classes such as mammal and amphibian.  This would save the time and storage)139 W
+9980 25390 MT
+(space of creating a default instance and defining maker and access functions.)SH
+/Symbol SF
+9242 27205 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(Frames should)
+65 W( be able to be both classes and instances.  For example, the person class is)66 W
+9980 28348 MT
+(an instance of the class class.)SH
+/Symbol SF
+9242 30163 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(In order to make class slots more complete, they)
+87 W( should also be allowed on slots.  If a slot)86 W
+9980 31306 MT
+(had a meta-value, this would only be stored in the slots of the class, and not the instances.)SH
+/Symbol SF
+9242 33121 MT
+(\267)SH
+/Helvetica SF
+9980 XM
+(Ability to delete facets and slots.)SH
+12 /Helvetica-Bold AF
+7200 36876 MT
+(9. Acquiring, Loading, Compiling and Using Parmenides)SH
+10 SS 
+8312 38113 MT
+(Parmenides)SH
+/Helvetica SF
+14302 XM
+(is free to affiliates and members of the CMU community.)
+43 W( It)
+366 W( is available for a nominal fee)44 W
+7200 39350 MT
+(to all others.  To request a copy, send mail to pshell@ml.ri.cmu.edu or write to:)SH
+9424 41636 MT
+(Peter Shell)SH
+9424 42779 MT
+(School of Computer Science)SH
+9424 43922 MT
+(Carnegie Mellon University)SH
+9424 45065 MT
+(Pittsburgh, PA  15213)SH
+8312 47443 MT
+(The Parmenides source file is)
+154 W( /usr/pshell/parmenides/parmenides.lisp on the ML vax or Wiener RT,)153 W
+7200 48680 MT
+(and works under any reasonable dialect of Common)
+44 W( Lisp.  Parmenides should be compiled before used.)45 W
+7200 49917 MT
+(Parmenides must be loaded before it is compiled.  In order to load the multi-lingual)
+118 W( message files, the)117 W
+7200 51154 MT
+(variable *PA-PATHNAME*, near the top of parmenides.lisp, must be)
+99 W( defined.  This variable defines the)100 W
+7200 52391 MT
+(directory in which)
+96 W( the Parmenides files are found.  To run Parmenides under CMU Common lisp on an)95 W
+7200 53628 MT
+(RT, load /../wiener/usr/pshell/parmenides/parmenides.fasl.  Parmenides is put into a)
+278 W( package called)279 W
+7200 54865 MT
+('Parmenides' with nicknames)
+108 W( 'Parm' and 'Pa'.  After loading Parmenides, one should do:)107 W
+/Helvetica-Oblique SF
+47942 XM
+(\050use-package)SH
+7200 56102 MT
+('parmenides\051)SH
+/Helvetica SF
+(.)SH
+8312 58480 MT
+(This document is /../ml/usr/pshell/parmenides/parmenides.{mss, doc,)
+61 W( ps}.  This directory also contains)62 W
+7200 59717 MT
+(a test file called prtest.lisp.  After compiling Parmenides,)
+98 W( load this file to ensure that Parmenides works)97 W
+7200 60954 MT
+(okay on your system.  If there)
+685 W( are any questions or comments, please send mail to)686 W
+7200 62191 MT
+(PShell@ml.ri.cmu.edu.)SH
+ES
+%%Page: i 15
+BS
+0 SI
+8 /Helvetica-Bold AF
+7200 4183 MT
+(PARMENIDES MANUAL)SH
+51288 XM
+(PAGE I)SH
+12 SS 
+25533 8075 MT
+(Table of Contents)SH
+11 SS 
+9036 9319 MT
+(1. Introduction)SH
+53388 XM
+(1)SH
+9036 10563 MT
+(2. Propagation and Caching versus Inheritance)SH
+53388 XM
+(2)SH
+9036 11807 MT
+(3. Parmenides Commands)SH
+53388 XM
+(2)SH
+10 SS 
+11092 12956 MT
+(3.1. Class Definition Commands)SH
+53444 XM
+(3)SH
+13316 14105 MT
+(3.1.1. slot-descriptions)SH
+53444 XM
+(3)SH
+13316 15254 MT
+(3.1.2. cplist)SH
+53444 XM
+(3)SH
+13316 16403 MT
+(3.1.3. Discussion)SH
+53444 XM
+(4)SH
+13316 17552 MT
+(3.1.4. Examples of Def-frame)SH
+53444 XM
+(5)SH
+11092 18701 MT
+(3.2. Commands that Make Instances)SH
+53444 XM
+(6)SH
+11092 19850 MT
+(3.3. Data Retrieval Commands)SH
+53444 XM
+(6)SH
+11092 20999 MT
+(3.4. Data Storage Commands)SH
+53444 XM
+(8)SH
+11092 22148 MT
+(3.5. Predicates)SH
+53444 XM
+(8)SH
+11092 23297 MT
+(3.6. Miscellaneous Commands)SH
+53444 XM
+(9)SH
+11 SS 
+9036 24541 MT
+(4. Relations)SH
+52776 XM
+(10)SH
+10 SS 
+11092 25690 MT
+(4.1. Relation Slots Recognized by the System)SH
+52888 XM
+(10)SH
+11092 26839 MT
+(4.2. Examples of Relations)SH
+52888 XM
+(11)SH
+11 SS 
+9036 28083 MT
+(5. Demons)SH
+52776 XM
+(11)SH
+9036 29327 MT
+(6. Multiple Language Messages)SH
+52776 XM
+(12)SH
+9036 30571 MT
+(7. Compiling User Frame Files)SH
+52776 XM
+(13)SH
+9036 31815 MT
+(8. Future enhancements)SH
+52776 XM
+(13)SH
+9036 33059 MT
+(9. Acquiring, Loading, Compiling and Using Parmenides)SH
+52776 XM
+(13)SH
+ES
+%%Trailer
+%%Pages: 15
+%%DocumentFonts: Helvetica Helvetica-Bold Symbol Helvetica-Oblique Helvetica-BoldOblique Courier-Bold Courier

@@ -1,0 +1,120 @@
+Received: from C.CS.CMU.EDU by ML.RI.CMU.EDU; 11 May 87 21:01:30 EDT
+Received: from ATHENA (ATHENA.MIT.EDU) by C.CS.CMU.EDU with TCP; Mon 11 May 87 20:59:39-EDT
+Received: by ATHENA (5.45/4.7)
+	id AA29022; Mon, 11 May 87 20:59:56 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA10813; Mon, 11 May 87 20:58:52 EDT
+Message-Id: <8705120058.AA10813@DEMETER.MIT.EDU>
+To: pshell@C.CS.CMU.EDU
+Subject: get in touch
+Date: Mon, 11 May 87 20:58:50 EDT
+
+Pete, 
+
+I think the machines refuse to talk together. I therefore 
+try this address. Tell me if you receive anything. 
+
+Here are my last mails. 
+
+shell8
+		Hi Pete,
+
+	I didn't receive any answer from you to my last couple of 
+mails. I hope nothing's wrong. Hopwever, if you didn't receive them, 
+I can always send you a copy. Just let me know.
+
+	Right now, I've got an interesting bug. When I redefine the 
+same class twice in a row, giving it different parents, the second 
+class defined gets the cons of the previous and the given parents.
+
+> (def-frame bidon ())
+Re-defining class BIDON
+;;; Warning: Redefining MAKE-BIDON
+BIDON
+> (isas 'bidon)
+NIL
+> (def-frame bidon (is-a (node)))
+Re-defining class BIDON
+;;; Warning: Redefining MAKE-BIDON
+BIDON
+> (isas 'bidon)
+(NODE)
+> (def-frame bidon (is-a (level)))
+Re-defining class BIDON
+;;; Warning: Redefining MAKE-BIDON
+BIDON
+> (isas 'bidon)
+(NODE LEVEL)
+
+	Do you observe such behavior or did I do something wrong ? 
+
+	Thanks for answering. 
+
+
+			NICK
+
+
+shell9
+Pete, I have a strange behavior in inherited slots. Here is the code.
+
+(setq node
+      (frame
+       (def-frame node (cache *ALL*)
+  linked-to-root (value *DEFAULT*)
+  components (value *DEFAULT*)
+  parent (value *DEFAULT*)
+  x (value *DEFAULT* changeable t)
+  y (value *DEFAULT* changeable t)
+  space (value *DEFAULT* changeable t))))
+
+(setq building
+      (frame
+       (def-frame building (is-a (node))
+  name (value "building" changeable t)
+  has-parts (value *DEFAULT*))))
+
+(set-value building 'components 'grid)
+
+Re-defining class NODE
+;;; Warning: Redefining MAKE-NODE
+Re-defining class BUILDING
+;;; Warning: Redefining MAKE-BUILDING
+
+;when I load the file, I cannot make any more subclasses of node
+;this is because the slot plist has been modified by the call to
+;set-value (see the @@@GRID@@@, I added the @@@ of course)
+
+(symbol-plist 'node)
+
+(INSTANCE-NAMES (ROOT) INVERSE-ISAS (BIDON 3D-LATERAL-2 3D-LATERAL-1 3D-GRAVITY-MATERIAL 3D-LATERAL-MATERIAL IMAGINARY-LOAD GRAVITY-LOAD LATERAL-LOAD GRID BUILDING LEVEL) ISAS NIL :FRAME #<Vector T 7 CA8263> INSTANCES (#<Vector T 7 CA8263>) CLASSP T :FRAME-TYPE Frame NODE:
+Slots: (%CLASS NODE LINKED-TO-ROOT (VALUE *DEFAULT* DEPTH 1) COMPONENTS (VALUE @@@GRID@@@ DEPTH 0) PARENT (VALUE *DEFAULT* DEPTH 1) X (VALUE *DEFAULT* DEPTH 1 CHANGEABLE T) Y (VALUE *DEFAULT* DEPTH 1 CHANGEABLE T) SPACE (VALUE *DEFAULT* DEPTH 1 CHANGEABLE T))
+
+;the only patch I could find for this limited situation is 
+
+(set-value node 'components '*DEFAULT*)
+
+;but that can only work in limited cases
+
+What do you think is going wrong ?
+
+I hope you don't mind my bothering you twice in a day.
+
+			NICK
+
+shell10
+	Pete, I couldn't get in touch with the second machine 
+either. 
+	I know it's going to take you some time, but could you 
+please send me the corresponding files and documemntation through 
+the E-mail ?
+	Last thing, how could I get a hand at class slots, like 
+cache and everything ?
+
+	Thanks for keeping me aware of the new release.
+
+			NICK
+
+
+
+
+

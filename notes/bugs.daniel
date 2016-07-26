@@ -1,0 +1,98 @@
+
+Received: from ML.RI.CMU.EDU by ML.RI.CMU.EDU; 27 Feb 89 13:30:20 EST
+To: pshell@ml
+cc: dborrajo@ml
+Subject: Parmenides bugs?
+Date: Mon, 27 Feb 89 13:30:15 EST
+Message-ID: <10183.604607415@ML.RI.CMU.EDU>
+From: Daniel.Borrajo@ML.RI.CMU.EDU
+Status: R
+
+Peter,
+ I'm now working on testing Parmenides. I've got some comments about PA:
+  - (pa-class-of 'animal) formats: No such frame NIL. This is because it
+    calls name-to-frame that returns NIL if its argument is not a frame.
+    Is this the right behavior?
+  - Shouldn't get-slot, get-value, set-slot ... test if their arguments
+    are a defined class and/or slot ?
+  - Should copy-frame report an error "no such frame" instead of saying
+    something clisp-errorlike ?
+
+I haven't changed anything on any file, so they continue being yours,
+except for the pa-messages files, where I've changed a couple of messages.
+
+...Daniel
+
+
+Received: from ML.RI.CMU.EDU by ML.RI.CMU.EDU; 27 Feb 89 15:53:25 EST
+To: pshell@ML.RI.CMU.EDU
+cc: dborrajo@ML.RI.CMU.EDU
+Subject: More Parmenides bugs ???
+Date: Mon, 27 Feb 89 15:53:19 EST
+Message-ID: <10833.604615999@ML.RI.CMU.EDU>
+From: Daniel.Borrajo@ML.RI.CMU.EDU
+Status: R
+
+Peter,
+  More questions:
+ * In my version of parmenides.lisp, pa-class-of is declared exportable.
+ * If an add-slot is evaluated with an existing class and slot, nothing
+is done (good) but also nothing is said (bad??)
+ * If the same thing is done with add-cslot, it says nothing and creates
+another cslot with the same name. I don't know if that is wanted.
+...Daniel
+
+
+Received: from ML.RI.CMU.EDU by ML.RI.CMU.EDU; 27 Feb 89 17:19:02 EST
+To: pshell@ml
+cc: dborrajo@ml
+Subject: The end, I hope.
+Date: Mon, 27 Feb 89 17:18:57 EST
+Message-ID: <11185.604621137@ML.RI.CMU.EDU>
+From: Daniel.Borrajo@ML.RI.CMU.EDU
+Status: R
+
+I think those are the last ??bugs??:
+ * get-facet, local-p, get-slot-names, slotp, facetedp, set-facet (with
+   class, slot and/or facet), set-slot (the same as before), return
+   a clisp-like-error if their arguments are not defined.
+ * Have you defined instancep?. It is mentioned on the manual but I have 
+   not seen it.
+ * If the slot doesn't exist, do-facets will print "the slot ~S of the
+   class ~S has no facets". Is it alright?
+ * Given (def-frame animal () height 34), (get-facet 'animal 'height 'value)
+   returns an error.
+ * class-of returns something including Build-In-Class SYMBOL, whether the
+   argument isn't defined as a class, or it is defined as the root class.
+ * isas and immediate-isas return an error "no such frame NIL" because
+   they call pa-class-of, if the argument isn't a defined class.
+ * (def-frame x (is-a y)), given y is not defined as a class, says that
+   the system ignores it. However, if you evaluate (pa::pp-frame 'x) it
+   will appear. If you define afterwards y as a class, x will know anything
+   abuot it.
+ * instances-of and instance-names-of return NIL if the argument doesn't
+   exist. Is it alright?
+
+THE END
+
+...Daniel
+
+
+Received: from ML.RI.CMU.EDU by ML.RI.CMU.EDU; 22 Mar 89 16:42:28 EST
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: signing out Parmenides 
+In-reply-to: Your message of Wed, 22 Mar 89 16:35:28 -0500.
+Date: Wed, 22 Mar 89 16:42:22 EST
+Message-ID: <6617.606606142@ML.RI.CMU.EDU>
+From: Daniel.Borrajo@ML.RI.CMU.EDU
+Status: R
+
+I'm sorry but if you do:
+(def-frame a nil :s 10)
+(setq a1 (make-frame 'a 'a1))
+(get-facet 'a1 :s :value)
+ or
+(get-value 'a1 :s)
+it will give you an error.
+...Daniel
+

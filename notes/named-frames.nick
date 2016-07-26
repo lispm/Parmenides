@@ -1,0 +1,68 @@
+
+Return-Path: <ngroleau@ATHENA.MIT.EDU>
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 14 Dec 89 10:17:52 EST
+Received: from M37-318-12.MIT.EDU by ATHENA.MIT.EDU with SMTP
+	id AA28226; Thu, 14 Dec 89 10:17:37 EST
+From: ngroleau@ATHENA.MIT.EDU
+Received: by M37-318-12.MIT.EDU (5.61/4.7) id AA16911; Thu, 14 Dec 89 10:16:55 -0500
+Message-Id: <8912141516.AA16911@M37-318-12.MIT.EDU>
+To: Peter.Shell@ML.RI.CMU.EDU
+Cc: ngroleau@ATHENA.MIT.EDU
+Subject: some comments and questions
+Date: Thu, 14 Dec 89 10:16:52 EST
+Status: R
+
+
+		Peter, 
+
+I've been playing aroud with the Parmenides/FRulekit package for a little 
+while now on a Mac using Allegro Common Lisp 1.2.2. 
+
+1.
+
+When running FRulekit (the ower of Hanoi problem) I ran against an undefined 
+function: "ccl::%puthash-for-setf". I patched the problem with: 
+
+(defun ccl::%puthash-for-setf (a b c) (ccl:puthash a b c))
+
+Do all Allegro users experience this? Is this a proper patch? Should it be 
+part of the "build" file?
+
+
+2.
+
+In Parmenides, most functions take either a frame or a framename. However, 
+the set and get functions defined by Parmenides require a frame and won't 
+take a framename. It sounds to me to be just a question of adding 
+"assure-frame" calls at the right place in the define-accessor macro (or 
+something like it). 
+
+Is there a reason for not doing it? If not, could you tell me where to put 
+these "assure-frame" calls?
+
+3.
+
+The pp-frame function doesn't print the class of an instance if the instance 
+has a name. I believe it used to (somewhere back in time). 
+
+Is there a reason for the change? I noticed save-frame and pp-frame use the 
+same core functions like write-header (which is involved here). I changed 
+the following line of write-header:
+
+(cond
+.....
+	(name (format stream "Frame ~S~%" name))
+
+to: 
+
+(cond
+.....
+	(name (format stream "Frame ~S~ of Class ~S%" name classname))
+
+Is this going to have an effect on the save-frame calls and screw them up?
+
+
+	Nick.
+
+
+

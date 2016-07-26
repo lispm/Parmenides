@@ -1,0 +1,36 @@
+
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 18 Feb 88 18:54:16 EST
+Received: by ATHENA.MIT.EDU (5.45/4.7) id AA09254; Thu, 18 Feb 88 18:51:46 EST
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by M1-245-1 (5.45/4.7)
+	id AA14509; Thu, 18 Feb 88 18:50:58 EST
+Message-Id: <8802182350.AA14509@M1-245-1>
+To: pshell@ml.ri.cmu.edu
+Subject: unknown frames
+Date: Thu, 18 Feb 88 18:50:53 EST
+Status: R
+
+
+
+		Peter, 
+
+	It has been a long time since I have mailed, but that's usually
+good news. The system works smoothly, and I am still enjoying it.
+
+	I have a question about the test in the set-inverse-facet function.
+I have problems with two possible values. When I declare a frame to have a
+relation with () or another frame (not it's name), I have the message
+[* is not a frame though ** has relation *** to it].
+	I hacked the function to get rid of the message with ()s but I seem
+unable to do the same with actual frames. I guess that the frame making
+function (make-frame0 probably) doesn't make the current frame a frame before
+calling the set-inverse-facet function.
+	Could you tell me how to fix that. I am getting in to heavy compilation
+and loading and executing time constraints and all those messages eat up a
+lot of time.
+
+	Thanks
+
+			Nick.
+
+

@@ -1,0 +1,19 @@
+
+Received: from ML.RI.CMU.EDU by ML.RI.CMU.EDU; 16 Feb 89 16:31:15 EST
+To: pshell@ml
+cc: dborrajo@ML.RI.CMU.EDU
+Subject: Parmenides
+Date: Thu, 16 Feb 89 16:31:10 EST
+Message-ID: <8231.603667870@ML.RI.CMU.EDU>
+From: Daniel.Borrajo@ML.RI.CMU.EDU
+Status: R
+
+Hi, Peter.
+  I think I have finished with Parmenides. I made some changes on 
+parmenides.lisp, so the packages stuff will work. I have many files now.
+The best way to understand what I have made is to see the file:
+    /../swift/usr/dborrajo/lisp/read-me.txt
+If you want me to talk about it just email me. Please, tell me when you
+are done with the other files and if you are going to use Parmenides again.
+...Daniel
+

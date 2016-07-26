@@ -1,0 +1,25 @@
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU; 29 Apr 87 22:08:03 EDT
+Date: 29 Apr 1987 21:59-EDT 
+From: Ira.Monarch@nl.cs.cmu.edu
+To: pshell@ml
+Subject: Parmenides loading problem
+Message-Id: <546746367/iam@nl.cs.cmu.edu>
+
+After loading this on top of stan.prm, I can't load anything else.
+
+(DEF-FRAME information-constituent (is-a (mental-object)))
+	(DEF-FRAME character (is-a (information-constituent)))
+	(DEF-FRAME number (is-a (information-constituent)))
+	(DEF-FRAME comp-struct (is-a (information-constituent)))
+	;;
+	(DEF-FRAME string (is-a (comp-struct)))
+	(DEF-FRAME vector (is-a (comp-struct)))
+	(DEF-FRAME symbol (is-a (comp-struct)))
+	(DEF-FRAME array (is-a (comp-struct)))
+
+Of course when I add suffixes to all the lispy terms it loads just
+fine.  I'm not sure which of them is the culprit. 
+
+Ira
+
+

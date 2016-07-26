@@ -1,0 +1,131 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 14 Jul 87 12:30:09 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7)
+	id AA23590; Tue, 14 Jul 87 11:49:14 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA05112; Tue, 14 Jul 87 11:48:57 EDT
+Message-Id: <8707141548.AA05112@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: still not
+Date: Tue, 14 Jul 87 11:48:55 EDT
+
+
+		Peter, 
+
+	I grabbed a second version of Parmenides from ml. It is 
+77540 bytes long. I hope it is the right one. If it is, I tried it 
+on the example I sent you as well as on my working files and it 
+doesn't work. I get nils in the slot of the related frame the first 
+time and it gets mixed-up between the slots from the first and the 
+second run the second time. 
+
+-------------------------------------------------------------------
+			FIRST RUN
+-------------------------------------------------------------------
+> (load "shell")
+Re-defining class PARENT
+;;; Warning: Redefining MAKE-PARENT
+Re-defining class A
+;;; Warning: Redefining MAKE-A
+Defining class B
+[NIL is not a frame, though #<Vector T 2 BB6403> has relation :COMPONENTS to it.]
+Frame Class A: (:CACHE (:%CLASS))
+COMPONENTS      (:VALUE NIL :DEPTH 0)
+
+%CLASS          A
+COMPONENTS      (:VALUE (NIL) :DEPTH 0)
+
+Frame Class B: (:CACHE (:%CLASS))
+PARENT          (:VALUE NIL :DEPTH 0)
+
+%CLASS          B
+PARENT          (:VALUE (#<Vector T 2 BB6403>) :DEPTH 0)
+
+#P"/usr/iesl/groleau/groleau/destiny/shell"
+> a
+#<Vector T 2 BB5A33>
+> a1
+#<Vector T 2 BB6403>
+> b
+#<Vector T 2 BC065B>
+> b1
+#<Vector T 2 BC10BB>
+
+----------------------------------------------------------------
+			SECOND RUN
+----------------------------------------------------------------
+> (load "shell")
+Re-defining class PARENT
+;;; Warning: Redefining MAKE-PARENT
+Re-defining class A
+;;; Warning: Redefining MAKE-A
+Re-defining class B
+;;; Warning: Redefining MAKE-B
+[NIL is not a frame, though #<Vector T 2 BB6403> has relation :COMPONENTS toit.]
+;;; Warning: Redefining PPP
+Frame Class A: (:CACHE (:%CLASS))
+COMPONENTS      (:VALUE NIL :DEPTH 0)
+
+%CLASS          A
+COMPONENTS      (:VALUE (#<Vector T 2 BC10BB>) :DEPTH 0)
+
+Frame Class B: (:CACHE (:%CLASS))
+PARENT          (:VALUE NIL :DEPTH 0)
+
+%CLASS          B
+PARENT          (:VALUE (#<Vector T 2 BD3133>) :DEPTH 0)
+
+#P"/usr/iesl/groleau/groleau/destiny/shell"
+> a
+#<Vector T 2 BD2763>
+> a1
+#<Vector T 2 BD3133>
+> b
+#<Vector T 2 BD695B>
+> b1
+#<Vector T 2 BD739B>
+--------------------------------------------------------------------
+			THE FILE
+--------------------------------------------------------------------
+(def-frame parent (is-a relation)
+  has-inverses t
+  inverse-name components)
+
+(setq a
+      (frame
+       (def-frame a ()
+  components (value ()))))
+
+(setq a1
+      (make-frame 'a 'a1))
+
+(setq b
+      (frame
+       (def-frame b ()
+  parent (value ()))))
+
+(setq b1
+      (make-frame 'b 'b1
+                  :parent `(value ,a1)))
+
+(defun ppp (x)
+  (pp-frame x)
+  (terpri))
+
+(ppp a)
+(ppp a1)
+(ppp b)
+(ppp b1)
+--------------------------------------------------------------------
+			THE END
+--------------------------------------------------------------------
+
+	It looks like if Parmenides doesn't consider the currently 
+created frame as a frame. This would both explain the messages I 
+always have "NIL is not a frame..." and the fact that in the second 
+run the new a1 gets related to the old b1. 
+	Tell me what you can find about it. 
+
+		NICK
+
+	
+

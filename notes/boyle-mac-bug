@@ -1,0 +1,59 @@
+-- Messages from file: /usr0/pshell/mail.txt --
+   Tuesday, 10 March 1992 10:53AM
+
+     160)  9-Mar Franklin Boyle  Converting Parmenides and FR (2398 chars)
+
+
+Message 160 -- *********************
+Return-Path: <@wiener.prodigy.cs.cmu.edu:fb0m+@andrew.cmu.edu>
+Received: from wiener.prodigy.cs.cmu.edu by SALVADOR.MT.CS.CMU.EDU id aa13328;
+          9 Mar 92 18:05:26 EST
+Received: from andrew.cmu.edu by WIENER.PRODIGY.CS.CMU.EDU id aa06260;
+          9 Mar 92 18:05:15 EST
+Received: by andrew.cmu.edu (5.54/3.15) id <AA16454> for pshell@wiener.prodigy.cs.cmu.edu; Mon, 9 Mar 92 18:05:00 EST
+Received: via switchmail; Mon,  9 Mar 1992 18:04:56 -0500 (EST)
+Received: from pcs8.andrew.cmu.edu via qmail
+          ID </afs/andrew.cmu.edu/service/mailqs/q003/QF.QdiyuXO00WBM80f6xe>;
+          Mon,  9 Mar 1992 18:02:59 -0500 (EST)
+Received: from pcs8.andrew.cmu.edu via qmail
+          ID </afs/andrew.cmu.edu/usr1/fb0m/.Outgoing/QF.4diyuTa00WBMM7jXoJ>;
+          Mon,  9 Mar 1992 18:02:55 -0500 (EST)
+Received: from mms.0.1.873.MacMail.0.9.CUILIB.3.45.SNAP.NOT.LINKED.pcs8.andrew.cmu.edu.pmax.ul4
+          via MS.5.6.pcs8.andrew.cmu.edu.pmax_ul4;
+          Mon,  9 Mar 1992 18:02:55 -0500 (EST)
+Message-Id: <wdiyuTS00WBMA7jXgL@andrew.cmu.edu>
+Date: Mon,  9 Mar 1992 18:02:55 -0500 (EST)
+From: Franklin Boyle <fb0m+@andrew.cmu.edu>
+To: Peter Shell <pshell@WIENER.PRODIGY.CS.CMU.EDU>
+Subject: Converting Parmenides and FRulekit to MAC 7.0
+Cc: Franklin Boyle <fb0m+@andrew.cmu.edu>
+In-Reply-To: <CMM.0.90.2.691182729.pshell@WIENER.PRODIGY.CS.CMU.EDU>
+References: <CMM.0.90.2.691182729.pshell@WIENER.PRODIGY.CS.CMU.EDU>
+
+Hi. I just brought up Macintosh System 7 on my IIcx and am having
+trouble compiling PARMENIDES.  I made the changes to 'in-package',
+loaded PARMENIDES and then ran the compiler.  Below is the message
+I received.
+
+;Loading "Mac IIcx 80mb.:NEW Parmenides:parmenides.lisp"...
+;Compiler warnings :
+;   Undeclared free variable *AREF-SLOT-FN-PLIST*, in
+INIT-PARMENIDES.Parmenides 1.5, Copyright (c) 1985, 1988 Carnegie Mellon.
+Defining class RELATION
+5 > 
+;Compiling "Mac IIcx 80mb.:NEW Parmenides:parmenides.lisp"...
+> Error: No applicable primary method for args:
+>         (Frame PARMENIDES:RELATION:
+>        Slots: (:%CLASS PARMENIDES:RELATION :COMBINATION-TYPE :FIRST
+:SLOTS-INHERITED (:VALUE :*ALL* :DEPTH 0) :HAS-INVERSES NIL
+:INVERSE-NAME NIL)
+>        )
+>         to #<Compiled Generic-function MAKE-LOAD-FORM #x5906B6>
+> While executing: #<STANDARD-METHOD NO-APPLICABLE-METHOD (T)>
+> Type Command-. to abort.
+See the Restarts~ menu item for further choices.
+
+Thanks,
+Frank
+
+

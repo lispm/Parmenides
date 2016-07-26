@@ -1,0 +1,126 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 19 Jun 87 11:19:53 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7)
+	id AA23430; Fri, 19 Jun 87 11:18:36 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA11535; Fri, 19 Jun 87 11:17:57 EDT
+Message-Id: <8706191517.AA11535@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: trying to remember
+Date: Fri, 19 Jun 87 11:17:56 EDT
+
+
+		Peter, 
+
+	I received your mail about your work on the latest problems 
+I had. I didn't know it was so much work, I just thought I didn't 
+know how to handle the relations properly. 
+	Anyway, your on-line maintenance is once again on the way, 
+and that is really nice. 
+
+	About, the last bug I had, I re-read the mail I sent you, 
+and I have a hard time remembering what it was about. Here is the 
+code and runtime version of what I remember. 
+
+;;;inv.lsp
+(defun a () (load "inv.lsp"))
+
+(def-frame parent (is-a relation)
+  has-inverses t
+  inverse-name components)
+
+(setq p
+      (frame
+       (def-frame p
+  (cache *ALL*)
+  parent (value *DEFAULT*)
+  components (value *DEFAULT*))))
+
+;;;lisp session
+> (A)
+;;; Warning: Redefining A
+Re-defining class PARENT
+;;; Warning: Redefining MAKE-PARENT
+>>Error: NIL should be of type STRUCTURE
+
+BLOCK:
+Original code: (BLOCK GET-SLOT-NAMES (PA-FRAME-SNAMES (FRAME-TYPE-OF FRAMENAME)))
+
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+-> :a
+;;; Abnormal exit of load "inv.lsp"
+Back to Lisp 
+>
+
+;;;Here, obviously, *DEFAULT* is the problem and it works with (). 
+
+---------------------------------------------------------------------
+This is about all I found. However, when you want to have relations 
+in a non-faceted slot, storing the actual frame and not the symbol, 
+you don't really obtain what you were waiting for (SEE THE PARENT 
+SLOT OF B)
+
+;;;lisp session
+> (A)
+;;; Warning: Redefining A
+Re-defining class PARENT
+;;; Warning: Redefining MAKE-PARENT
+Defining class P
+;;; Warning: Redefining MAKE-P
+Defining class A
+;;; Warning: Redefining MAKE-A
+Defining class B
+;;; Warning: Redefining MAKE-B
+
+Frame Class A: (:CACHE (:%CLASS :PARENT :COMPONENTS) :IS-A P)
+PARENT          (:VALUE NIL :DEPTH 1)
+COMPONENTS      (:VALUE (B) :DEPTH 0)
+
+Frame Class B: (:CACHE (:%CLASS :PARENT :COMPONENTS) :IS-A P)
+PARENT          (:BQ-LIST #<Vector T 3 C51033> :DEPTH 0)
+COMPONENTS      (:VALUE NIL :DEPTH 1)
+
+Frame Class P: (:CACHE (:%CLASS :PARENT :COMPONENTS))
+PARENT          (:VALUE NIL :DEPTH 0)
+COMPONENTS      (:VALUE NIL :DEPTH 1)
+
+#P"/usr/iesl/groleau/groleau/parmenides/inv.lsp"
+>
+
+;;;inv.lsp
+(defun a () (load "inv.lsp"))
+
+(def-frame parent (is-a relation)
+  has-inverses t
+  inverse-name components)
+
+(setq p
+      (frame
+       (def-frame p
+  (cache *ALL*)
+  parent (value ()) ;INSTEAD OF *DEFAULT*
+  components (value ())))) ;INSTEAD OF *DEFAULT*
+
+(setq a (frame (def-frame a (is-a p))))
+
+(setq b (frame (def-frame b (is-a p) parent `(,a))))
+
+(terpri)
+(pp-frame a)
+(terpri)
+(pp-frame b)
+(terpri)
+(pp-frame p)
+(terpri)
+
+	But this doesn't seem to be related to the relations, it is 
+true for any non-faceted slot to which you want to give a 
+to-be-evaluated value. This is said in the doc, but is sometimes 
+anoying. That means that you have to go declare your slot as NIL and 
+then use a set-slot to give it the value you want. I guess this is 
+more a design choice than an implementation problem anyway.
+
+	I hope this will bring you some light. 
+
+			NICK
+

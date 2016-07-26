@@ -1,0 +1,38 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 23 Apr 87 17:59:19 EDT
+Date: Thu, 23 Apr 87 17:58:22 EDT
+From: Guojun.Zhang@CIVE.RI.CMU.EDU
+To: Guojun.Zhang@CIVE.RI.CMU.EDU, pshell@ml
+
+Peter,		Set-facet-demons worked for me, but I also got some error
+message. See the following for details (xxxx maked the change caused by the
+demon). Could you please let me know the reason? Thanks. 
+
+--Guojun
+
+* (pp-frame 'INPUT)
+%CLASS: INPUT
+%TIME: 0
+%CREATED: TOP
+UNDER: NIL
+STATUS: NIL
+INPUT: (:VALUE (INPUT N) :DEPTH 0 :PRE-IF-SET (**C-MY-OUTPUT))
+OUTPUT: (:VALUE (BLDGPRMTR N) :DEPTH 0 :POST-IF-SET (**C-SUCCESOR-INPUT))
+NIL       xxxxxxxxxxxxxxxxxx
+> * (set-facet-demons 'INPUT 'input 'value '(Input P))
+> Error in function GET-CSLOT.
+> Wrong type argument, NIL, should have been of type SIMPLE-VECTOR.
+> Proceed cases:
+> 0: Return to Top-Level.
+> Debug  (type H for help)
+> (SIGNAL #<CONDITIONS:SIMPLE-ERROR.2DD64>)
+> 0] q
+* (pp-frame 'INPUT)
+%CLASS: INPUT
+%TIME: 0
+%CREATED: TOP
+UNDER: NIL
+STATUS: NIL
+INPUT: (:VALUE (INPUT P) :DEPTH 0 :PRE-IF-SET (**C-MY-OUTPUT))
+OUTPUT: (:VALUE P :DEPTH 0 :POST-IF-SET (**C-SUCCESOR-INPUT))
+NIL       xxxxxxx
+

@@ -1,0 +1,91 @@
+
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU;  6 Feb 89 11:59:58 EST
+Date: Mon, 6 Feb 1989 11:32-EST 
+From: Todd.Kaufmann@NL.CS.CMU.EDU
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: Parmenides package
+Message-Id: <602785950/toad@NL.CS.CMU.EDU>
+Status: R
+
+You might want to see /../madrid/usr/toad/parmenides/parm-*.
+
+There is no package inheritance, but
+If   parmenides exports DEF-FRAME (for example),
+and  frulekit   uses's parmenides (or explicitly IMPORTS),
+then frulekit   can also EXPORT def-frame.
+
+that is,
+You can do something like
+::::::::::::::::
+parmenides.lisp
+::::::::::::::::
+
+(in-package "PARMENIDES" :nicknames '("PARM") :use '("LISP"))
+
+(setf *parm-exports* '(def-frame def-frame* add-slot ...))
+
+(export *parm-exports*)
+.
+.
+.
+::::::::::::::::
+frulekit.lisp
+::::::::::::::::
+
+(in-package "FRULEKIT" :use '("LISP" "PARMENIDES") ..)
+
+(export parmenides::*parm-exports*)
+(export *frulekit-exports*) 
+.
+.
+.
+
+now, (use-package "FRULEKIT") will be the same as also use'ing
+parmenides too.  On the other hand, frulekit doesn't have to export all
+the symbols that parm does.. just the ones that you want.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+It's also possible to have the package stuff in a separate file;
+if there's no explicit IN-PACKAGE, then the file is loaded into
+the current package.
+
+example:
+
+::::::::::::::::
+parm-pgk-loader.lisp
+::::::::::::::::
+
+(in-package "PARMENIDES" ...)
+
+(export ...)
+(load "parmenides")   ; compiled or not
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+I think i figured this out after I had hacked up parmenides.
+This is the way I load framekit now.  See
+/../madrid/usr/toad/kbms/working/framekit-loader.lisp, but don't read
+the comments on the second page if you find them confusing.
+
+I usually want separate packages for separate frames...
+the file of frames only needs to use a couple special symbols from
+framekit-- make-frame, value, instance, instance-of, inverse,
+for example.  I have another package called ONTOLOGY-SUPPORT which
+imports these from framekit and then exports them; it's in
+working/onto-support.lisp.  ONTOS takes care of this at load time,
+by creating a new package that use's only O-S, setting current package
+to it, and then loading the file.
+
+This is probably not necessary... but if I re-add parmenides to ONTOS,
+I'll have a parm-support file too.
+
+Tell me if you have any problems or questions... I've probably been
+through it all before.
+
+Remember, "Put IN Seven EXtremely Random USEr Interface COmmands" -gls.
+
+-todd
+

@@ -1,0 +1,93 @@
+
+Return-Path: <FRAINIER@pluto.arc.nasa.gov>
+Received: from pluto.arc.nasa.gov by ML.RI.CMU.EDU id aa14196;
+          31 May 90 18:19:15 EDT
+Date: Thu 31 May 90 15:17:51-PST
+From: FRAINIER@PLUTO.ARC.NASA.GOV
+Subject: Thanks for your help
+To: pshell@ML.RI.CMU.EDU
+Status: R
+
+Peter,
+I can ask a more refined question about my problem with pp-frame.
+You said that Parmenides v1.5 (11/89) is the latest version, but Nick
+told me that you added a function SET-CSLOT in January. I do not see
+SET-CSLOT in v1.5, so I wrote my own. However, there is something
+wrong with my version of the function SET-CSLOT (I'm not sure what).
+Any tips?
+-Rich
+
+;;; This function must be called with :slot or a new c-slot is created. 
+(defun set-cslot (frame slot value)
+  (let ((kw-pack (find-package 'keyword)))
+    (unless (eq (symbol-package slot) kw-pack)
+      (setf slot 
+          (find-symbol (string-upcase (string slot)) kw-pack)))
+    (setf (getf (pa::pa-frame-c-slots (pa::frame-type-of frame)) slot) value)))
+
+
+? (pp-frame 'subjects)
+Frame Class SUBJECTS: 
+(:SETABLE 
+ (:SETF (:%CLASS :%TIME :%CREATED :%PROD-MATCHES :%PROD-FIRINGS :%LABEL
+         :BUNGEE-FITTED? :CONDITION :ENTERED? :ERRATIC-LAST-TIME?
+         :ERRATIC-TODAY? :HAS-MISSION-HISTORY? :HAS-SCHEDULED-RUNS?
+         :HAS-SESSION-HISTORY? :HEIGHT :INTERESTING-LAST-TIME?
+         :INTERESTING-LAST-STEPS :INTERESTING-TODAY?
+	 :INTERESTING-TODAY-STEPS
+         :MISSING-CONDITIONS :MISSING-LAST-TIME? :NAME 
+	 :NOT-RUN-LAST-SESSION?))
+ :PROPAGATE NIL :PRE-IF-SET (FRULEKIT::PRE-MODIFY) :POST-IF-SET
+(FRULEKIT::POST-MODIFY) 
+ :CACHE (:%CLASS :%TIME :%CREATED :%PROD-MATCHES 
+ :%PROD-FIRINGS :%LABEL :BUNGEE-FITTED?
+ :CONDITION :ENTERED? :ERRATIC-LAST-TIME? :ERRATIC-TODAY?
+ :HAS-MISSION-HISTORY? :HAS-SCHEDULED-RUNS? :HAS-SESSION-HISTORY?
+ :HEIGHT :INTERESTING-LAST-TIME? :INTERESTING-LAST-STEPS
+ :INTERESTING-TODAY? :INTERESTING-TODAY-STEPS :MISSING-CONDITIONS
+ :MISSING-LAST-TIME? :NAME :NOT-RUN-LAST-SESSION?)
+ :IS-A (WME) :CURRENT-PREFERRED-SUBJECT-ORDER NIL 
+ :CURRENT-SUBJECT NIL
+ :SESSION-SUBJECT1 NIL :SESSION-SUBJECT2 NIL)
+ :%TIME       0
+ :%CREATED    FRULEKIT::TOP
+ :%PROD-MATCHES T
+ :%PROD-FIRINGS T
+ :%LABEL      T
+ :BUNGEE-FITTED? NIL
+ :CONDITION   NIL
+ :ENTERED?    NIL
+ :ERRATIC-LAST-TIME? NIL
+ :ERRATIC-TODAY? NIL
+ :HAS-MISSION-HISTORY? NIL
+ :HAS-SCHEDULED-RUNS? NIL
+ :HAS-SESSION-HISTORY? NIL
+ :HEIGHT      NIL
+ :INTERESTING-LAST-TIME? NIL
+ :INTERESTING-LAST-STEPS NIL
+ :INTERESTING-TODAY? NIL
+ :INTERESTING-TODAY-STEPS NIL
+ :MISSING-CONDITIONS (FREE-FLIGHT NECK-TWIST BUNGEE)
+ :MISSING-LAST-TIME? NIL
+ :NAME        NIL
+ :NOT-RUN-LAST-SESSION? NIL
+NIL
+
+? (set-cslot (frame 'subjects) 
+            :current-preferred-subject-order
+            (get-slot (frame 'sls1-session1) :preferred-subject-order))
+(#(SUBJECTS 2.500000000000002E-2  TOP-LEVEL T T T NIL NIL NIL 
+NIL NIL NIL NIL NIL 63 NIL NIL NIL NIL (FREE-FLIGHT NECK-TWIST BUNGEE) 
+NIL RHEA.SEDDON NIL)
+ #(SUBJECTS 2.100000000000001E-2  TOP-LEVEL T T T NIL NIL NIL 
+NIL NIL NIL NIL NIL 74 NIL NIL NIL NIL (FREE-FLIGHT NECK-TWIST BUNGEE) 
+NIL MILLIE.HUGHES-FULFORD NIL))
+
+? (pp-frame 'subjects)
+Frame Class SUBJECTS: 
+> Error: Array index 12 out of bounds for 
+> Error: Array index 12 out of bounds for 
+> Error: Array index 12 out of bounds for 
+> Error: Array index 12 out of bounds for 
+Aborted
+-------

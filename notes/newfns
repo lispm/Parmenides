@@ -1,0 +1,20 @@
+Klaus, here are the functions I've written, I still haven't compiled on the
+RT:
+
+get-facet, get-name-facet, get-instance-facet
+get-value, get-name-value, get-instance-value
+get-slot, get-name-slot, get-instance-slot
+
+set-facet, set-name-facet, set-instance-facet
+set-value, set-name-value, set-instance-value
+set-slot, set-name-slot, set-instance-slot
+
+set-facet-demons (actually takes a name)
+
+I still need to write set-name-facet-demons and set-instance-facet-demons.
+I've tested most of them.
+
+(pp-wm) should be done in a few minutes.  Tell me if you want me to
+re-compile the new parm on the RT.
+(I'm leaving at 6)
+--Peter

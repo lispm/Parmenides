@@ -1,0 +1,40 @@
+Hi Adnan, glad you got the files ok.
+
+>First, is-a and instance have no inverses! sometimes the structure
+
+  I'm sure what exactly you mean by this.  The inverse of the isas function
+is inverse-isas.  The inverse of instances-of is class-of.
+
+  You're right that there's no way to specify, in def-frame, the
+inverse-isas.  There are two reasons for this.  First, in order to specify
+that A has inverse-isas B, then you need to first have made the frame B in
+order to store the fact that B :is-a A.  But if B has already been made,
+then you could have specified that it :is-a A when you make it.  Of course,
+I could have Parmenides automatically make a B which :is-a A.  But now
+for the second reason.  Parmenides' view of relations is that when
+specifying that A has relation R to B, this can causes A to inherit slots
+from B, but not the other way around (I guess I should say this somewhere
+in the manual explicitly).  I don't support saying that A is :inverse-isa B
+since this could cause slots to be added to B through inheritance.
+Although this capability could be changed, I think.  But do you really need
+it?
+
+>Second, what is the way to add relations on the fly (after
+>def-frame)? I tried add-cslot, but inverses are not added automatically...
+
+  Try using add-slot to a class.  If the slot added is a relation whose
+:has-inverses slot is T, then it should add the inverses, could you send me
+the example case where it didn't add the inverse, including a definition of
+all relevant frames.
+
+>  Third, when using def-frame and not key-wording the relations
+>in the cslot-list, I get an error message (especially when the 
+>number of relations is high!!!)
+
+  I suppose that it should be more tolerant of this.  I thought that it
+worked for non-keywords.  Could you send me an example of this happening.
+In general, however, you are encourages to always use keywords with slots
+and cslots.
+
+Good luck...
+  --Pete

@@ -1,0 +1,42 @@
+
+Return-Path: <ngroleau@ATHENA.MIT.EDU>
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU;  3 Nov 89 15:23:11 EST
+Received: from M37-318-9.MIT.EDU by ATHENA.MIT.EDU with SMTP
+	id AA11636; Fri, 3 Nov 89 15:22:43 EST
+From: ngroleau@ATHENA.MIT.EDU
+Received: by M37-318-9.MIT.EDU (5.61/4.7) id AA26274; Fri, 3 Nov 89 15:22:09 -0500
+Message-Id: <8911032022.AA26274@M37-318-9.MIT.EDU>
+To: PETER.SHELL@ML.RI.CMU.EDU
+Cc: ngroleau@ATHENA.MIT.EDU
+Subject: back to Parmenides
+Date: Fri, 03 Nov 89 15:22:06 EST
+Status: R
+
+
+		Dear Peter, 
+
+	It's been quite a while now, but I'd like to start working with the 
+Paremnides and Frulekit system again. 
+
+	I am now working on my PhD, the topic of which is automatic 
+discovery for spaceborne life sciences experiments. We have vestibular (inner 
+ear) experiments flying on the shuttle in August 90 and Summer 92. We are 
+building a mostly AI-based system to help the astronaut perform these 
+experiments in a better way (with the advice of the system comprising the 
+PI's (Pricipal Investigator) knowledge). 
+
+	I tried to ftp to ML.ri.cmu.edu as anonymous (passwd guest). I got 
+in but was refused access to ~pshell/parmenides. 
+
+	What is the way to get the source files properly? Is it OK for me to 
+do so? Is there anything in particular i should expect after a year of 
+abscence from the evolving system or should I just read the documentation 
+and start afresh? 
+
+	I hope you'll find some time to answer these many questions, 
+
+
+			Sincerely, 
+
+				Nick.
+

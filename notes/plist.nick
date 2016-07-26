@@ -1,0 +1,60 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU;  3 May 87 19:59:26 EDT
+Received: by ATHENA (5.45/4.7)
+	id AA14761; Sat, 2 May 87 19:30:31 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA28814; Sat, 2 May 87 19:28:33 EDT
+Message-Id: <8705022328.AA28814@DEMETER.MIT.EDU>
+To: pshell@ML.RI.CMU.EDU
+Subject: slot plist
+Date: Sat, 02 May 87 19:28:31 EDT
+
+
+Pete, I have a strange behavior in inherited slots. Here is the code.
+
+(setq node
+      (frame
+       (def-frame node (cache *ALL*)
+  linked-to-root (value *DEFAULT*)
+  components (value *DEFAULT*)
+  parent (value *DEFAULT*)
+  x (value *DEFAULT* changeable t)
+  y (value *DEFAULT* changeable t)
+  space (value *DEFAULT* changeable t))))
+
+(setq building
+      (frame
+       (def-frame building (is-a (node))
+  name (value "building" changeable t)
+  has-parts (value *DEFAULT*))))
+
+(set-value building 'components 'grid)
+
+Re-defining class NODE
+;;; Warning: Redefining MAKE-NODE
+Re-defining class BUILDING
+;;; Warning: Redefining MAKE-BUILDING
+
+;when I load the file, I cannot make any more subclasses of node
+;this is because the slot plist has been modified by the call to
+;set-value (see the @@@GRID@@@, I added the @@@ of course)
+
+(symbol-plist 'node)
+
+(INSTANCE-NAMES (ROOT) INVERSE-ISAS (BIDON 3D-LATERAL-2 3D-LATERAL-1 3D-GRAVITY-MATERIAL 3D-LATERAL-MATERIAL IMAGINARY-LOAD GRAVITY-LOAD LATERAL-LOAD GRID BUILDING LEVEL) ISAS NIL :FRAME #<Vector T 7 CA8263> INSTANCES (#<Vector T 7 CA8263>) CLASSP T :FRAME-TYPE Frame NODE:
+Slots: (%CLASS NODE LINKED-TO-ROOT (VALUE *DEFAULT* DEPTH 1) COMPONENTS (VALUE @@@GRID@@@ DEPTH 0) PARENT (VALUE *DEFAULT* DEPTH 1) X (VALUE *DEFAULT* DEPTH 1 CHANGEABLE T) Y (VALUE *DEFAULT* DEPTH 1 CHANGEABLE T) SPACE (VALUE *DEFAULT* DEPTH 1 CHANGEABLE T))
+
+;the only patch I could find for this limited situation is 
+
+(set-value node 'components '*DEFAULT*)
+
+;but that can only work in limited cases
+
+What do you think is going wrong ?
+
+I hope you don't mind my bothering you twice in a day.
+
+			NICK
+
+
+
+

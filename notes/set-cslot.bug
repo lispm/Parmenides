@@ -1,0 +1,39 @@
+
+Return-Path: <FRAINIER@pluto.arc.nasa.gov>
+Received: from pluto.arc.nasa.gov by ML.RI.CMU.EDU id aa18509;
+          1 Jun 90 19:00:06 EDT
+Date: Fri 1 Jun 90 16:00:21-PST
+From: FRAINIER@PLUTO.ARC.NASA.GOV
+Subject: pp-frame problem with cslot & frame ptrs
+To: pshell@ML.RI.CMU.EDU
+Status: R
+
+Peter,
+I have re-built my LISP images using your CSLOT. I still have the 
+problem. The following reproduces the problem on my machine....
+
+(progn 
+  (literalize foo (:cache :*all* :setable :setf :cslot1 ()) :slot2 ())
+  ($make-named 'foo 'foo-inst-1 :slot2 's2)
+  (pp-frame 'foo)    ; things are still OK
+  (set-cslot 'foo :cslot1 (frame 'foo-inst-1))
+  (pp-frame 'foo)    ; array out of bounds.....
+	)
+
+I often want to create a cslot at the class level to store the most
+interesting instances at a given time. It seems that there there is
+some problem storing the pointer in the cslot.
+[This may be related to two other problems that I am having.]
+
+PS
+This will also break... [ie stored pointers need not be in the same hierarchy]
+(progn 
+  (literalize foo (:cache :*all* :setable :setf :cslot1 ()) :slot2 ())
+  ($make-named 'foo 'foo-inst-1 :slot2 's2)
+  (literalize bar (:cache :*all* :setable :setf :cslot1 ()) :slot2 ())
+  ($make-named 'bar 'bar-inst-1 :slot2 's2)
+  (pp-frame 'foo)    ; things are still OK
+  (set-cslot 'foo :cslot1 (frame 'bar-inst-1))
+  (pp-frame 'foo)    ; array out of bounds.....
+	)
+-------

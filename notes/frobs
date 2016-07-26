@@ -1,0 +1,31 @@
+-- Messages from file: /usr/pshell/Mail/my.mail --
+   Wednesday, 9 December 1992 11:18AM
+
+
+
+Message 5 -- *********************
+Return-Path: <@cs.cmu.edu:kessler%cons.cs.utah.edu@cs.utah.edu>
+Received: from cs.cmu.edu by NL.CS.CMU.EDU id aa17498; 25 Nov 92 7:02:12 EST
+Received: from cs.utah.edu by CS.CMU.EDU id aa09284; 25 Nov 92 7:01:37 EST
+Received: from cons.cs.utah.edu by cs.utah.edu (5.65/utah-2.21-cs)
+	id AA19737; Wed, 25 Nov 92 05:01:12 -0700
+Received: by cons.cs.utah.edu (5.65/utah-2.14-leaf)
+	id AA09028; Wed, 25 Nov 92 05:01:11 -0700
+Date: Wed, 25 Nov 92 05:01:11 -0700
+From: kessler@cons.cs.utah.edu (Robert R. Kessler)
+Message-Id: <9211251201.AA09028@cons.cs.utah.edu>
+To: ivorra@capsogeti.fr
+Cc: Tom.Mitchell@cs.cmu.edu, Eric.Nyberg@cs.cmu.edu, Brad.Myers@cs.cmu.edu,
+        spector@cs.umd.edu, Peter.Shell@cs.cmu.edu, franconi@irst.it
+In-Reply-To: Christophe Ivorra's message of Wed, 25 Nov 92 11:22:14 +0100 <9211251022.AA13813@daedalus>
+Subject: Re: Frame Systems
+
+Our frame system is called FROBS and merges frames and objects with a
+forward chaining rule system and a secondary system called FROLIC
+which is a prolog written in CL that can access frobs.  It is
+available via anonymous ftp from cs.utah.edu in the pub directory as
+frobs.tar.Z and frolic.tar.Z.  There are docs and source code in the
+tar files.
+
+B.
+

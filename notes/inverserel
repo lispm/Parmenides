@@ -1,0 +1,15 @@
+Nick,
+  I've been meaning to reply to you about inverse user relations.
+That's pretty high on my agenda, since lots of people seem to want them.
+
+  The main difficulty with implementing it is that it requires implementing
+add-slot.  Dynamically adding a slot to a class won't be that hard, although
+it will have to be propagted to instances and subclasses.  However, adding
+a slot to an instance violates the current constraint that instances have
+exactly the same set of slots that their classes have.
+
+  I'll implement inverse relations for classes first, while I (and hopefully
+others) think about the implications of doing it for instances, and whether
+users need it for instances.  So, what do you all think?
+
+--Peter

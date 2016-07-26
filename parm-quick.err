@@ -1,0 +1,52 @@
+In: DEFUN %AREF-VALUE-GET-15
+  (AREF (AREF FRAME 15) 0)
+--> LET*
+==>
+  (ARRAY-DIMENSION ARRAY 0)
+Note: Unable to optimize because:
+      Can't tell if array is simple.
+
+==>
+  (KERNEL:DATA-VECTOR-REF ARRAY KERNEL:INDEX)
+Note: Unable to optimize due to type uncertainty:
+      The first argument is a VECTOR, not a SIMPLE-ARRAY.
+
+  (AREF FRAME 15)
+--> LET*
+==>
+  (KERNEL:DATA-VECTOR-REF ARRAY KERNEL:INDEX)
+Note: Unable to optimize due to type uncertainty:
+      The first argument is a VECTOR, not a SIMPLE-ARRAY.
+
+==>
+  (ARRAY-DIMENSION ARRAY 0)
+Note: Unable to optimize because:
+      Can't tell if array is simple.
+
+==>
+  (KERNEL:DATA-VECTOR-REF ARRAY KERNEL:INDEX)
+Note: Forced to do full call.
+      Unable to do inline array access (cost 5) because:
+      The first argument is a VECTOR, not a (SIMPLE-ARRAY SINGLE-FLOAT (*)).
+      The result is a T, not a SINGLE-FLOAT.
+      Unable to do inline array access (cost 5) because:
+      The first argument is a VECTOR, not a (SIMPLE-ARRAY
+                                             (UNSIGNED-BYTE 16)
+                                             (*)).
+      The result is a T, not a (UNSIGNED-BYTE 29).
+      etc.
+
+  (AREF (AREF FRAME 15) 0)
+--> LET*
+==>
+  (KERNEL:DATA-VECTOR-REF ARRAY KERNEL:INDEX)
+Note: Forced to do full call.
+      Unable to do inline array access (cost 5) because:
+      The first argument is a VECTOR, not a (SIMPLE-ARRAY SINGLE-FLOAT (*)).
+      The result is a T, not a SINGLE-FLOAT.
+      Unable to do inline array access (cost 5) because:
+      The first argument is a VECTOR, not a (SIMPLE-ARRAY
+                                             (UNSIGNED-BYTE 16)
+                                             (*)).
+      The result is a T, not a (UNSIGNED-BYTE 29).
+      etc.

@@ -1,0 +1,65 @@
+
+Return-Path: <Manuela.Veloso@CAMOES.PRODIGY.CS.CMU.EDU>
+Received: from CAMOES.PRODIGY.CS.CMU.EDU by ML.RI.CMU.EDU;  8 Jan 90 14:56:16 EST
+Date: Mon, 8 Jan 90 14:51:39 EST
+From: Manuela.Veloso@CAMOES.PRODIGY.CS.CMU.EDU
+To: pshell@ML.RI.CMU.EDU
+Subject: Save-frame
+Cc: mmv@ml
+Status: R
+
+Pete,
+Here it is. I am just sending you what I think is relevant.
+If you want to see the whole code... let me know. 
+THANKS,
+	Manuela.
+
+;;;;; Example of a def frame
+
+
+(def-frame snode (:cache :*all* :is-a tofu) ;success-node
+)
+
+(def-frame goal-snode (:cache :*all* :is-a snode)
+  :step nil
+)
+
+;;;;;;;;;; 
+
+(defun create-snodes (tnode)....
+...
+	 (case (pa-class-of tnode)
+	   (goal-tnode 
+	    (make-frame 'goal-snode nil
+			:step (get-step tnode)
+;;;;;;;;;;
+
+(defun get-step (tnode) ;returns a list
+  (case (pa-class-of tnode)
+    (goal-tnode (get-visible-goal tnode))
+    ((chosen-op-tnode applied-op-tnode) (get-visible-op tnode))))
+
+;;;;;;;;;;;
+
+(defun store-frames (frames &optional (filename "/usr/mmv/analogy/cases/temp"))
+  (with-open-file (ofile filename :direction :output 
+			 :if-exists :overwrite
+			 :if-does-not-exist :create)
+    (format t "~%Storing frames in file ~S ..." filename)
+    (format ofile "~%(setf *read-snodes* (list~%~%")
+    (dolist (frame frames)
+      (save-frame frame :stream ofile)
+      (format ofile "~%"))
+    (format ofile "~%))")
+    (format t "~% Done with storing.")))
+
+;;;;;;;;;;; This is what is stored (piece of the temp file) ;;;;;;;;;;
+
+(make-frame (quote goal-snode) NIL
+ :step        '(:VALUE (done))
+ :pruned-pending-goals '(:VALUE ((done)))
+ :entire-pending-goals '(:VALUE ((done)))
+)
+
+
+

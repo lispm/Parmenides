@@ -1,0 +1,51 @@
+Received: from SPICE.CS.CMU.EDU by ML.RI.CMU.EDU;  8 Aug 87 22:09:14 EDT
+Date:  8 Aug 1987 21:52-EDT 
+From: Todd.Kaufmann@SPICE.CS.CMU.EDU
+To: PShell@ml.ri.cmu.edu (Peter Shell) 
+Subject: parmenides package
+Message-Id: <555472351/toad@SPICE.CS.CMU.EDU>
+
+I've (started) packagified parmenides.  It's in
+/../madrid/usr/toad/parmenides/.  But I would like you to look at
+parm-symbols.txt, which is a list of most of the symbols in parmenides
+(the functions & defvars & demon vars).  At the beginning of the file
+is all the functions documented in parmenides.mss; there are probably a
+couple others which are probably meant for users, but not documented.
+Look at this list and see what you think.  If you would just mark the
+symbols which you think should be exported by a single space " " at the
+beginning, then when I sort the file they will bubble up to the top.
+You also might want to document them.
+
+The reason for this is so that multiple frame -systems can be loaded
+simultaneously, without conflicts, and also so that parm wouldn't be
+loaded into whatever random package you happen to be in.  Without it
+being in its own package, if you wanted to load some frames into
+package A and some others into package B, then you would have to:
+
+(in-package "A")
+(load "parmenides")
+(load "a-frames")
+
+(in-package "B")
+(load "parmenides")
+(load "b-frames")
+
+... but with parmenides in it's own package, both A & B can
+(use-package "PARM"); and any package which wants to use just a
+function or two can explicitly say parm:fn1 and be assured of finding
+it there in that package.
+
+
+I also uncovered a slight bug in parmenides, which is due to your
+always having used "extended" versions of commonlisp:  you use memq
+before defining it.  
+(from parm-exports.lisp:)
+;;note:   
+;;     you use MEMQ before you define it.. this has always worked before for
+;; you because you were using the EXTENSIONS package.  later, you define it
+;; if it hasn't been already (of course, it always has been).
+
+
+that's all for now,
+	todd
+

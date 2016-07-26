@@ -1,0 +1,36 @@
+is that a good name for it?  I've totally re-written Framekit, maybe
+it should be called something else.  How about, frame-fermi and
+rule-fermi?  Then we could have goal-fermi and algebra-fermi.
+Or maybe fermi-frame...
+  Anyway, I just wanted to give you a little status report.  Framekit
+seems to work now, with (depth-first) inheritance, facets, default-
+values, and marker-propagation for dfs inheritance.  I still need
+to implement bfs marker-propagation, and methods.  Rule/Framekit
+will definitely need if-added demons - if any frame instance which
+is-a wme is modified, send that modification to Rulekit.  Also,
+an if-added demon of setting the depth to 0 (meaning the value is
+cached) whenever an instance is modified.  These two needs will drive
+the way I implement demons - can you think of any other?
+  Someone named Tom Cooper (cooper%runt.DEC...) asked me for the
+Rule- and Framekit sources.  Should I wait until the new one is
+working, or send the old ones?  It will probably be a week to get
+Framekit completed.  I've already written a version of Rulekit which
+uses Frames for rules and wmes, so there wouldn't be any problems
+with integration once I finish Framekit.
+  I also want to do some more with Rulekit - add "external conjunctions"
+inside absence tests.  I'm becoming convinced that the best way to do
+this is by using beta nodes coming from the right (they usually only come
+from the left).  This way you can have nested absence testing, which is
+necessary for the general form of FORALL (Pat seems to need this and it
+seems like it would be useful - I've used it on systems that provided
+it, like CAPS).  Brian said Knowledge Craft doesn't have
+it yet, I don't know why not.  It would be easy to add a FORALL syntax -
+it would simply "expand" to nested absence.  A generalization of this
+would be to allow a macro language on the LHS, and write FORALL in
+this language.  It seems like some of Kafka could be implemented this way.
+
+  I didn't think Framekit would take so long to do, but there's a lot
+of stuff that had to be done to do it right.  I'll have documentation
+for it as soon as everything's been implemented.
+
+--Peter

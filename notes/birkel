@@ -1,0 +1,100 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 28 Feb 88 14:17:43 EST
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU; 28 Feb 88 14:16:13 EST
+To: pshell@ml
+Subject: FRulekit/Parmenides
+Date: Sun, 28 Feb 88 14:16:09 EST
+Message-ID: <29815.573074169@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+#1, 4, 6 important
+also important:  modify should be able to handle non-keywords for slot names.
+
+slot tests should be in same order.  intra should be first, inter last
+
+P;
+
+	You're going to hear more, but here's a start:
+
+	1) Remove-Frame doesn't! At least wrt instances.
+		It *does* remove it from the class hierarchy.
+		It also returns a list of copies of the instance,
+		apparently one for each remove attempt. Frame-P
+		still reports T, and PP-Frame is happly to print
+		it. Needless-to-say, GC doesn't reclaim the space.
+
+		If this is the correct behavior, then I *need*
+		a Delete-Frame that really blows the frame, and its'
+		space away.
+
+	      I'm happy to report that Making a frame instance multiple
+		times *does* overwrite previous instantiations, so that
+		only one *real* frame of that name results. Good.
+
+	2) Instance-Names-Of seems to be returning a pointer to
+		internal structure (perhaps the actual list associated
+		with a class frame). I think it should return a *copy*
+		so that screwing with it won't screw-up the system. I
+		spent some time figuring this out. I'm used to only
+		getting copies of things from the underlying system
+		unless *explicitly* stated otherwise. I copy it for
+		myself now.
+
+	3) When matching, the construct ... [:slot :value] atom ...
+		is considered valid, but it seems that if atom is
+		a number, rather than a "symbol" Parmenides complains
+		about trying to use the number as an index into an
+		internal structure. So I have to "match" to a variable
+		and then test separately. I shouldn't have to do this!!
+
+	4) If I have a class like:
+		(def-frame class1 (:cache *ALL*)
+			slot (:value nil :foo nil))
+	      and a sub-class like:
+		(def-frame class2 (:is-a class1 :cache *ALL*)
+			slot (:value 0))
+	      then it results that in class2 slot the facet foo doesn't exist!
+	     	While one may argue that this is correct behavior, what I am
+		trying to do is simply modify the default value of the :value
+		facet in the subclass. I now have to do this with a separate
+		set-facet after the class is created. I guess the only
+		alternative is to modify *all* facets in the slot together,
+		i.e. redeclare the entire slot in order to modify one facet.
+		Is this right?
+
+	5) If I want to "clear" a slot and all it's facets, the only official
+		mechanism is to set-facet each facet to the default value
+		(which I have to manually determine).
+		a] There should be a way to have a Clear-Facet that removes
+		   the current value and inherits whatever default value
+		   applies.
+		b] If I want to do this for *all* facets of a slot I would
+		   like a Clear-Slot that removes all current values and
+		   inherits whatever default values apply.
+		For now I am manually determing the size of the array in the
+		slot and then Set-Slot (make-array <size>), which nils
+		everything. But this is a hack! It means I know too much
+		about the underlying system, and when I go and change the
+		class definition I have to modify any places I use this hack.
+
+	6) Then, of course, there is the need for a means to save the state
+		of the system, specifically the clases and instances. In
+		general, saving everything, en mass, is one approach that
+		guarantees consistency. Saving just instances may be more
+		problematic. I'd like to be able to call
+		 (save-frame 'frame :stream *output-stream*)
+		and get a text-stream that can be fed back to the Parmenides
+		parser and result in the same frame being recreated. This,
+		of course, should handle frames that are also literalized.
+	     	It's possible that this mechanism will require some
+		restrictions on the types of linkages allowed (i.e. no
+		user-defined relations), and will also have a "use at your
+		own risk" caveat.
+
+Problems 4 and 6 are especially annoying, but resolution of the others
+would be useful as well. BTW, does Add-To-Facet work in "stack" or "queue"
+mode, i.e. add to the front or back of the list?
+
+	paul
+

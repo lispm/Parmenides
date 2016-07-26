@@ -1,0 +1,282 @@
+[from Todd Kaufmann]
+;;; these are the only functions explicitly documented:
+
+   ADD-CSLOT compiled.
+   ADD-SLOT compiled.
+   ADD-TO-FACET compiled.
+   ADD-TO-FACET-DEMONS compiled.
+   CLASS-OF compiled.
+   COPY-FRAME compiled.
+   DEF-FRAME compiled.
+   DEF-FRAME* compiled.
+   FRAME compiled.
+   GET-CSLOT compiled.
+   GET-FACET compiled.
+   GET-FACET-DEMONS compiled.
+   GET-GENERIC-VALUE compiled.
+   GET-IMMEDIATE-FACET compiled.
+   GET-IMMEDIATE-SLOT compiled.
+   GET-IMMEDIATE-VALUE compiled.
+   GET-SLOT compiled.
+   GET-SLOT-NAMES compiled.
+   GET-VALUE compiled.
+   GET-VALUE-DEMONS compiled.
+   IMMEDIATE-ISAS compiled.
+   INSTANCE-NAMES-OF compiled.
+   INSTANCES-OF compiled.
+   INVERSE-ISAS compiled.
+   ISA-INSTANCE compiled.
+   ISA-P compiled.
+   ISAS compiled.
+   LOCAL-P compiled.
+   MAKE-FRAME compiled.
+   MAKE-FRAME0 compiled.
+   PP-FRAME compiled.
+   REMOVE-FRAME compiled.
+   SET-FACET compiled.
+   SET-FACET-DEMONS compiled.
+   SET-SLOT compiled.
+   SET-VALUE compiled.
+   SET-VALUE-DEMONS compiled.
+
+;;; globals:
+
+  !!inheritance-type
+
+;;; demon variables:  (as per section 5)
+
+  framename
+  slotname
+  facetname
+  frame
+  snum
+  facetnum
+  newval
+
+
+;;;  What about these globals?  
+
+  !!if-accessed   ;; not used
+  !!inheritance-link
+
+;;; some of these symbols I'm not so sure about:
+;; Most of these are used internally so will have to have "parmenides::"
+;; prepended to them.
+
+%AREF-GET-0 compiled.
+%AREF-GET-1 compiled.
+%AREF-GET-10 compiled.
+%AREF-GET-11 compiled.
+%AREF-GET-12 compiled.
+%AREF-GET-13 compiled.
+%AREF-GET-14 compiled.
+%AREF-GET-15 compiled.
+%AREF-GET-2 compiled.
+%AREF-GET-3 compiled.
+%AREF-GET-4 compiled.
+%AREF-GET-5 compiled.
+%AREF-GET-6 compiled.
+%AREF-GET-7 compiled.
+%AREF-GET-8 compiled.
+%AREF-GET-9 compiled.
+%AREF-VALUE-GET-0 compiled.
+%AREF-VALUE-GET-1 compiled.
+%AREF-VALUE-GET-10 compiled.
+%AREF-VALUE-GET-11 compiled.
+%AREF-VALUE-GET-12 compiled.
+%AREF-VALUE-GET-13 compiled.
+%AREF-VALUE-GET-14 compiled.
+%AREF-VALUE-GET-15 compiled.
+%AREF-VALUE-GET-2 compiled.
+%AREF-VALUE-GET-3 compiled.
+%AREF-VALUE-GET-4 compiled.
+%AREF-VALUE-GET-5 compiled.
+%AREF-VALUE-GET-6 compiled.
+%AREF-VALUE-GET-7 compiled.
+%AREF-VALUE-GET-8 compiled.
+%AREF-VALUE-GET-9 compiled.
+*AREF-FACET1-FN-MAP*
+*AREF-FACET1-FN-NAMES*
+*AREF-FN-MAP*
+*AREF-FN-NAMES*
+*DEFAULT*
+*FORMAT*
+*MARKED-CLASSES*
+*PARMENIDES-TERSE*
+*aref-slot-fn-plist*
+ADD-CLASS compiled.
+ADD-TO-CSLOT compiled.
+ADD-TO-SLOT compiled.
+ADD-TO-VALUE compiled.
+ALL-FRAME-SLOTS compiled.
+ALL-GRANDPARENTS compiled.
+ANNOUNCE-DEFINE compiled.
+ASSURE-CURRENT compiled.
+ASSURE-FRAME compiled.
+ASSURE-KEYWORD compiled.
+ASSURE-LIST compiled.
+CHECK-PARENTS compiled.
+CHECK-SLOT compiled.
+CHECK-SLOT-ARGS compiled.
+CLASSIFY compiled.
+CLASSP compiled.
+COMBINE-CACHE-SLOTS compiled.
+COMBINE-SLOTS compiled.
+COMBINE-SLOTS2 compiled.
+COMPUTE-INVERSE-ISAS compiled.
+COMPUTE-ISAS compiled.
+COPY-ADJUSTABLE-ARRAY compiled.
+COPY-ARRAY-SLOTS compiled.
+COPY-GENERIC-THING compiled.
+COPY-NESTED-STRUCTURE compiled.
+COPY-VECTOR compiled.
+CREATE-SF-ENTRY compiled.
+CURRENT-TO-KEYWORD compiled.
+DEC-LISP-P compiled.
+DEFINE-AREF-SLOT-ACCESSOR compiled.
+DEFINE-AREF-SLOT-FACET-ACCESSOR compiled.
+DEFINE-FACET-SETF-METHOD compiled.
+DEFINE-REF-SLOT-FACET-ACCESSOR compiled.
+DEFINE-SLOT-ACCESSOR compiled.
+DEFINE-SLOT-SETF-METHOD compiled.
+DELETE-SLOT compiled.
+DO-SLOT compiled.
+DUP-ARRAY compiled.
+DYNAMIC-DEFINE-GENERIC-SLOT-ACCESSOR compiled.
+EVAL-PLIST compiled.
+FACETED-P2 compiled.
+FACETEDP compiled.
+FIND-FRAME-CSLOTS compiled.
+FIND-FRAME-SLOTS compiled.
+FIND-INHERITED-SLOTS compiled.
+FIND-REL-SLOTS compiled.
+FIND-RELATION-FRAMES compiled.
+FIND-SPECS compiled.
+FRAME-CLASS compiled.
+FRAME-CLASS-P compiled.
+FRAME-P compiled.
+FRAME-TYPE-OF compiled.
+FRIENDLY-FRAME-CLASS compiled.
+GENERIC-INHERIT compiled.
+GET-APPENDP compiled.
+GET-AREF-SLOT-ACCESSOR compiled.
+GET-ATOMIC-VALUE compiled.
+GET-COMBOTYPE compiled.
+GET-FACET-DEMONS0 compiled.
+GET-FIRST-SLOT-SPEC compiled.
+GET-GENERIC-SLOT-ACCESSOR compiled.
+GET-IMMEDIATE-INSTANCE-FACET compiled.
+GET-IMMEDIATE-INSTANCE-SLOT compiled.
+GET-IMMEDIATE-NAME-FACET compiled.
+GET-IMMEDIATE-NAME-SLOT compiled.
+GET-INHERITED-SLOT-NAMES compiled.
+GET-INSTANCE-FACET compiled.
+GET-INSTANCE-FACET-DEMONS compiled.
+GET-INSTANCE-SLOT compiled.
+GET-INSTANCE-VALUE compiled.
+GET-NAME-FACET compiled.
+GET-NAME-FACET-DEMONS compiled.
+GET-NAME-SLOT compiled.
+GET-NAME-VALUE compiled.
+GET-SLOT-FACETED compiled.
+GET-SLOT-NUM compiled.
+GET-SLOT-REF compiled.
+GET-SLOT-SPEC0 compiled.
+GET-SLOT-SPECS compiled.
+GET-SLOT-UNFACETED compiled.
+GET-SPECIFIED-SLOTS compiled.
+HANDLE-SET-INVERSE-FACET compiled.
+HANDLE-SET-INVERSE-SLOT compiled.
+HANDLE-SET-INVERSE-VAL compiled.
+IA-FACETPLIST-APPEND compiled.
+IFNOTSTATUS compiled.
+INIT-PARMENIDES compiled.
+INIT-PROPAGATE compiled.
+INVERTABLE-RELATION compiled.
+KEYWORD-TO-CURRENT compiled.
+KEYWORDIZE-CPLIST compiled.
+KEYWORDIZE-PLIST compiled.
+KYOTO-LISP-P compiled.
+LUCID-LISP-P compiled.
+MAKE-DEFAULT-FRAME compiled.
+MAKE-DEFAULT-FRAME-SLOT compiled.
+MAKE-FRAME-SLOT compiled.
+MAKE-INDEX-PLIST1 compiled.
+MAKE-NEW-DEFAULT-SLOT compiled.
+MAKE-NEW-FACETS compiled.
+MAKE-NEW-PLIST compiled.
+MAKE-PA-FRAME compiled.
+MAKE-RELATION compiled.
+MARK-CLASSNAME compiled.
+MARKED-P compiled.
+MAYBE-ADD-INVERSE-NAME compiled.
+MAYBE-ADD-TO-SLOT compiled.
+MAYBE-CAR compiled.
+MAYBE-COPY-LIST compiled.
+MAYBE-COPY-VECTOR compiled.
+MAYBE-DEFINE-INVERSE-RELATION-CLASS compiled.
+MAYBE-FPLIST-APPEND compiled.
+MAYBE-MAKE-FRAME-SLOT compiled.
+MAYBE-MAKE-SLOT-FROM-VAL compiled.
+MAYBE-PROPAGATE-INIT-FACET-PLIST compiled.
+MAYBE-PUSH compiled.
+MAYBE-UPDATE-RANGE-CLASSES compiled.
+MEMQ compiled.
+MODIFY-FACET-PLIST compiled.
+MODIFY-FRAME compiled.
+MODIFY-FRAME-DEMONS compiled.
+MODIFY-SLOT-PLIST compiled.
+MY-MAYBE-NCONC compiled.
+NAME-TO-FRAME compiled.
+NAME-TO-FRAME-TYPE compiled.
+NUM-INSTANCES-OF-CLASS compiled.
+ORDERED-UNION compiled.
+PA-COPY-ARRAY compiled.
+PA-EVAL compiled.
+PA-FRAME-P compiled.
+PA-FRAME-PRINTER compiled.
+PA-GET-SNF-NUMS compiled.
+PAFORMAT compiled.
+PARM-VALUEIFY compiled.
+PLIST-COMBINE compiled.
+PLIST-UNION compiled.
+PLIST-UNION* compiled.
+PLIST-UNION-NO-PROPAGATE compiled.
+PP-FRAME* compiled.
+PP-FRAME-ARRAY compiled.
+PP-FRAME-NAME compiled.
+PREPARE-SEQ compiled.
+PREPARE-SEQS compiled.
+PROPAGATE-DOWN compiled.
+PROPAGATE-DOWN-DFS compiled.
+PROPAGATE-INIT compiled.
+PROPAGATE-INIT-PLIST compiled.
+PROPAGATE-UPDATE compiled.
+PROPERTY-NAMES compiled.
+PUTPROP compiled.
+REMOVE-FRAME-CLASS compiled.
+REMOVE-FRAME-INSTANCE compiled.
+SET-CLASS&INSTANCES-FACET compiled.
+SET-FACET-DEMONS0 compiled.
+SET-FACET-SLOT-DEMONS compiled.
+SET-INSTANCE-FACET compiled.
+SET-INSTANCE-FACET-DEMONS compiled.
+SET-INSTANCE-FACET-SLOT-DEMONS compiled.
+SET-INSTANCE-SLOT compiled.
+SET-INVERSE-FACET compiled.
+SET-INVERSE-SLOT compiled.
+SET-NAME-FACET compiled.
+SET-NAME-FACET-DEMONS compiled.
+SET-NAME-FACET-SLOT-DEMONS compiled.
+SMART-SYMBOL-NAME compiled.
+SMASH compiled.
+SOME2 compiled.
+SPICE-LISP-P compiled.
+SYMBOLICS-LISP-P compiled.
+TRANSLATE-CACHE compiled.
+TRANSLATE-CACHE2 compiled.
+UPDATE-RANGE-CLASS-CPLIST-VALUE compiled.
+UPDATE-RANGE-CLASS-VALUE compiled.
+WRITE-ACCESSOR-FUNCTIONS compiled.
+WRITE-FACET-REFS compiled.
+WRITE-MAKER-FUNCTION compiled.

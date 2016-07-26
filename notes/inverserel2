@@ -1,0 +1,24 @@
+Klaus, Nick at MIT made some good suggestions to dealing with adding
+slots to instances. Here they are:
+
+>        I may not understand what the problem is exactly, but for the
+>instances, doesn' t it mean that when you want to dynamically add a slot
+>to an instance, you have to add it to its class?
+>        It even seems reasonable to me, for you probably want to add the
+>slot to other instances of the same class. Otherwise, you might as well create
+>a new subclass with a single instance (to start with) and inheriting
+>every slot from its superclass, having as only slot of its own the new slot
+>desired for the instance.
+>        So, modifying the class automatically doesn't violate your principle
+>and is consistent with what the user is asking for.
+
+My response:
+Your two solutions both sound reasonable.  Probably adding the slot to
+the class when a slot is dynamically added to an instance would be the
+most efficient thing, since I agree that you will probably end up adding
+the same slot to other instances of the same class.
+
+What do you think?
+
+Also, could you give me an example of an instance having a relation
+to another instance?

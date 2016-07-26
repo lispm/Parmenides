@@ -1,0 +1,62 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 25 Jun 87 19:56:13 EDT
+Date: Thursday, 25 June 1987 19:55:48 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@ml.ri.cmu.edu
+Subject: Parmenides problem (such a short peace for you)
+Message-ID: <1987.6.25.23.36.35.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I have tried to rescribe my thesis and got some errors concerning math
+library use.  I have no idea why it wouldn't scribe corrently now.  I will
+figure it out.
+
+At the same time, I have a problem with Parmenides and need
+your help.  I changed some of my frame slots from facetless to having facets
+so that I could remember the units I used.  However, I seemed to have
+touched a nerve of Parmenides and frames won't load now.  The script is as
+follows.  Last time, frame 'column' was loaded before 'beam' and the error
+occurred to 'beam'.  This time I switched them and error occurred to
+'column'.  The frames are in /../fzhao/hi-rise/def-1.lisp.  Thanks.
+
+A question: if I define a frame as
+(def-frame example ()
+  :weight (value 0 units 'Ib))
+
+and a local variable W is 100.  How should I make a new example with weight
+slot value facet to be the value of W?
+(make-example 'ex-1 :weight ('value W))  ?
+
+--Fang
+
+
+> (load "ld")
+Loading frame definitions
+Defining class IS-PART-OF
+Defining class IS-ALT
+Defining class USES
+Defining class BUILDING
+Defining class GRID
+Defining class LATERAL
+Defining class GRAVITY
+Defining class 3D-LATERAL
+Defining class 2D-LATERAL
+Defining class MATERIAL
+Defining class LOCATION
+Defining class LAT-EVAL
+Defining class TYP-FRAME
+Defining class COLUMNS
+Defining class BEAMS
+Defining class DIAGONALS
+Defining class BEAM
+Defining class COLUMN
+>>Error: NIL should be of type STRING
+
+INTERN:
+   Required arg 0 (NAME): NIL
+   Optional arg 1 (PACKAGE): #<Package "KEYWORD" 3DD75B>
+
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+-> 
+

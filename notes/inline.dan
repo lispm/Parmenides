@@ -1,0 +1,38 @@
+
+Return-Path: <Daniel.Kahn@SCHUBERT.PRODIGY.CS.CMU.EDU>
+Received: from schubert.prodigy.cs.cmu.edu by ML.RI.CMU.EDU id aa08463;
+          13 Jun 90 13:19:31 EDT
+Received: from schubert.prodigy.cs.cmu.edu by SCHUBERT.PRODIGY.CS.CMU.EDU
+          id aa05224; 13 Jun 90 13:18:22 EDT
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: Access functions in Parmenides 
+In-reply-to: Your message of Wed, 13 Jun 90 09:34:33 -0400.
+Date: Wed, 13 Jun 90 13:18:17 EDT
+Message-ID: <5222.645297497@SCHUBERT.PRODIGY.CS.CMU.EDU>
+From: Daniel.Kahn@SCHUBERT.PRODIGY.CS.CMU.EDU
+Status: R
+
+Pete,
+
+I think inline declarations (and proclaimations) work like this.
+
+(proclaim '(inline wow-func))
+
+will cause all calls to wow-func to be coded in line.  If you have super-func
+such that (eq (symbol-funcion wow-func) (symbol-function super-func)) => t a
+call to super-func is still coded as a function call.  My reason for thinking
+this is that the inline proclaimation addeds a property to the symbol that is
+used for the function call so the inline is associated with a call to a symbol,
+not to a specific lambda expression or compiled code object.
+
+The normal defstruct accessor functions are not proclaimed inline, but use some
+special compiler magic which we do not have license to use and still be in the
+common lisp realm.
+
+All you need in your code is something like 
+   (if *make-slots-accesors-inline*  ; good for debugging
+      (proclaim `(inline ,access-func)))
+
+every time you create a new accessor function.
+
+--dan

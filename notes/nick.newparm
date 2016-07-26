@@ -1,0 +1,117 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 26 May 87 15:14:57 EDT
+Received: by ATHENA (5.45/4.7)
+	id AA18611; Tue, 26 May 87 15:13:59 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA05878; Tue, 26 May 87 15:10:03 EDT
+Message-Id: <8705261910.AA05878@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: first tries with the new version
+Date: Tue, 26 May 87 15:09:58 EDT
+
+
+		Hi pete, 
+
+	I am just trying to run my old program with the new version 
+of Parmenides. 
+	I first have a problem with !!inheritance-type, which is set 
+to DFS instead of :DFS.
+	Local-p doesn't seem to work anymore with instances, but 
+only with frame names. 
+
+		I first have to update my version before enjoying 
+the Parmenides. 
+
+	NICK
+
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 26 May 87 16:38:13 EDT
+Received: by ATHENA (5.45/4.7)
+	id AA19684; Tue, 26 May 87 16:37:19 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA06650; Tue, 26 May 87 16:33:22 EDT
+Message-Id: <8705262033.AA06650@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: inheritance
+Date: Tue, 26 May 87 16:33:18 EDT
+
+
+		Hi, it's me again
+
+	I have something very strange happening.
+Here is the code
+
+> (def-frame a1 (cache *ALL*) a 1)
+Re-defining class A1
+;;; Warning: Redefining MAKE-A1
+A1
+> (pp-frame 'a1)
+Frame Class A1: (:CACHE (:%CLASS :A))
+A               1
+NIL
+> (def-frame b1 (is-a (a1)) a 2)
+Re-defining class B1
+;;; Warning: Redefining MAKE-B1
+B1
+> (pp-frame 'b1)
+Frame Class B1: (:CACHE (:%CLASS :A) :IS-A (A1))
+A               1
+A               1
+NIL
+>
+
+Obviously, b1 is not exactly as I wanted it. Does that have 
+something to do with the fact that %CLASS is also cached or 
+that I went back to the previous version of local-p (without 
+the facetedp test) ?
+I also noticed that you can give a symbol (and not a list) 
+as the is-a c-slot and the system doesn't yell. The pp-frame 
+displays the single parent as an atom. What are the 
+consequences ?
+
+	Hoping to hear from you soon.
+
+		NICK
+
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 26 May 87 19:10:54 EDT
+Received: by ATHENA (5.45/4.7)
+	id AA21684; Tue, 26 May 87 19:09:53 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA07724; Tue, 26 May 87 19:05:58 EDT
+Message-Id: <8705262305.AA07724@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: yes and no
+Date: Tue, 26 May 87 19:05:57 EDT
+
+
+		Pete, 
+
+	OK for the ":DFS" and the single parent. I was loading the new 
+version on top of the old one it that's probably the reason. 
+	As far as local-p is concerned, I am talking about things like 
+
+(setq a1 (frame (def-frame a1 () s 1))) 
+
+	(local-p a1 's) fail by answering that 
+
+>>Error: #<Vector T 2 AB4FE3> should be of type SYMBOL
+
+GET:
+   Required arg 0 (SYMBOL): #<Vector T 2 AB4FE3>
+   Required arg 1 (INDICATOR): :FRAME-TYPE
+   Optional arg 2 (DEFAULT): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+
+	I have located the problem in the factedp clause of the new local-p 
+defun, but I don't know if it would have worked before with that clause. 
+
+
+	About the double "a 1" problem, the second thing is that "a 2" 
+doesn't even appear! For me, it means that all my frame files give wrong 
+answers. 
+
+	Thank you for being always so prompt to answer. 
+
+			NICK
+
+

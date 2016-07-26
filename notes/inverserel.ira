@@ -1,0 +1,120 @@
+Received: from CAD.CS.CMU.EDU by ML.RI.CMU.EDU;  1 Apr 87 23:04:17 EST
+Date:  1 Apr 1987 21:59-EST 
+From: Ira.Monarch@cad.cs.cmu.edu
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: more on inverse relations
+Message-Id: <544330784/iam@cad.cs.cmu.edu>
+In-Reply-To: Peter.Shell's mail message of Wed, 1 Apr 87 12:58:54 EST
+
+I think automatic inverse is a good idea.  As I understand it, if an
+arm is part-of a human body, then automatically a human body has an arm
+as part.  And if lions eat meat, then meat is eaten by lions.  But
+also, if vegetarians eat vegetables then vegetables are eaten by
+vegetarians, and if plants are watered by human beings then human
+beings water plants.  In other words, it's not that it doesn't make
+sense to view the water-by relation as having an inverse, but whether
+that relation and its inverse are typical of the objects they are
+relations of.  This does seem to be true of arms and human bodies with
+respect to the relation part-of and its inverse relation parts or
+vice-versa, but not so true of human beings as waterers of plants.
+Hopefully this makes sense and I haven't mis-interpreted your original point.
+
+Ira
+
+Received: from CAD.CS.CMU.EDU by ML.RI.CMU.EDU;  2 Apr 87 09:44:15 EST
+Date:  2 Apr 1987 08:31-EST 
+From: Ira.Monarch@cad.cs.cmu.edu 
+To: Peter.Shell@ML.RI.CMU.EDU 
+Subject: Re: more on inverse relations
+Message-Id: <544368717/iam@cad.cs.cmu.edu> In-Reply-To: Peter.Shell's
+mail message of Wed, 1 Apr 87 23:36:07 EST 
+
+>I didn't quite understand your second to last sentence, that 'it' is
+>not so true of human beings as waterers of plants.  
+
+>I may do it the way CRL and I think SRL do it - define a relation by
+>it's domain and range.  The domain and range are classes.  E.g., the
+>domain of 'waters' is say people and the range is plants.
+
+"Defining" relations in terms of domains and ranges is a good idea.
+However when I said "it is not so true of human beings as waterers of
+plants" I was worried more about "defining" objects rather than
+relations.  I was assuming that in "defining" an object, what needs to
+be specified is the attributes typical of it.  For example, it is only
+in horticultural contexts that it is typical of human beings that they
+water plants and typical of plants that they are watered by human
+beings.  So, if you agree about defining objects in terms of typical
+attributes or relations, and if Parmenides is intended to be used in
+domains in which objects and relations are specified in more than one
+context, then relations have to be defined relative to contexts, or in
+other words, the domains and ranges of relations have to belong to
+specified contexts.
+
+Ira
+
+
+Received: from CAD.CS.CMU.EDU by ML.RI.CMU.EDU;  2 Apr 87 14:13:57 EST
+Date:  2 Apr 1987 13:03-EST 
+From: Ira.Monarch@cad.cs.cmu.edu
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: more on inverse relations
+Message-Id: <544384990/iam@cad.cs.cmu.edu>
+In-Reply-To: Peter.Shell's mail message of Thu, 2 Apr 87 10:52:12 EST
+
+I didn't get a copy of my previous message to you.  If you still have a
+copy, please send it to me.
+
+I talked over some of the problems we've been discussing with Sergei
+Nirenburg.  For one thing he thought there could be relations for
+instances and not for classes.  However, when pressed, he had a hard
+time coming up with an example that worked.  His basic idea is that
+spatial-temporal relations apply differently to instances than to
+classes.  For example, we know typically of objects that they are in
+given places for given amounts of time, and of processes that they are
+located in given areas and that they take a given amount of time, but
+it is only a property of particular objects that they are in particular
+places for particular amounts of time, and it is only a property of
+particular processes that they are located in particular areas and that
+they start at particular times and last for a particular amount of
+time.  My reply to this is that we're not talking about different
+relations being applied to classes and instances, but rather different
+facets of relations.  In the case of classes we're talking about
+restrictions or constraints on the slots, perhaps specifiable as
+ranges, and in the case of instances we're talking about values.  This
+sort of reply did not completely convince him, so he and I will be
+discussing it some more.
+
+During my discussion with Sergei, I mentioned that you and I had been
+discussing some issues that overlapped with the work I was doing with
+him.  I also mentioned that Parmenides makes a more fundamental
+distinction between classes and instances than FrameKit.  Sergei's work
+on semantics for natural language parsing also makes a fundamental
+distinction between classes and instances.  Meanwhile, Mike Calvin
+suggested that our KBMS should be compatible with Parmenides as well as
+FrameKit.  So, it looks like Parmenides' user community will be
+expanding.  
+
+Ira
+
+Received: from CAD.CS.CMU.EDU by ML.RI.CMU.EDU;  2 Apr 87 16:57:12 EST
+Date:  2 Apr 1987 16:24-EST 
+From: Ira.Monarch@cad.cs.cmu.edu
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: more on inverse relations
+Message-Id: <544397098/iam@cad.cs.cmu.edu>
+In-Reply-To: Peter.Shell's mail message of Thu, 2 Apr 87 15:59:18 EST
+
+Will read the newest version.
+
+Yes, actually I had just read the bit about an instance being of only
+one class, but it didn't sink in.  In fact I sort of like the idea because,
+as you point out about my example, it would have forced me to be more
+careful about taxonomic levels.  I'm not sure everyone will feel this
+way.
+
+About fillers being lists, wouldn't it be a fairly simple matter of
+hiding this requirement from users by making the singletons lists at
+the point where the implementation calls for it.
+
+Ira
+

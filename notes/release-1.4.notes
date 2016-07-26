@@ -1,0 +1,36 @@
+For Parmendies release of 24-April
+
+Added immediate-isas.
+
+Made isas and inverse-isas work for classes or instances, names or frames.
+
+Fixed a bug in firing demons associated with slots
+
+The symbol *ALL* is now interpreted correctly for the value of
+the slots-inherited slot of relations.
+
+Allowed value of related frames to be an atom or a list.  Before the value
+of a class slot which is a relation had to be a list.  Now, if the value is
+not a list, it will be coerced into one.
+
+Changed internal representation of slot and facet names to keywords, so as
+not to depend on which package the user is in.  Access and creation
+functions still can take non-keyword symbols as arguments, but the normal
+way is to now take keywords as arguments.
+
+Revised the manual for greater clarity.
+
+Implemented inverse relation support.  At set-facet, set-slot and
+make-frame and def-frame levels.
+
+Added get-generic-value
+
+Implemented add-slot
+
+Added add-cslot
+
+If you compile your frame files, they will need to be re-compiled because
+of the new internal representation.
+
+For those who also use Frulekit, you will need the new versions of
+build and inter.

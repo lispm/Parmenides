@@ -1,0 +1,23 @@
+Received: from CAD.CS.CMU.EDU by ML.RI.CMU.EDU; 29 Jun 86 22:10:50 EDT
+Date: Sun, 29 Jun 86 22:08:09 EDT
+From: Robert.Joseph@CAD.CS.CMU.EDU
+To: Sandra.Katz@CAD.CS.CMU.EDU, pshell@ml
+Subject: framekit documentation
+
+The framekit documentation is kept in /../e/joseph/nlm/code/frames/doc/frame.
+The common lisp version of framekit is kept in /../e/joseph/nlm.  Hope
+this will be of some help.  Sorry about the late reply but I have been out of f
+town and just now read my mail.
+
+--rj
+
+Received: from CAD.CS.CMU.EDU by ML.RI.CMU.EDU; 29 Jun 86 22:13:02 EDT
+Date: Sun, 29 Jun 86 22:11:02 EDT
+From: Robert.Joseph@CAD.CS.CMU.EDU
+To: Sandra.Katz@CAD.CS.CMU.EDU, pshell@ml
+Subject: Correction on common lisp framekit
+
+The common lisp framekit version is in /../e/usr/joseph/nmr directory.
+
+--rj
+

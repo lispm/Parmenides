@@ -1,0 +1,376 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 21 Jun 87 14:38:54 EDT
+Date: Sunday, 21 June 1987 14:36:46 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: Peter.Shell@ml.ri.cmu.edu
+Subject: Re: ?
+Message-ID: <1987.6.21.18.31.9.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I don't know.  It must be a mistake.  I sent you a mail Friday night and
+that's the last one.  In case it was lost, I copied it again here.
+
+
+Date: Friday, 19 June 1987 20:09:06 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@cive.ri.cmu.edu
+cc: 
+Subject: Parmenides
+Message-ID: <1987.6.20.0.9.6.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I copied the most recent Parmenides and removed all the "has" slot in frame
+definitions, but it still wouldn't load "diagonals" (file
+/../ce/usr/fzhao/hi-rise/def.lisp).  Then I got rid of the inverse relation
+"has" (file /../ce/usr/fzhaohi-rise/def-1.lisp) but now it wouldn't load
+frame "wall" correctly.  The sample run is in script S1 (following).  
+
+A problem with the previous version of Parmenides I got this morning
+(without inverse relation) was that inheritance didn't work for "is-part-of"
+well.  For example, "location" is linked to "material" through "is-alt" and
+the information is inherited perfectly.  Then "typ-frame" is linked to
+"location" through "is-part-of".  This time the information in "material"
+instance is inherited but not that in "location".  Very wierd.  The sample
+run is in script S2.
+
+I tried a third and an old test.  The result is in script S3. (Two mistakes)
+
+Good luck.
+
+--Fang
+
+******************  Script S1
+
+[hi-rise]% clisp
+;;; Lucid Common Lisp, Version 1.0.1,  9-Jan-87
+;;; Copyright (C) 1986 by Lucid, Inc.   All Rights Reserved
+;;; Development version -- for internal use only
+
+> (load "ldp")
+Loading Parmenides
+Defining class RELATION
+Parmenides loaded
+
+#P"/usrce0/fzhao/hi-rise/ldp.lisp"
+> (load "ld")
+Loading frame definitions
+Defining class IS-PART-OF
+Defining class HAS
+Defining class IS-ALT
+Defining class USES
+Defining class BUILDING
+Defining class GRID
+Defining class LATERAL
+Defining class GRAVITY
+Defining class 3D-LATERAL
+Defining class 2D-LATERAL
+Defining class MATERIAL
+Defining class LOCATION
+Defining class LAT-EVAL
+Defining class TYP-FRAME
+Defining class COLUMNS
+Defining class BEAMS
+Defining class DIAGONALS
+>>Error: The dimensions list argument to MAKE-ARRAY, 1/2, is invalid.
+
+MAKE-ARRAY:
+   Required arg 0 (DIMENSIONS): 1/2
+   Keyword arg 1 (ELEMENT-TYPE): T
+   Keyword arg 2 (INITIAL-CONTENTS): NIL
+   Keyword arg 3 (INITIAL-ELEMENT): NIL
+   Keyword arg 4 (ADJUSTABLE): NIL
+   Keyword arg 5 (FILL-POINTER): NIL
+   Keyword arg 6 (DISPLACED-TO): NIL
+   Keyword arg 7 (DISPLACED-INDEX-OFFSET): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply a dimensions list.
+-> :a
+;;; Abnormal exit of load "def.lisp"
+;;; Abnormal exit of load "ld.lisp"
+Back to Lisp Top Level
+
+> (load "ld")
+Loading frame definitions
+Re-defining class IS-PART-OF
+;;; Warning: Redefining MAKE-IS-PART-OF
+Re-defining class IS-ALT
+;;; Warning: Redefining MAKE-IS-ALT
+Re-defining class USES
+;;; Warning: Redefining MAKE-USES
+Re-defining class BUILDING
+;;; Warning: Redefining MAKE-BUILDING
+Re-defining class GRID
+;;; Warning: Redefining MAKE-GRID
+;;; Warning: Redefining GRID-SHAFT-SYM-W
+;;; Warning: Redefining GRID-SHAFT-SYM-N
+;;; Warning: Redefining GRID-SHAFT
+Re-defining class LATERAL
+;;; Warning: Redefining MAKE-LATERAL
+Re-defining class GRAVITY
+;;; Warning: Redefining MAKE-GRAVITY
+Re-defining class 3D-LATERAL
+;;; Warning: Redefining MAKE-3D-LATERAL
+Re-defining class 2D-LATERAL
+;;; Warning: Redefining MAKE-2D-LATERAL
+Re-defining class MATERIAL
+;;; Warning: Redefining MAKE-MATERIAL
+Re-defining class LOCATION
+;;; Warning: Redefining MAKE-LOCATION
+;;; Warning: Redefining LOCATION-NUM-GROUPS
+;;; Warning: Redefining LOCATION-COL-COORDS
+;;; Warning: Redefining LOCATION-P-COEFF
+;;; Warning: Redefining LOCATION-S2
+;;; Warning: Redefining LOCATION-S1
+;;; Warning: Redefining LOCATION-W2
+;;; Warning: Redefining LOCATION-W1
+;;; Warning: Redefining LOCATION-N2
+Re-defining class LAT-EVAL
+;;; Warning: Redefining MAKE-LAT-EVAL
+Re-defining class TYP-FRAME
+;;; Warning: Redefining MAKE-TYP-FRAME
+;;; Warning: Redefining TYP-FRAME-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining TYP-FRAME-MAX-LOAD-WIDTH
+;;; Warning: Redefining TYP-FRAME-T2
+;;; Warning: Redefining TYP-FRAME-T1
+;;; Warning: Redefining TYP-FRAME-R
+;;; Warning: Redefining TYP-FRAME-NUM-BAYS
+;;; Warning: Redefining TYP-FRAME-NUM-TYP-FRAMES
+;;; Warning: Redefining TYP-FRAME-IS-PART-OF
+;;; Warning: Redefining TYP-FRAME-NUM-GROUPS
+;;; Warning: Redefining TYP-FRAME-COL-COORDS
+;;; Warning: Redefining TYP-FRAME-P-COEFF
+;;; Warning: Redefining TYP-FRAME-S2
+;;; Warning: Redefining TYP-FRAME-S1
+;;; Warning: Redefining TYP-FRAME-W2
+;;; Warning: Redefining TYP-FRAME-W1
+;;; Warning: Redefining TYP-FRAME-N2
+Re-defining class COLUMNS
+;;; Warning: Redefining MAKE-COLUMNS
+;;; Warning: Redefining COLUMNS-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining COLUMNS-MAX-LOAD-WIDTH
+;;; Warning: Redefining COLUMNS-T2
+;;; Warning: Redefining COLUMNS-T1
+;;; Warning: Redefining COLUMNS-R
+;;; Warning: Redefining COLUMNS-NUM-BAYS
+;;; Warning: Redefining COLUMNS-NUM-TYP-FRAMES
+;;; Warning: Redefining COLUMNS-IS-PART-OF
+;;; Warning: Redefining COLUMNS-NUM-GROUPS
+;;; Warning: Redefining COLUMNS-COL-COORDS
+;;; Warning: Redefining COLUMNS-P-COEFF
+;;; Warning: Redefining COLUMNS-S2
+;;; Warning: Redefining COLUMNS-S1
+;;; Warning: Redefining COLUMNS-W2
+;;; Warning: Redefining COLUMNS-W1
+;;; Warning: Redefining COLUMNS-N2
+Re-defining class BEAMS
+;;; Warning: Redefining MAKE-BEAMS
+;;; Warning: Redefining BEAMS-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining BEAMS-MAX-LOAD-WIDTH
+;;; Warning: Redefining BEAMS-T2
+;;; Warning: Redefining BEAMS-T1
+;;; Warning: Redefining BEAMS-R
+;;; Warning: Redefining BEAMS-NUM-BAYS
+;;; Warning: Redefining BEAMS-NUM-TYP-FRAMES
+;;; Warning: Redefining BEAMS-IS-PART-OF
+;;; Warning: Redefining BEAMS-NUM-GROUPS
+;;; Warning: Redefining BEAMS-COL-COORDS
+;;; Warning: Redefining BEAMS-P-COEFF
+;;; Warning: Redefining BEAMS-S2
+;;; Warning: Redefining BEAMS-S1
+;;; Warning: Redefining BEAMS-W2
+;;; Warning: Redefining BEAMS-W1
+;;; Warning: Redefining BEAMS-N2   ; I wonder why beams-n1 was redefined
+Defining class DIAGONALS           ; since n1 is a slot in "location" as n2
+Defining class COLUMN
+Defining class BEAM
+Defining class WALLS
+>>Error: The argument to AREF, NIL, is not an array.
+
+AREF:
+   Required arg 0 (ARRAY): NIL
+   Optional arg 1 (I1): 0
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply an array.
+-> :a
+;;; Abnormal exit of load "def-1.lisp"
+;;; Abnormal exit of load "ld.lisp"
+Back to Lisp Top Level
+
+>
+
+
+******************  Script S2
+> (setq r (nth 7 ls))
+#<Vector T 24 5EEBA3>
+> (pp-frame r)
+%CLASS          LOCATION
+3D-DESCRIPTION  2D-ORTHOGONAL
+RANGE           (:VALUE (STEEL CONCRETE) :DEPTH 2)
+IS-ALT          #:|mat-2312|
+USES            NIL
+DIRECTION       NARROW
+2D-DESCRIPTION  RIGID-FRAME
+DEAD-LOAD-EST   125.0
+STORY-DIM-EST   9.25
+MAT-DESCRIPTION STEEL
+EVAL-VALUE      2.0
+EVALUATION      #:|eval-2334|
+NUMBER          8
+INDEPENDENT     8
+CLASS           NEDGE+ALL
+N1              (2 2 2 2 2 2 2 2)
+N2              (8 8 8 8 8 8 8 8)
+W1              (1 3 5 7 9 11 13 15)
+W2              (1 3 5 7 9 11 13 15)
+S1              (2 2 2 2 2 2 2 2)
+S2              (30 30 30 30 30 30 30 30)
+P-COEFF         (.00862069 .0034482758 0.0)
+COL-COORDS      (0 30 50)
+NUM-GROUPS      0
+NIL
+> (lat-analyze r)
+1 Enter LAT-ANALYZE #<Vector T 24 5EEBA3>
+| 2 Enter ANALYZE-RFRAME #<Vector T 24 5EEBA3>
+|   3 Enter GET-TYP-FRAMES #<Vector T 24 5EEBA3>
+%CLASS          TYP-FRAME                 ; printed as debugging info
+3D-DESCRIPTION  2D-ORTHOGONAL
+RANGE           (:VALUE (STEEL CONCRETE) :DEPTH 3)
+IS-ALT          #:|mat-2312|
+USES            NIL
+DIRECTION       NARROW
+2D-DESCRIPTION  RIGID-FRAME
+nDEAD-LOAD-EST   125.0
+STORY-DIM-EST   10.0
+MAT-DESCRIPTION STEEL
+EVAL-VALUE      0.0         ; from here to "num-groups" slot , the 
+EVALUATION      NIL         ; information is stored in #<Vector T 24 5EEBA3> 
+NUMBER          0           ; -- a "location" frame, but not inherited.
+INDEPENDENT     0
+CLASS           NIL
+N1              0
+N2              0
+W1              0
+W2              0
+S1              0
+S2              0
+P-COEFF         NIL
+COL-COORDS      NIL
+NUM-GROUPS      0
+IS-PART-OF      #<Vector T 24 5EEBA3> ; 
+NUM-TYP-FRAMES  2
+NUM-BAYS        4
+R               (1 15)
+T1              (2 2 2 2 2 2 2 2)
+T2              (8 8 8 8 8 8 8 8)
+MAX-LOAD-WIDTH  0
+MAX-LOAD-FRAME-NUM 0)
+
+(cut)
+
+******************  Script S3
+code "test.lisp"
+
+(def-frame is-part-of (is-a (relation) propagate nil)
+  :combination-type first
+  :slots-inherited *ALL*
+  :has-inverses T
+  :inverse-name has)
+
+(def-frame truck ()
+  :mat steel
+  :weight 1000)
+
+(def-frame door (is-part-of truck)
+  :is-part-of truck
+  :color red)
+
+(def-frame handle (is-part-of door)
+  :is-part-of door
+  :length 20)
+
+> (load "test")
+Re-defining class IS-PART-OF
+;;; Warning: Redefining MAKE-IS-PART-OF
+Re-defining class TRUCK
+;;; Warning: Redefining MAKE-TRUCK
+Re-defining class DOOR
+;;; Warning: Redefining MAKE-DOOR
+>>Error: In function AREF, the index arg 3 for the 
+     vector #<Vector T 3 840D1B> is not a fixnum in range  [0, 3).
+
+AREF:
+   Required arg 0 (ARRAY): #<Vector T 3 840D1B>
+   Optional arg 1 (I1): 3
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply an index.
+-> :a
+;;; Abnormal exit of load "test.lisp"
+Back to Lisp Top Level
+
+-> (pp-frame 'truck)
+Frame Class TRUCK: (:CACHE (:%CLASS) :HAS (DOOR))
+MAT             STEEL
+WEIGHT          1000
+HAS             (DOOR)
+NIL
+-> (pp-frame 'door)
+Frame Class DOOR: (:CACHE (:%CLASS) IS-PART-OF TRUCK)
+MAT             STEEL
+WEIGHT          1000
+IS-PART-OF      TRUCK
+COLOR           RED
+HAS             (HANDLE)
+NIL
+-> (pp-frame 'handle)
+Frame Class HANDLE: (IS-PART-OF DOOR)
+MAT             DOOR
+WEIGHT          20
+>>Error: In function AREF, the index arg 3 for the 
+     vector #<Vector T 3 840D1B> is not a fixnum in range  [0, 3).
+
+AREF:
+   Required arg 0 (ARRAY): #<Vector T 3 840D1B>
+   Optional arg 1 (I1): 3
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:E    Abort to previous break
+:C    Supply an index.
+->-> (pp-frame 'has)
+Frame Class HAS: (:CACHE (:%CLASS) :IS-A (RELATION) :PROPAGATE NIL)
+HAS-INVERSES    T
+INVERSE-NAME    IS-PART-OF
+NIL
+->-> :a
+Back to Lisp Top Level
+
+> (make-truck 'truck-1 :weight 500 :mat 'p)
+#<Vector T 4 8914FB>
+> (pp-frame 'truck-1)
+%CLASS          TRUCK
+MAT             P
+WEIGHT          500
+HAS             (DOOR)
+NIL
+> 
+> (make-door 'door-1 :is-part-of 'truck-1 :color 'green)
+#<Vector T 6 894CA3>
+> (pp-frame 'door-1)
+%CLASS          DOOR
+MAT             STEEL   ; this value should be 'p, inherited from 'truck-1
+WEIGHT          1000    ; this value should be 500, inherited from 'truck-1
+IS-PART-OF      (TRUCK-1)
+COLOR           GREEN
+HAS             (DOOR)
+NIL
+> 
+

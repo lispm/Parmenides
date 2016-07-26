@@ -1,0 +1,91 @@
+Here are some more detailed comments on your code  (search for 'PHS:')
+
+PHS: if the value of (get-facet frame slot facet) is a non-nil list then you
+can simply do: (nconc (get-facet frame slot facet) (list value)).
+If it's already NIL then this would simply be the same as set-facet:
+(defun add-to-facet-end (frame slot facet value)
+  (let ((prev-value (get-facet frame slot facet)))
+    (cond ((consp prev-value)
+	   (nconc prev-value (list value)))
+	  ((null prev-value)
+	   (set-facet frame slot facet value))
+	  ((atom prev-value)
+	   (set-facet frame slot facet (list prev-value value)))
+	  (T (cerror "ignore this add-to-facet-end call"
+	       "can't add to end of non-list")))))
+I may add these 4 to Parmenides.
+
+(defun add-to-facet-end (frame slot facet value)
+  (set-facet frame slot facet
+	     (reverse (cons value
+			    (reverse (listify
+					(get-facet frame slot facet)))))))
+
+PHS: I think this is the same as add-to-facet-end except we do
+(nconc prev-value value) instead of (nconc prev-value (list value))
+and (set-facet frame slot facet (cons prev-value value)) instead of
+... (list prev-value value).
+(defun add-list-to-facet-end (frame slot facet value-list)
+  (set-facet frame slot facet
+	     (reverse
+	      (concatenate 'list (reverse value-list)
+			   (reverse (listify (get-facet frame slot facet)))))))
+
+PHS: nice
+(defmacro add-to-value-end (frame slot value)
+  `(add-to-facet-end ,frame ,slot :value ,value))
+
+(defmacro add-list-to-value-end (frame slot value-list)
+  `(add-list-to-facet-end ,frame ,slot :value ,value-list))
+
+;; ****************
+
+(defmacro relatedp (frame class)
+  `(or (equal ,class (class-of ,frame))
+       (member ,class (isas ,frame))))
+
+(defmacro get-immediate-instances (frame)
+  `(instance-names-of ,frame))
+
+(defun get-instances (frame)
+  " Returns a list of all instances, at any depth, of the frame."
+  ;; NOTE: Must use concatenate to ensure that a copy of what
+  ;;        instance-names-of returns is used!! It appears that
+  ;;        frulekit returns a handle on the actual "slot contents"!
+  (concatenate 'list (mapcan #'(lambda (child) (get-instances child))
+			     (inverse-isas frame))
+	       (instance-names-of frame)))
+
+(defmacro get-immediate-subclasses (frame)
+  `(inverse-isas ,frame))
+
+PHS: this is expensive to do, and can probably be avoided by e.g.
+searching down the tree of subclasses.  can you use isa-p and/or isas instead?
+classes have all of their parents (and super-parents) stored in their
+cslots, so you don't have to cons up a list every time.
+(defun get-subclasses (frame)
+  " Returns a list of all subclasses, at any depth, of the frame."
+  ;; NOTE: Must use concatenate to ensure that a copy of what
+  ;;        inverse-isas returns is used!! It appears that
+  ;;        frulekit returns a handle on the actual "slot contents"!
+  (concatenate 'list (mapcan #'(lambda (child) (get-subclasses child))
+			     (inverse-isas frame))
+	       (inverse-isas frame)))
+
+PHS: inverse-isas has been fixed.
+(defmacro get-immediate-offspring (frame)
+  ;; the test for class can be removed when inverse-isas is fixed
+  `(concatenate 'list (when (classp ,frame) (inverse-isas ,frame))
+		(instance-names-of ,frame)))
+
+(defun get-offspring (frame)
+  " Returns a list of all subclasses and instances, at any depth, of the frame."
+  (concatenate 'list (mapcan #'(lambda (child) (get-offspring child))
+			     (inverse-isas frame))
+  ;; the test for class can be removed when inverse-isas is fixed
+	       (when (classp frame) (inverse-isas frame))
+	       (instance-names-of frame)))
+
+****************************************************************
+
+--Peter

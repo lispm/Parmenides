@@ -1,0 +1,22 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 28 Apr 87 16:47:53 EDT
+Date: Tue, 28 Apr 87 16:27:42 EDT
+From: Guojun.Zhang@CIVE.RI.CMU.EDU
+To: Guojun.Zhang@A.GP.CS.CMU.EDU, Peter.Shell@ML.RI.CMU.EDU
+Subject: ag-simu
+
+Peter,		The files (ag-simu, ag-simu1, ...ag-simu7) are in 
+/../nervi/usr/zhang/fr/eg. Since I changed pre-if-set into post-if-set,
+set-facet-demons works better but still has problems. I now start the
+system (ag-simu.lisp) by typing "(0-1 'INPUT)" where INPUT is a frame.
+Two demons (*c-input and *c-output) the frame work, but the third one,
+*trigger which is supposed to change facet "switch 0" or "switch 1"
+to "switch 1" or "switch 0" for successor frame(s) so far did not work.
+
+Two more questions: (1) Do clear-net and init-rete only work for Fulekit?
+I want to know by using which comand(s) we can delete previously loaded
+frames. (2) Can we use one demon from one frame to trigger or fire two
+or more than two frames at the same time? (of course it cannot be really
+parallel.)
+
+Many thanks.	--Guojun
+

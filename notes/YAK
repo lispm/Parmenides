@@ -1,0 +1,303 @@
+-- Messages from file: /usr/pshell/Mail/my.mail --
+   Wednesday, 9 December 1992 11:18AM
+
+
+
+Message 6 -- *********************
+Return-Path: <@cs.cmu.edu:franconi%irst.it@wonder.irst.it>
+Received: from cs.cmu.edu by NL.CS.CMU.EDU id aa17629; 25 Nov 92 8:32:58 EST
+Received: from wonder.irst.it by CS.CMU.EDU id aa09516; 25 Nov 92 8:31:08 EST
+Received: from che-guevara (che-guevara.irst.it) by wonder.irst.it with SMTP id AA25869
+  (5.65c/IDA-1.4.4); Wed, 25 Nov 1992 14:27:47 +0100
+Received: by che-guevara id AA16412
+  (5.65c/IDA-1.4.4); Wed, 25 Nov 1992 14:30:18 +0100
+From: Enrico Franconi  <franconi@irst.it>
+Message-Id: <199211251330.AA16412@che-guevara>
+Subject: Re: Frame Systems
+To: ivorra@capsogeti.fr (Christophe Ivorra)
+Date: Wed, 25 Nov 92 14:30:17 MET
+Cc: Tom.Mitchell@cs.cmu.edu, Eric.Nyberg@cs.cmu.edu, Brad.Myers@cs.cmu.edu,
+        spector@cs.umd.edu, Peter.Shell@cs.cmu.edu, kessler@cs.utah.edu
+In-Reply-To: <9211251022.AA13813@daedalus>; from "Christophe Ivorra" at Nov 25, 92 11:22 am
+X-Mailer: ELM [version 2.3 PL11]
+
+You will find attached to this letter a short LaTeX document describing YAK, a
+KL-ONE-like Frame-based Knowledge Representation System, developed by myself
+at IRST.
+
+-- enrico
+
+Enrico Franconi   -   franconi@irst.it
+IRST, Istituto per la Ricerca Scientifica e Tecnologica
+Artificial Intelligence / Natural Language Dept.
+I-38050 Povo TN, ITALY.
+Phone:  +39 (461) 814-433  -  Fax:  810-851
+
+--------------------------------cut here--------------------------------------
+
+\documentstyle[12pt]{article}
+
+\setlength{\parskip}{0em}
+\setlength{\parindent}{3ex}
+
+\title{A short presentation of YAK, \\ a Hybrid Knowledge Representation System}
+\author{Enrico Franconi \\ IRST, I-38050 Povo TN, Italy \\
+franconi@irst.it}
+\date{}
+\begin{document}
+\maketitle
+
+YAK is a fully implemented hybrid knowledge representation system
+of the Kl-One family.
+The current version -- "Peace Now! release 1.2b2", November 1991 --
+embodies the following characteristics:
+
+\vspace {1.5ex}
+$\bullet$ The  TBox  language, with respect to $\cal F \cal L ^{-}$,
+allows for primitive concepts and roles,
+functional roles and  role conjunction; note that, differently from all
+currently developed systems, there is no  number
+restriction. A tractable and complete subsumption procedure is provided
+\cite{cattoni:franconi:ismis-90}.
+
+$\bullet$ An object-oriented ABox  with an abstraction / classification
+/ propagation realizing procedure 
+\cite{franconi:et:al:prototypes-92,nebel:dissertation-90}.
+
+$\bullet$ A Constraint Box which  includes:   disjointness,  implies  rules,
+transitive roles, test operator \cite{brachman:et:al:sowa-91,macgregor:aaai-88}.
+
+$\bullet$ Constraints  inference (\'{a} la Allen)  added  to ABox, to exploit set
+and time reasoning \cite{franconi:tr-92}.
+
+$\bullet$ A compositional unification-based query  language with typed  
+variables and simple connectives.
+
+$\bullet$ A simple mechanism for multiple KBs handling.
+
+$\bullet$ "Viewpoints" according to the {\em relevant beliefs} theory for multiple
+agents beliefs representation \cite{franconi:dagstuhl-91}.
+
+\vspace {1.5ex}
+YAK is written in pure common-lisp. An
+optional graphical interface is available for Xerox Medley common-lisp
+-- featuring display and  browsing capabilities,
+Macintosh Allegro common-lisp,
+KCL, Allegro and Lucid common-lisp under Xwindow -- featuring display only.
+
+In the Appendix a simplified version of the syntax of the language
+and a brief summary of
+the functional interface are presented. The functional interface description
+gives an idea of the kind of interaction that a user (either a knowledge
+engineer or a lisp application) can have with the system.
+
+In the future I plan to work on: 
+time, actions and plans  representation and reasoning; simple revision
+mechanisms  for   ABox; interaction with   DataBases;  a  unifier  for
+terminological  descriptions;    a  more expressive   TBox;   a richer
+graphical interface for Mac and Xwindow.
+
+The YAK system has been developed initially as the KR module of the
+              {\sc Al}Fresco natural language system, a  multimodal dialogue
+              prototype  for the  exploration of  italian art history.
+              Now it is a stand-alone, robust, documented and portable
+              piece of software, used within other AI NL projects.
+
+\vspace {1.5ex}
+The YAK package is composed by the following deliverables:\\
+(a) Manual  (includes installation hints,  syntax 
+specifications,  functional interface description,
+                  and lisp library reference guide) \cite{franconi:manual-90};\\
+              (b) Tutorial (includes examples and test cases);\\
+              (c) the {\sc Al}Fresco knowledge base (the one with 
+painters and frescoes);\\
+              (d) documented common-lisp source code;\\
+              (e) a 'defsystem' to load and compile the code.
+
+\vspace {1.5ex}
+The package is available with free licence for  both academic
+and  not academic sites. The support is unofficial;
+although  I will  try  to   fix  bugs that  are
+         reported    to  me.   Licensed  users  have   access to major
+         revisions of the system.
+
+\section* {Appendix}
+
+\newcommand{\titolo}[1]{\rm \subsection*{#1} \tt}
+\setlength{\parskip}{1.5ex}
+\setlength{\parindent}{0ex}
+
+\titolo {TBox}
+\begin {tabular} {ll}
+$<$concept$>$ ::= & anything $\mid$\\
+                  & lisp-object $\mid$\\
+                  & $<$atomic-concept$>$ $\mid$\\
+                  & (every $<$role$>$ $<$concept$>$) $\mid$\\
+                  & (test $<$function$>$ [$<$arg$>$]) $\mid$\\
+                  & (and $<$concept$> ^{+}$) $\mid$\\
+                  & (primitive $<$concept$>$ [$<$index$>$])
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$role$>$ ::= & anyrelation $\mid$\\
+           & $<$atomic-role$>$ $\mid$\\
+           & (single-valued $<$role$>$) $\mid$\\
+           & (and $<$role$> ^{+}$) $\mid$\\
+           & (primitive $<$role$>$ [$<$index$>$])
+\end{tabular}
+
+\titolo {ABox}
+\begin {tabular} {ll}
+$<$individual$>$ ::= & $<$atomic-individual$>$ $\mid$\\
+                 & $<$individual-description$>$
+\end{tabular}
+
+\begin{tabular}{ll}
+\begin{tabular}{ll}
+$<$individual-description$>$ ::=
+\end{tabular}\\
+\begin{tabular}{ll}
+\hspace {.3in} (individual & [$<$concept$>$]\\
+                           & (fills $<$role$>$ $<$individual$>$)$^{*}$\\
+                           & ($<$set-relation$>$ $<$individual$>$)$^{*}$\\
+                           & ($<$time-relation$>$ $<$individual$>$)$^{*}$)
+\end{tabular}
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$set-relation$>$ ::= subset $\mid$ not-subset $\mid$ superset $\mid$\\
+\hspace {.3in} not-superset $\mid$ disjoint $\mid$ not-disjoint $\mid$ 
+element-of $\mid$\\
+\hspace {.3in} not-element-of $\mid$ has-element $\mid$ not-has-element
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$time-relation$>$ ::= before $\mid$ after $\mid$ during $\mid$ contains 
+$\mid$\\
+\hspace {.3in} overlaps $\mid$ overlapped-by $\mid$ meets $\mid$ met-by $\mid$ starts 
+$\mid$\\
+\hspace {.3in} started-by $\mid$ finishes $\mid$ finished-by $\mid$ equals
+\end {tabular}
+
+\titolo {Functional Interface: Tell}
+\begin {tabular} {ll}
+$<$tell$>$ ::= & $<$term-introduction$>$ $\mid$\\
+           & $<$individual-introduction$>$ $\mid$\\
+           & $<$constraint$>$ $\mid$\\
+           & (switch-context $<$viewpoint$>$)
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$term-introduction$>$ ::=\\
+\hspace {.3in} (defconcept $<$atomic-concept$>$ $<$concept$>$) $\mid$\\
+\hspace {.3in} (defrelation $<$atomic-role$>$ $<$role$>$ [transitive])
+\end{tabular}
+
+\begin{tabular}{ll}
+\begin{tabular}{ll}
+$<$individual-introduction$>$ ::=
+\end{tabular}\\
+\begin{tabular}{ll}
+\hspace {.3in} (close-assert & $<$atomic-individual$>$\\
+                             & $<$individual-description$>$)
+\end{tabular}
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$constraint$>$ ::= & (defdisjoint $<$atomic-concept$> ^{+}$) $\mid$\\
+                 & (defrule $<$atomic-concept$>$ $<$concept$>$)
+\end {tabular}
+
+\titolo {Functional Interface: Ask}
+\begin {tabular} {llll}
+$<$ask$>$ ::= & \multicolumn {3}{l}{(subs? $<$concept$>$ $<$concept$>$) $\mid$}\\
+          & \multicolumn {3}{l}{(r-subs? $<$role$>$ $<$role$>$) $\mid$}\\
+          & \multicolumn {3}{l}{(contradict? $<$concept$>$) $\mid$}\\
+          & (retrieve ($<$variable$> ^{*}$)&$<$query-individual$>$\\
+          &                           &[$<$atomic-individual$>$]) $\mid$\\
+          & \multicolumn {3}{l}{(conflict? $<$individual$>$) $\mid$}\\
+          & (believe? $<$viewpoint$>$&$<$query-individual$>$\\
+          &                           &[$<$atomic-individual$>$])
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$query-individual$>$ ::= & $<$basic-query-individual$>$ $\mid$\\
+                       & (and $<$query-individual$> ^{+}$) $\mid$\\
+                       & (or $<$query-individual$> ^{+}$) $\mid$\\
+                       & (not $<$query-individual$>$)
+\end{tabular}
+
+\begin{tabular}{ll}
+$<$basic-query-individual$>$ ::=\\
+\hspace {.3in} $<$individual$>$ $\mid$\\
+\hspace {.3in} ($<$variable$>$ $<$basic-query-individual$>$) $\mid$\\
+\hspace {.3in} (instantiate $<$basic-query-individual$>$) $\mid$
+\end{tabular}\\
+\begin{tabular}{ll}
+\hspace {.3in} (individual & [$<$concept$>$]\\
+                           & (fills $<$role$>$ $<$basic-query-individual$>$)$^{*}$\\
+                           & ($<$set-relation$>$ 
+$<$basic-query-individual$>$)$^{*}$\\
+                           & ($<$time-relation$>$ $<$basic-query-individual$>$)$^{*}$)
+\end{tabular}
+
+\rm
+\setlength{\parskip}{0em}
+\setlength{\parindent}{3ex}
+
+\begin{thebibliography}{1}
+
+\bibitem{brachman:et:al:sowa-91}
+Ronald~J. Brachman, Deborah~L. McGuiness, Peter~F. Patel-Schneider,
+  Lori~Alperin Resnick, and Alexander Borgida.
+\newblock Living with {CLASSIC}: When and how to use a {KL-ONE}-like language.
+\newblock In J.~Sowa, editor, {\em Principles of Semantic Networks}. Morgan
+  Kaufmann, 1991.
+
+\bibitem{cattoni:franconi:ismis-90}
+R.~Cattoni and E.~Franconi.
+\newblock Walking through the semantics of frame-based description languages: A
+  case study.
+\newblock In {\em Proc.\ of the 5$^{~th}$ International Symposium on
+  Methodologies for Intelligent Systems}, pages 234--241, Knoxville, TN, 1990.
+
+\bibitem{franconi:manual-90}
+E.~Franconi.
+\newblock The {YAK} manual.
+\newblock Technical Report 9003-01, IRST, Povo TN, Italy, March 1990.
+\newblock Also as: Progetto Finalizzato CNR `Sist. Informatici e Calcolo
+  Parallelo' report 7/30.
+
+\bibitem{franconi:dagstuhl-91}
+E.~Franconi.
+\newblock Extending hybridity within the {YAK} knowledge representation system.
+\newblock In {\em Proc.\ of the 2$^{~nd}$ International Workshop on
+  Terminological Logics}, Schloss Dagstuhl, Germany, 1991.
+
+\bibitem{franconi:tr-92}
+E.~Franconi.
+\newblock Adding constraints inference to {AB}ox reasoning.
+\newblock Technical Report 9205-02, IRST, Povo TN, Italy, May 1992.
+
+\bibitem{franconi:et:al:prototypes-92}
+E.~Franconi, B.~Magnini, and O.~Stock.
+\newblock Prototypes in a hybrid language with primitive descriptions.
+\newblock {\em Computer and Mathematics with Applications, special issue:
+  Semantic Networks in Artificial Intelligence}, 23(6-9):543--556, 1992.
+
+\bibitem{macgregor:aaai-88}
+R.~MacGregor.
+\newblock A deductive pattern matcher.
+\newblock In {\em Proc.\ of AAAI-88}, pages 403--408, St. Paul, MN, 1988.
+
+\bibitem{nebel:dissertation-90}
+B.~Nebel.
+\newblock {\em Reasoning and Revision in Hybrid Representation Systems}, volume
+  422 of {\em {L}ecture {N}otes in {A}rtificial {I}ntelligence}.
+\newblock Springer-Verlag, Berlin, Heidelberg, New York, 1990.
+
+\end{thebibliography}
+
+
+\end{document}
+

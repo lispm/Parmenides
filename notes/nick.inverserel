@@ -1,0 +1,45 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU;  8 Jun 87 11:10:17 EDT
+Received: by ATHENA (5.45/4.7)
+	id AA19687; Mon, 8 Jun 87 11:09:53 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA19501; Mon, 8 Jun 87 11:09:12 EDT
+Message-Id: <8706081509.AA19501@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: relations between actual frames
+Date: Mon, 08 Jun 87 11:09:10 EDT
+
+
+		Peter, 
+
+	I've been fighting with the system for the last few days, 
+trying to use inverse relations with actual frames. 
+ 	It works as you said when using set-facet : 
+
+(set-value (frame 'my-frame) 'my-relation (frame 'my-second-frame))
+
+which sets vectors in the my-relation slot of my-frame and my-inv-relation 
+slot of my-second-frame. 
+
+	The problem is now, how to obtain the same behavior while using a 
+def-frame. I think I tried everything, but couldn't have two vectors in 
+the slots after the def-frames. 
+	I also encounter some problem if the relation slots are inherited 
+and defined as () in the parent. 
+
+	The last thing is that when I run a file containing def-frames for 
+the second time in the same session, things go wrong. 
+	The system seems to try to add the new frames a frame is related to, 
+to the existing list from the first def-frame. Obviously, what I want to do 
+is redefine the whole frame and all its relations, and forget about any 
+previous value. 
+	A consequence of this is that something like 
+(#<Vector T 9 B96533> #<Vector T 10 B95363>) 
+in the relation slot is interpreted as a function call somtime during the 
+second def-frame. 
+
+	Otherwise, the new Parmenides version is really nice. 
+
+	Thanks for caring for your users, 
+
+			NICK
+

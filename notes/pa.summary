@@ -1,0 +1,71 @@
+1. Introduction
+  PARMENIDES  (PropagAting, Rulekit-Motivated ENgine for Instance DEScriptions)
+is a frame-based knowledge representation system.  It  is  influenced  by  SRL,
+Framekit,  CommonLoops,  and the Spice lisp structure implementation.  The slot
+and facet access functions have comparable  speed  to  the  Slisp  slot  access
+functions.   It has some of the Framekit and SRL functionality, such as facets,
+demons,  and  user-defined  relations.    However,  like  Loops,  it  makes   a
+distinction  between classes and instances.  This means that instances can only
+be an instance of one class, while classes may be subclasses of (have  an  is-a
+relation  with)  more  than  one  class.  Instances may not have any slots that
+their classes don't have.  Classes  describe  a  way  to  make  instances,  and
+instances  only  participate  in  the  frame network through their classes.  By
+storing much of the frame information at the class level, the amount of storage
+needed  for  instances is reduced.  For now, classes can not also be instances,
+but this could be implemented in the future.    Parmenides  is  implemented  in
+Common  Lisp,  so  it is assumed that the user is familiar with this dialect of
+Lisp.
+
+  The name is in recognition of Plato's Parmenides dialogue,  in  which  he  is
+confronted  with the "third person argument".  This is the notion that in order
+to describe and generate instances through the generative  powers  of  classes,
+the  classes  in  turn  need  a  meta-class  to generate them, and so on.  This
+argument is used as an excuse not  to  implement  meta-classes  in  this  frame
+system.
+
+  Other features of Parmenides include:
+
+   - Propagation  instead  of inheritance.  See the section on propagation
+     for more details.
+
+   - Optional facets.  Usually, slots contain facets, which can be thought
+     of  as  annotated  property  lists of a slot.  For example, one might
+     want to store both a value and degree of certainty with  some  slots.
+     However,  if  only  one  value and no facets need be stored, then the
+     slot may be declared to not have facets, thus making  access  to  and
+     representation of that slot more efficient.
+
+   - Extendable  Frames.    Since  frames  are  represented  as adjustable
+     arrays, it is possible to add slots  and  facets  dynamically  (i.e.,
+     after the class has been defined).
+
+   - Class  slots.    Parmenides  supports  class slots, which are ways to
+     specify meta-information about the classes,  and  apply  not  to  any
+     particular  instance or slot, but the class itself.  For example, the
+     propagate attribute is a class slot.
+
+   - Pre-access and post-access  demons.    Parmenides  allows  demons  to
+     called  both  before  and after access to values.  See the section on
+     demons.
+
+   - Multiple Language Messages.  Parmenides messages may be displayed  in
+     a number of languages.  The currently supported languages are English
+     and Spanish, although it is easy to add messages  in  new  languages.
+     See section 6 for details.
+
+   - User-Defined  Relations.  The instance and is-a relations are special
+     hard-wired relations, but the user may define his/her  own  relations
+     as frames.  Inverse relations are also supported.
+
+
+
+	AVAILABILITY
+
+  Parmenides and Frulekit are available at no charge (or for the cost of
+making a tape) for people and institutions who wish to use it on a
+non-profit basis.  If somebody plans to use it in a commercial
+application, we can work out an arrangement.  Please indicate whether
+you plan to use it in a non-profit or profit way, and we will send you
+the appropriate forms to sign, after which time we can send you the software.
+Also please indicate if you can recieve the software by FTP, by
+cartridge or magtape.

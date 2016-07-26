@@ -1,0 +1,58 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 22 Jul 87 12:07:40 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7) id AA22708; Wed, 22 Jul 87 12:04:58 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA02533; Wed, 22 Jul 87 12:04:11 EDT
+Message-Id: <8707221604.AA02533@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: Old bug comming back ?
+Date: Wed, 22 Jul 87 12:04:09 EDT
+
+
+		Peter, 
+
+	I was trying out old parts of code and I fell on a bug that 
+looks like an old one. 
+	I am not sure however and I'd like you ti tell me if I did 
+something wrong, found a new bug or if the fix was not inbcorporated 
+in the lsat versions. 
+
+	My problem is that when I define a new class that inherits 
+from another one which has a relation slot with a list of actual 
+frames in it, the list is evaluated and the first vector (frame) is 
+supposed to be a function. 
+	Here is a short example for clarity. 
+
+
+--------------------------------------------------
+> (def-frame a (cache *ALL*) slot1 (value ()))
+Re-defining class A
+;;; Warning: Redefining MAKE-A
+A
+
+--------------------------------------------------
+> (set-value 'a 'slot1 (list (frame 'a) (frame 'a)))
+(#<Vector T 2 BDEA93> #<Vector T 2 BDEA93>)
+> (pp-frame 'a)
+Frame Class A: (:CACHE (:%CLASS :SLOT1))
+SLOT1           (:VALUE (#1=#<Vector T 2 BDEA93> #1#) :DEPTH 0)
+NIL
+
+--------------------------------------------------
+> (get-value 'a 'slot1)
+(#<Vector T 2 BDEA93> #<Vector T 2 BDEA93>)
+T
+
+--------------------------------------------------
+> (def-frame b (is-a (a)))
+Re-defining class B
+>>Error: Unknown operator #<Vector T 2 BDEA93> in (FUNCTION #<Vector T 2 BDEA93>)
+
+EVAL:
+   Required arg 0 (EXPRESSION): (#<Vector T 2 BDEA93> #<Vector T 2 BDEA93>)
+
+:A    Abort to Lisp Top Level
+-> :a
+Back to Lisp Top Level
+
+--------------------------------------------------
+

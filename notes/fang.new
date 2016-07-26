@@ -1,0 +1,285 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 18 Jun 87 21:43:16 EDT
+Date: Thursday, 18 June 1987 21:41:55 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: Peter.Shell@ml.ri.cmu.edu
+Subject: Bugs?
+Message-ID: <1987.6.19.1.29.27.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I tried the new version of Parmenides.  The inverse relation still gave me
+trouble.  I couldn't load the frame definition file with that inverse
+relation "has".  It stopped in three different places when I tried to reload
+the file after loading parmenides.  However, when I reloaded the file the
+fourth and fifth time, it stopped at the last place.  It looked like a
+certain pattern beacause after I loaded Parmenides again, this pattern
+repeated.  The following is the script file containing one such cycle.  My
+frame definition file is /../ce/usr/fzhao/hi-rise/def.lisp.
+
+--Fang
+
+> (load "ld")
+Loading frame definitions
+Re-defining class IS-PART-OF
+Defining class HAS
+;;; Warning: Redefining MAKE-IS-PART-OF
+Re-defining class IS-ALT
+;;; Warning: Redefining MAKE-IS-ALT
+Re-defining class USES
+;;; Warning: Redefining MAKE-USES
+Re-defining class BUILDING
+;;; Warning: Redefining MAKE-BUILDING
+Re-defining class GRID
+;;; Warning: Redefining MAKE-GRID
+;;; Warning: Redefining GRID-SHAFT-SYM-W
+;;; Warning: Redefining GRID-SHAFT-SYM-N
+;;; Warning: Redefining GRID-SHAFT
+Re-defining class LATERAL
+;;; Warning: Redefining MAKE-LATERAL
+Re-defining class GRAVITY
+;;; Warning: Redefining MAKE-GRAVITY
+Re-defining class 3D-LATERAL
+;;; Warning: Redefining MAKE-3D-LATERAL
+Re-defining class 2D-LATERAL
+;;; Warning: Redefining MAKE-2D-LATERAL
+Re-defining class MATERIAL
+;;; Warning: Redefining MAKE-MATERIAL
+Re-defining class LOCATION
+;;; Warning: Redefining MAKE-LOCATION
+;;; Warning: Redefining LOCATION-NUM-GROUPS
+;;; Warning: Redefining LOCATION-COL-COORDS
+;;; Warning: Redefining LOCATION-P-COEFF
+;;; Warning: Redefining LOCATION-S2
+;;; Warning: Redefining LOCATION-S1
+;;; Warning: Redefining LOCATION-W2
+;;; Warning: Redefining LOCATION-W1
+;;; Warning: Redefining LOCATION-N2
+Re-defining class LAT-EVAL
+;;; Warning: Redefining MAKE-LAT-EVAL
+>>Error: The argument to AREF, 0, is not an array.
+
+AREF:
+   Required arg 0 (ARRAY): 0
+   Optional arg 1 (I1): 0
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply an array.
+-> :a
+;;; Abnormal exit of load "def.lisp"
+;;; Abnormal exit of load "ld.lisp"
+Back to Lisp Top Level
+
+> (load "ld")
+Loading frame definitions
+Re-defining class IS-PART-OF
+;;; Warning: Redefining MAKE-IS-PART-OF
+Re-defining class IS-ALT
+;;; Warning: Redefining MAKE-IS-ALT
+Re-defining class USES
+;;; Warning: Redefining MAKE-USES
+Re-defining class BUILDING
+;;; Warning: Redefining MAKE-BUILDING
+Re-defining class GRID
+;;; Warning: Redefining MAKE-GRID
+;;; Warning: Redefining GRID-SHAFT-SYM-W
+;;; Warning: Redefining GRID-SHAFT-SYM-N
+;;; Warning: Redefining GRID-SHAFT
+Re-defining class LATERAL
+;;; Warning: Redefining MAKE-LATERAL
+Re-defining class GRAVITY
+;;; Warning: Redefining MAKE-GRAVITY
+Re-defining class 3D-LATERAL
+;;; Warning: Redefining MAKE-3D-LATERAL
+Re-defining class 2D-LATERAL
+;;; Warning: Redefining MAKE-2D-LATERAL
+Re-defining class MATERIAL
+;;; Warning: Redefining MAKE-MATERIAL
+Re-defining class LOCATION
+;;; Warning: Redefining MAKE-LOCATION
+;;; Warning: Redefining LOCATION-NUM-GROUPS
+;;; Warning: Redefining LOCATION-COL-COORDS
+;;; Warning: Redefining LOCATION-P-COEFF
+;;; Warning: Redefining LOCATION-S2
+;;; Warning: Redefining LOCATION-S1
+;;; Warning: Redefining LOCATION-W2
+;;; Warning: Redefining LOCATION-W1
+;;; Warning: Redefining LOCATION-N2
+Re-defining class LAT-EVAL
+;;; Warning: Redefining MAKE-LAT-EVAL
+Re-defining class TYP-FRAME
+;;; Warning: Redefining MAKE-TYP-FRAME
+;;; Warning: Redefining TYP-FRAME-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining TYP-FRAME-MAX-LOAD-WIDTH
+;;; Warning: Redefining TYP-FRAME-T2
+;;; Warning: Redefining TYP-FRAME-T1
+;;; Warning: Redefining TYP-FRAME-R
+;;; Warning: Redefining TYP-FRAME-T2
+;;; Warning: Redefining TYP-FRAME-T1
+;;; Warning: Redefining TYP-FRAME-R
+;;; Warning: Redefining TYP-FRAME-NUM-BAYS
+;;; Warning: Redefining TYP-FRAME-NUM-TYP-FRAMES
+;;; Warning: Redefining TYP-FRAME-IS-PART-OF
+;;; Warning: Redefining TYP-FRAME-NUM-GROUPS
+;;; Warning: Redefining TYP-FRAME-COL-COORDS
+;;; Warning: Redefining TYP-FRAME-P-COEFF
+;;; Warning: Redefining TYP-FRAME-S2
+;;; Warning: Redefining TYP-FRAME-S1
+;;; Warning: Redefining TYP-FRAME-W2
+;;; Warning: Redefining TYP-FRAME-W1
+;;; Warning: Redefining TYP-FRAME-N2
+Re-defining class COLUMNS
+;;; Warning: Redefining MAKE-COLUMNS
+;;; Warning: Redefining COLUMNS-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining COLUMNS-MAX-LOAD-WIDTH
+;;; Warning: Redefining COLUMNS-T2
+;;; Warning: Redefining COLUMNS-T1
+;;; Warning: Redefining COLUMNS-R
+;;; Warning: Redefining COLUMNS-T2
+;;; Warning: Redefining COLUMNS-T1
+;;; Warning: Redefining COLUMNS-R
+;;; Warning: Redefining COLUMNS-NUM-BAYS
+;;; Warning: Redefining COLUMNS-NUM-TYP-FRAMES
+;;; Warning: Redefining COLUMNS-IS-PART-OF
+;;; Warning: Redefining COLUMNS-NUM-GROUPS
+;;; Warning: Redefining COLUMNS-COL-COORDS
+;;; Warning: Redefining COLUMNS-P-COEFF
+;;; Warning: Redefining COLUMNS-S2
+;;; Warning: Redefining COLUMNS-S1
+;;; Warning: Redefining COLUMNS-W2
+;;; Warning: Redefining COLUMNS-W1
+;;; Warning: Redefining COLUMNS-N2
+>>Error: The argument to AREF, 0, is not an array.
+
+AREF:
+   Required arg 0 (ARRAY): 0
+   Optional arg 1 (I1): 0
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply an array.
+-> :a
+;;; Abnormal exit of load "def.lisp"
+;;; Abnormal exit of load "ld.lisp"
+Back to Lisp Top Level
+
+> (load "ld")
+Loading frame definitions
+Re-defining class IS-PART-OF
+;;; Warning: Redefining MAKE-IS-PART-OF
+Re-defining class IS-ALT
+;;; Warning: Redefining MAKE-IS-ALT
+Re-defining class USES
+;;; Warning: Redefining MAKE-USES
+Re-defining class BUILDING
+;;; Warning: Redefining MAKE-BUILDING
+;;; GC: 224364 words [897456 bytes] of dynamic storage in use.
+;;; 250520 words [1002080 bytes] of free storage available before a GC.
+;;; 725404 words [2901616 bytes] of free storage available if GC is disabled.
+Re-defining class GRID
+;;; Warning: Redefining MAKE-GRID
+;;; Warning: Redefining GRID-SHAFT-SYM-W
+;;; Warning: Redefining GRID-SHAFT-SYM-N
+;;; Warning: Redefining GRID-SHAFT
+Re-defining class LATERAL
+;;; Warning: Redefining MAKE-LATERAL
+Re-defining class GRAVITY
+;;; Warning: Redefining MAKE-GRAVITY
+Re-defining class 3D-LATERAL
+;;; Warning: Redefining MAKE-3D-LATERAL
+Re-defining class 2D-LATERAL
+;;; Warning: Redefining MAKE-2D-LATERAL
+Re-defining class MATERIAL
+;;; Warning: Redefining MAKE-MATERIAL
+Re-defining class LOCATION
+;;; Warning: Redefining MAKE-LOCATION
+;;; Warning: Redefining LOCATION-NUM-GROUPS
+;;; Warning: Redefining LOCATION-COL-COORDS
+;;; Warning: Redefining LOCATION-P-COEFF
+;;; Warning: Redefining LOCATION-S2
+;;; Warning: Redefining LOCATION-S1
+;;; Warning: Redefining LOCATION-W2
+;;; Warning: Redefining LOCATION-W1
+;;; Warning: Redefining LOCATION-N2
+Re-defining class LAT-EVAL
+;;; Warning: Redefining MAKE-LAT-EVAL
+Re-defining class TYP-FRAME
+;;; Warning: Redefining MAKE-TYP-FRAME
+;;; Warning: Redefining TYP-FRAME-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining TYP-FRAME-MAX-LOAD-WIDTH
+;;; Warning: Redefining TYP-FRAME-T2
+;;; Warning: Redefining TYP-FRAME-T1
+;;; Warning: Redefining TYP-FRAME-R
+;;; Warning: Redefining TYP-FRAME-T2
+;;; Warning: Redefining TYP-FRAME-T1
+;;; Warning: Redefining TYP-FRAME-R
+;;; Warning: Redefining TYP-FRAME-NUM-BAYS
+;;; Warning: Redefining TYP-FRAME-NUM-TYP-FRAMES
+;;; Warning: Redefining TYP-FRAME-IS-PART-OF
+;;; Warning: Redefining TYP-FRAME-NUM-GROUPS
+;;; Warning: Redefining TYP-FRAME-COL-COORDS
+;;; Warning: Redefining TYP-FRAME-P-COEFF
+;;; Warning: Redefining TYP-FRAME-S2
+;;; Warning: Redefining TYP-FRAME-S1
+;;; Warning: Redefining TYP-FRAME-W2
+;;; Warning: Redefining TYP-FRAME-W1
+;;; Warning: Redefining TYP-FRAME-N2
+Re-defining class COLUMNS
+;;; Warning: Redefining MAKE-COLUMNS
+;;; Warning: Redefining COLUMNS-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining COLUMNS-MAX-LOAD-WIDTH
+;;; Warning: Redefining COLUMNS-T2
+;;; Warning: Redefining COLUMNS-T1
+;;; Warning: Redefining COLUMNS-R
+;;; Warning: Redefining COLUMNS-T2
+;;; Warning: Redefining COLUMNS-T1
+;;; Warning: Redefining COLUMNS-R
+;;; Warning: Redefining COLUMNS-NUM-BAYS
+;;; Warning: Redefining COLUMNS-NUM-TYP-FRAMES
+;;; Warning: Redefining COLUMNS-IS-PART-OF
+;;; Warning: Redefining COLUMNS-NUM-GROUPS
+;;; Warning: Redefining COLUMNS-COL-COORDS
+;;; Warning: Redefining COLUMNS-P-COEFF
+;;; Warning: Redefining COLUMNS-S2
+;;; Warning: Redefining COLUMNS-S1
+;;; Warning: Redefining COLUMNS-W2
+;;; Warning: Redefining COLUMNS-W1
+;;; Warning: Redefining COLUMNS-N2
+Re-defining class BEAMS
+;;; Warning: Redefining MAKE-BEAMS
+;;; Warning: Redefining BEAMS-MAX-LOAD-FRAME-NUM
+;;; Warning: Redefining BEAMS-MAX-LOAD-WIDTH
+;;; Warning: Redefining BEAMS-T2
+;;; Warning: Redefining BEAMS-T1
+;;; Warning: Redefining BEAMS-R
+;;; Warning: Redefining BEAMS-T2
+;;; Warning: Redefining BEAMS-T1
+;;; Warning: Redefining BEAMS-R
+;;; Warning: Redefining BEAMS-NUM-BAYS
+;;; Warning: Redefining BEAMS-NUM-TYP-FRAMES
+;;; Warning: Redefining BEAMS-IS-PART-OF
+;;; Warning: Redefining BEAMS-NUM-GROUPS
+;;; Warning: Redefining BEAMS-COL-COORDS
+;;; Warning: Redefining BEAMS-P-COEFF
+;;; Warning: Redefining BEAMS-S2
+;;; Warning: Redefining BEAMS-S1
+;;; Warning: Redefining BEAMS-W2
+;;; Warning: Redefining BEAMS-W1
+;;; Warning: Redefining BEAMS-N2
+>>Error: (BEAMS) is a malformed property list.
+
+GETF:
+   Required arg 0 (PLACE): (BEAMS)
+   Required arg 1 (INDICATOR): :DEPTH
+   Optional arg 2 (DEFAULT): NIL
+
+:A    Abort to Lisp Top Level
+-> :a
+;;; Abnormal exit of load "def.lisp"
+;;; Abnormal exit of load "ld.lisp"
+Back to Lisp Top Level
+
+>
+

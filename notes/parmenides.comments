@@ -1,0 +1,26 @@
+;;; The syntax (of def-frame) is similar to defstruct except when you specify
+;;; keywords, you don't
+;;; need to put extra parens around the frame name.  For example, to specify
+;;; extendable to be true, you'd say:
+;;; (def-frame house (dwelling) (:extendable t) :slot1 :val1)
+;;; cplist is a class plist, which contains slots which are stored only with
+;;; the class, and not the instances.  System-recognized slots include:
+;;; :propagate, :extendable, :if-set, if-needed.
+;;; Still to do:
+;;; If a slot is-a relation then define the inverse relation for the frame
+;;; that is related to by that slot.
+;;; Every slot must have both a depth and breadth facet (reserve these facets)
+;;; which tell from what breadth and depth it got the slots.  When defining a
+;;; new class (here) and when changing a slot value, these are used.
+;;; Def-frame automatically provides a value facet to slots that don't have
+;;; any facets but are not constant (i.e., are () or nil).
+;;; Def-frame automatically inserts the depth facet after that first facet if
+;;; propagatep is true and the slot has facets.
+;;; New (July 12 86): to allow other relations, the classes which are related to
+;;; this class are declared in the cplist.  For every such class, invoke plist-union
+;;; on full-iplist and that other class to get the new full-iplist, with appendp
+;;; declared by the frame of the relation.
+;;; This is the way I would implement is-as on the class plist, except some other
+;;; stuff needs to be done first:
+;;; (parents (getf cslots 'is-a))
+;;; (cslots (delete-slot cslots 'is-a))

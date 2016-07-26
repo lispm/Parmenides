@@ -1,0 +1,31 @@
+From athena.mit.edu!ngroleau Fri May 29 12:41:48 1987
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 29 May 87 12:41:42 EDT
+Received: by ATHENA (5.45/4.7)
+	id AA17443; Fri, 29 May 87 12:41:22 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA07618; Fri, 29 May 87 12:37:08 EDT
+Message-Id: <8705291637.AA07618@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: inverse relations
+Date: Fri, 29 May 87 12:37:06 EDT
+
+
+		Pete, 
+
+	I know you're not going to like that mail. You're going 
+to say that if you give a user a bite at your finger, he will soon 
+want to eat your whole arm off. 
+
+	But I would REALLY like the inverse relations to put the 
+actual frame and not just the name in the related frame. 
+	Could tell me what to change where. I tried to modify 
+set-inverse-facet, but it seams more complicated than I first 
+thought. 
+
+	Whatever your answer is, thank you for taking my question 
+into account. 
+
+			NICK
+
+PS Sorry for making problems with ftp.
+

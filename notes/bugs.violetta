@@ -1,0 +1,229 @@
+
+Return-Path: <vlcst2@unix.cis.pitt.edu>
+Received: from unix.cis.pitt.edu by ML.RI.CMU.EDU id aa09410;
+          20 Feb 91 17:16:49 EST
+Received: by unix.cis.pitt.edu (5.61/6.45)
+	id AA11429; Wed, 20 Feb 91 17:15:55 -0500
+Date: Wed, 20 Feb 91 17:15:55 -0500
+From: Violetta L Cavalli-sforza <vlcst2@unix.cis.pitt.edu>
+Message-Id: <9102202215.AA11429@unix.cis.pitt.edu>
+To: pshell+@ML.RI.CMU.EDU
+Subject: bug report for Parmenides
+Cc: sforza@speedy.cs.pitt.edu
+Status: R
+
+
+Pete,
+
+if you reply, reply to sforza@speedy.cs.pitt.edu as well as here. Thanks.
+
+
+----------
+For Pete. Bug fixes in order of importance:
+
+Bugs 1, 2, and 4 are important for me. (So is Bug 3 but I don't expect you'll
+be able to fix that in two days.) Of 1, 2, 4, they should be fixed in the order:
+1, 4, 2)
+
+Bug 5 is for your test file.
+
+RELATIONS
+
+1. If you remove a frame that participates in a relation, it doesn't get 
+   removed from the contents of the inverse slots in other frames to which
+   it is related. BAD.!!!
+
+2. The same frame (symbol) will be added to a slot again and again, resulting 
+   in multiple copies of the same thing in a slot. That doesn't seem good.
+
+3. The relation faceted slot problem that we saw last night may have been
+   just a consequence of things getting pretty confused. I ran a few test
+   and I did find a problem but I'm not sure that it's something you can
+   do anything about in two days. (See tests B and C and my comments at the
+   end of the tests)
+
+   (Def-frame part-of (:is-a relation :propagate nil)
+       :combination-type :FIRST
+       :slots-inherited (:value '(slot))
+       :has-inverses T
+       :inverse-name contains)
+
+; TEST A
+; this all seems to work fine and :part-of/:contains are used as faceted slots
+; but the semantics are funny (see my comments at the end of TEST C.
+
+(def-frame atable (:cache :*all*)
+       :slot someval)
+
+(def-frame aleg (:part-of atable)
+    :part-of (:value 'atable)) ;part-of is faceted
+
+(make-atable 'at1)
+
+(pp-frame 'at1)
+;Frame AT1 of class ATABLE
+; :SLOT        SOMEVAL
+; :CONTAINS    (:VALUE (ALEG) :DEPTH 1)
+
+(make-aleg 'al1  :part-of '(:value at1))
+
+(pp-frame 'at1)
+;Frame AT1 of class ATABLE
+; :SLOT        SOMEVAL
+; :CONTAINS    (:VALUE (AL1 ALEG) :DEPTH 0)
+   
+
+; TEST B 
+; here we run into "my problem"
+
+(def-frame btable (:cache :*all*)
+    :slot someval)
+
+(def-frame bleg (:part-of btable)
+    :part-of (:value NIL))
+
+(pp-frame 'btable)
+;Frame Class BTABLE: (:CACHE (:%CLASS :SLOT) :CONTAINS (BLEG))
+; :SLOT        SOMEVAL
+;NIL
+
+(make-btable 'bt1)
+
+(pp-frame 'bt1)
+; Frame BT1 of class BTABLE  
+;  :SLOT        SOMEVAL
+;;no :contains slot because :value NIL in bleg
+
+(make-bleg 'bl1 :part-of '(:value bt1))
+> Continuable Error: Slot :CONTAINS in frame BTABLE does not have facets
+> While executing: PARMENIDES::GET-INSTANCE-FACET
+> If Continued: Ignore this get-facet command
+
+; This seems to occur because a faceted slot was not created by
+; the definition of bleg in btable. The message is a little misleading
+; because infact btable doesn't EVEN HAVE a slot :contains.
+
+(pp-frame 'bt1)  ; unchanged
+; Frame BT1 of class BTABLE
+;  :SLOT        SOMEVAL
+
+; TEST C: so we make :contains a faceted slot in the table frame
+
+(def-frame ctable (:cache :*all*)
+    :slot someval
+    :contains (:value NIL))   ;right here
+
+(def-frame cleg (:part-of ctable)
+    :part-of (:value NIL))
+
+(make-ctable 'ct1)
+
+(pp-frame 'ct1)
+;Frame CT1 of class CTABLE
+; :SLOT        SOMEVAL
+; :CONTAINS    (:VALUE NIL :DEPTH 1)
+
+(make-cleg 'cl1 :part-of '(:value ct1)) ;and this works fine
+
+(pp-frame 'ct1)  
+; Frame CT1 of class CTABLE
+; :SLOT        SOMEVAL
+; :CONTAINS    (:VALUE (CL1) :DEPTH 0)
+
+; Here's what I perceive to be the problem. You need to have :part-of
+; as an instance slot in the leg class frame in order to be able to have
+; leg and table instances have the relation between them. 
+; The problem is that when you define the leg class frame:
+;   (def-frame leg ..
+;        :part-of (:value table)
+;        ...
+; then all instances of leg will have "table" in their :part-of list and all 
+; instances of table will have "leg" in their :contains list (TEST A).
+; This is weird because instances should really have instances as fillers
+; of the :value facet of the slots, not classes or even prototypes of classes.
+; This is why in test B I used :part-of (:value NIL) in defining the leg class
+; frame, so that instances of legs will have the :part-of slot but not inherit
+; a filler that is a class/prototype. The problem with this is that :value NIL
+; does not add a :contains instance slot to table (because it can't, it doesn't
+; know about table). So you need to explicitly give an instance slot :contains
+; (:value NIL) to the definition of the class table. I did this in TEST C and 
+; it worked fine (though it's a maintenance nightmare).
+;
+; I think that statements such as "legs are parts of tables" or "tables contain
+; legs" are really statements about classes. In a sense, they would be better
+; supported (semantically) through class-slots which would show 
+; the class-relationship and allow you to determine whether the slot should have
+; facets or not. Unfortunately (in this case) in Parmenides class slots don't
+; have any effect on instance slots so you can't use use a class relation slot 
+; to say that instances should have these relation slots unless you start
+; treating class-relation slots differently from other class slots.
+;
+; Proper handling of relations is a difficult representation problem. Having
+; semantic restrictions on slots might ease that. In a sense when you say that
+; a table contains legs, what you are really saying is that it has a :contains
+; slot that should be filled by instances of legs, i.e. a semantic restriction
+; on what can be in the :value slot of :contains..... 
+;
+; We should talk about this more....
+
+
+INHERITANCE
+
+4. If I have the frame definitions:
+
+(def-frame red (:propagate t
+                :nofacetcslot value1
+                :facetedcslot (:value 'value2 :time 't2))
+   :nofacetislot value3
+   :facetedislot (:value 'value4 :time 't4)
+   )
+
+(def-frame sub-red (:propagate t 
+                     :is-a (red))
+   )
+
+Because facetedislot was not cached in frame red, it looks facetless. So:
+While the slot is faceted
+? (get-slot 'sub-red 'facetedislot)
+#(VALUE4 0 T4)
+T
+trying to get the value doesn't work
+? (get-value 'sub-red :facetedislot)  ; facet not inherited?
+> Continuable Error: Slot :FACETEDISLOT in frame SUB-RED does not have facets
+> While executing: PARMENIDES::GET-INSTANCE-FACET
+> If Continued: Ignore this get-facet command
+
+whereas if I cache the facet
+(def-frame green (:propagate t
+                :cache (facetedislot1)
+                :nofacetcslot value1
+                :facetedcslot (:value 'value2 :time 't2))
+   :nofacetislot value3
+   :facetedislot1 (:value 'value4 :time 't4) ;cached
+   :facetedislot2 (:value 'value7 :time 't7)
+   )
+
+(def-frame sub-green (:propagate t :is-a (green)))
+
+(setq sg1 (make-sub-green 'sg1))
+
+; the one that's cached
+? (get-value 'sub-green :facetedislot1)
+VALUE4
+T
+; the one that isn't (again)
+? (get-value 'sub-green :facetedislot2)
+> Continuable Error: Slot :FACETEDISLOT2 in frame SUB-GREEN does not have facets
+> While executing: PARMENIDES::GET-INSTANCE-FACET
+> If Continued: Ignore this get-facet command
+> Type Command-/ to continue, Command-. to abort.
+
+One would conclude that, unless a slot is in the cache list of the class, the
+only thing that's accessible from subclasses is its value, and not any other
+facets, i.e. it looks facetless from the subclasses.
+
+OTHER
+
+5. In prtest.lisp, you should change set-value to set-value-demons in
+   function change-my-output and define the :post-if-set demon
+   change-successor output.

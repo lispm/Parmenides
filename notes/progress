@@ -1,0 +1,52 @@
+*** Parmenides progress, things to do: ***
+
+July 7, 1986:  Documented frame-p, made assure-frame reject anything
+that's not a symbol or vector.
+
+Dec. 1986: Added the CACHE class slot.  Now only designated slots are
+propagated to sub-classes.
+
+June 23, 1986:  Implemented class facets (slots only associated with a
+class).  Re-write get-immediate-plist-facet.
+
+As of 9-June-86:
+Implemented def-frame for extendable and non-extendable frames.
+Allows a frame class to be is-a a list of other classes, and
+handles default values (inherits them and provides them in instances
+through the make function).
+Defines the make and access functions, and setf methods.
+This needs to be fully documented.
+
+is-a-p needs to be implemented. OK  12-JUNE
+
+copy-frame needs to be implemented.  Use copy-seq at two levels.  OK
+called copy-fr.  Uses copy-slot to copy any structure; structures
+really shouldn't be used at all; use simple-vectors instead.
+
+Efficiency: a 12 X 8 array of compiled nested arefs functions should be kept
+around.  OK  13-JUNE
+Kept a 20-length array for the 0th facet of the first 20 slots (since the
+0th facet is usually value, and value is usually the only facet that gets
+accessed real often).
+
+modify-frame needs to be implemented.  alot like make-frame.
+That way there doesn't have to be a modify fn for every wme class.  OK
+ops $modify implemented using this.
+
+TO DO:
+Changing values should propagate:
+(1)  When a frame class's slot is changed, it should do either breadth-first
+     or depth-first inverse inheritance (propagation).
+     Inverse-is-a links need to be automatically generated to do this.
+(2)  When a default frame is modified, it should be propagated.  It
+     already does to some extent (i.e., it gets the default values
+     for new instances right), but when defining a sub-class the old slot
+     values are used.  OK -
+wrote set-class-facet (classname slotname facetname newval)
+this should be the only way a class is changed.
+
+allow users to specify print functions for classes.
+
+Implement support of if-needed and if-added demons.  If-needed demons
+should probably be compiled into the access functions; the if-added
+demons into the make functions and setf methods.

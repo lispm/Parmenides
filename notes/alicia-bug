@@ -1,0 +1,45 @@
+
+Return-Path: <Alicia.Perez@b.gp.cs.cmu.edu>
+Received: from b.gp.cs.cmu.edu by ML.RI.CMU.EDU id ab01030;
+          4 Apr 91 10:46:20 EST
+Received: from b.gp.cs.cmu.edu by B.GP.CS.CMU.EDU id aa02765;
+          4 Apr 91 10:23:12 EST
+To: pshell@ML.RI.CMU.EDU
+Subject: Parmenides question
+Date: Thu, 04 Apr 91 10:23:03 EST
+Message-ID: <2756.670778583@B.GP.CS.CMU.EDU>
+From: Alicia.Perez@B.GP.CS.CMU.EDU
+Status: R
+
+Pete,
+I am confused about the following Parmenides behavior. 
+Could you tell me why if I have previously removed the instances of TRUCK,
+with (remove-frame 'gen-truck1) etc, I stil get them with instances-of, but not
+with instance-names-of?
+
+
+0] (instances-of 'truck)
+
+(#(truck 0.0819979 #1= top-level gen-truck1)
+ #(truck 0.0829978 #1# gen-truck2) #(truck 0.0839977 #1# gen-truck3)
+ #(truck 0 frulekit::top nil))
+0] (pp-frame 'gen-truck1)
+Error in function pp-frame.
+No such frame, gen-truck1
+Error flushed ...
+0] (instance-names-of 'truck)
+
+nil
+0] (instances-of 'city)
+
+(#(city 0.0639992 #1= top-level los-angeles)
+ #(city 0.0649991 #1# boston) #(city 0.065999 #1# pittsburgh)
+ #(city 0 frulekit::top nil))
+0] (instance-names-of 'city)
+
+(los-angeles boston pittsburgh)
+
+
+				Muchas gracias!
+
+				Alicia

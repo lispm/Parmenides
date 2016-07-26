@@ -1,0 +1,9 @@
+Local-p returns error
+if it receives the <frame>.
+
+(pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE (:%CLASS) :IS-A
+(*GENERIC-PACKAGE*))
+NIL
+* (local-p 'object :not-existent)
+T

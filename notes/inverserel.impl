@@ -1,0 +1,48 @@
+Inverse relations in Parmenides will be implemented as follows.
+
+  First,  the principles motivating the implementation decisions will be
+given:
+
+o  Instances should have the same slots as their classes.
+   This is to retain the notion that instances can not be defined
+   independently of their classes.  It also avoids lots of hairy
+   implementation problems.
+
+o  Instances should be able to have relations and inverse relations to other
+   instances.
+
+o  Slots should not be added dynamically to instances, but should be
+   declared in the class beforehand.
+   This follows from the first principle, as well as the desire to force
+   users to completely define their frame bases.
+
+  The solution is to force the user to declare in the class definition what
+the relations and inverse relations will be.
+
+  The following slots will be added to the relation frame:
+
+has-inverses	T or NIL.  When a relation class is declared to have
+inverses, a class for the inverse of that relation will also be defined, if
+it hasn't already been defined.
+
+inverse-name	A symbol.  The name to give to the inverse relation.  If
+not supplied then the name will be formed by concattenating "INVERSE-" to
+the front of the relation name.
+
+  Whenever a slot R of a frame A is set to B, if slot R is a relation with
+inverses and B is a frame, then A will automatically be added to the list
+of values in the inverse-R slot of frame B.  It is an error for B not to
+have the inverse-R slot.  The values of all slots which are invertable
+relations are lists.
+
+  For now, B will not inherit anything from A as a result of its new
+relation inverse-R to it, since add-slot has not yet been implemented.
+Inverse relations in the class slot position will not be supported yet either.
+
+The definition of the relation frame is now:
+
+(def-frame relation ()
+  combination-type first
+  slots-inherited (value '*ALL*)
+  has-inverses NIL
+  inverse-name NIL)

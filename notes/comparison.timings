@@ -1,0 +1,90 @@
+*** Timings for the sake of comparison of the old framekit with the new ***
+
+Old framekit,  get-immediate-facet, 100 iterations, uncompiled:
+
+(get-immediate-facet 'child 'is-a 'value)  where is-a is the first slot
+and value is the first facet:
+119	jiffies
+124	""
+122	""
+Average:  121.66
+
+(get-immediate-facet 'boy 'is-f 'value)  where is-f is the sixth slot
+and value is the first facet:
+
+129	jiffies
+133
+125
+Average:  129.00
+
+(get-immediate-facet 'baby 'is-f 'value6)  where is-f is the sixth slot
+and value6 is the sixth facet:
+134	jiffies
+133
+136
+Average: 134.33
+
+Old framekit,  get-immediate-facet, 100 iterations, COMPILED:
+
+(get-facet 'person 'age 'value)  (1st slot, facet)
+
+
+Parmenides,  get-immediate-facet, 100 iterations, uncompiled:
+(get-immediate-facet 'child 'is-a 'value)  where is-a is the first slot
+and value is the first facet:
+if extendable
+158	jiffies
+149
+160
+Average: 155.66
+
+(get-immediate-facet 'boy 'is-f 'value)  where is-f is the sixth slot
+and value is the first facet:
+168
+165
+161
+Average: 164.66
+
+(get-immediate-facet 'baby 'is-g 'value6)  where is-g is the sixth slot
+and value6 is the first facet:
+177
+176
+168
+Average: 173.66
+
+Parmenides,  get-immediate-facet, 100 iterations, COMPILED:
+(get-immediate-facet 'child 'is-a 'value)  where is-a is the first slot
+and value is the first facet:
+60	jiffies
+57
+60
+Average: 59.0
+
+(get-immediate-facet 'child 'is-a 'value)  where is-a is the first slot
+and value is the first facet: (another day, less free cons cells)
+always use aref		if extendable
+154	jiffies		168	jiffies
+153			176
+154			171
+Average: 153.66		Average: 171.66
+
+100 iterations uncompiled
+person-breathes.value (doesn't matter which position the slot is).
+35	jiffies
+37
+37
+Average: 36.33 jiffies
+
+100 iterations compiled
+person-breathes.value (doesn't matter which position the slot is).
+10	jiffies
+9	jiffies
+8	jiffies
+Average: 9 jiffies
+
+100 iterations compiled defstruct slot-access (frame-name)
+
+7	jiffies
+7	jiffies
+8	jiffies
+Average: 7.33 jiffies

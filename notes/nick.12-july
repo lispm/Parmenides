@@ -1,0 +1,86 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU; 12 Jul 87 16:51:14 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7)
+	id AA20043; Sun, 12 Jul 87 16:48:24 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA16487; Sun, 12 Jul 87 16:48:19 EDT
+Message-Id: <8707122048.AA16487@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: instances ?
+Date: Sun, 12 Jul 87 16:48:17 EDT
+
+
+		Peter, 
+
+	I tried the new version of Parmenides. I first tested 
+the inverse relations between instances. It unfortunately didn't 
+work. Here is the code and session. Note that Parmenides doesn't 
+tell you anymore about the creation of the components slot. 
+
+----------------------------------------------------------
+(def-frame parent (is-a relation)
+  has-inverses t
+  inverse-name components)
+
+(setq a
+      (frame
+       (def-frame a ()
+  components (value ()))))
+
+(setq a1
+      (make-frame 'a 'a1))
+
+(setq b
+      (frame
+       (def-frame b ()
+  parent (value ()))))
+
+(setq b1
+      (make-frame 'b 'b1
+                  :parent `(value ,a1)))
+
+(defun ppp (x)
+  (pp-frame x)
+  (terpri))
+
+(ppp a)
+(ppp a1)
+(ppp b)
+(ppp b1)
+
+--------------------------------------------------------------
+> (A)
+Re-defining class PARENT
+;;; Warning: Redefining MAKE-PARENT
+Re-defining class A
+;;; Warning: Redefining MAKE-A
+Re-defining class B
+;;; Warning: Redefining MAKE-B
+;;; Warning: Redefining PPP
+Frame Class A: (:CACHE (:%CLASS))
+COMPONENTS      (:VALUE NIL :DEPTH 0)
+
+%CLASS          A
+COMPONENTS      (:VAVALUE (B1) :DEPTH 0)
+
+Frame Class B: (:CACHE (:%CLASS))
+PARENT          (:VALUE NIL :DEPTH 0)
+
+%CLASS          B
+PARENT          (:VALUE (#<Vector T 2 DA8983>) :DEPTH 0)
+
+#P"/usr/iesl/groleau/groleau/destiny/shell"
+> a1
+#<Vector T 2 DA8983>
+> (pp-frame 'components)
+Frame Class COMPONENTS: (:CACHE (:%CLASS) :IS-A RELATION)
+HAS-INVERSES    T
+INVERSE-NAME    PARENT
+NIL
+>
+----------------------------------------------------------------
+I must have done something wrong or even picked-up the wrong 
+files from ml. Tell me what you can find out. 
+
+
+			NICK
+

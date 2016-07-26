@@ -1,0 +1,17 @@
+
+Return-Path: <Manuela.Veloso@ML.RI.CMU.EDU>
+Date: Sat, 6 Apr 91 14:55:13 EST
+From: Manuela.Veloso@ML.RI.CMU.EDU
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Copy-frame
+Status: R
+
+Pete,
+I have a question for you.
+Suppose frame F is an instance of some class C.
+When I do copy-frame F, I get back a new frame "equal" to F,
+but if I ask for real-instances-of C the new frame is not there.
+Is this what copy-frame is expected to do or is it a bug?
+In the manual it does not say anything...
+Thanks,
+	Manuela.

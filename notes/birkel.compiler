@@ -1,0 +1,69 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 17 Mar 88 18:54:47 EST
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU; 17 Mar 88 18:51:55 EST
+To: pshell@ml
+Subject: A Compiler problem!
+Date: Thu, 17 Mar 88 18:51:52 EST
+Message-ID: <13442.574645912@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+
+Peter;
+
+I don't think that this problem is yours, but passing it directly to
+Dave McDonald is probably not going to help since your code is in the
+middle. Try compiling the following:
+
+****************************************************************
+;;; -*- Mode: Lisp; Package: USER -*-
+
+(def-frame object (:cache *ALL*))
+
+(def-frame root (:cache *ALL*))
+
+(def-frame operator (:is-a (root) :cache *ALL*))
+
+(def-frame strategy-operator (:is-a (operator object) :cache *ALL*))
+
+(def-frame plan-operator (:is-a (operator object) :cache *ALL*))
+
+****************************************************************
+
+This loads just fine uncompiled. But during a compilation from a file
+lisp goes out to lunch. Using a software interrupt, and crawling down
+the stack reveals that the culprit is the following form:
+
+	(combine-slots2
+	 ((:%class operator :%class operator :%class...)
+	  (:%class operator :%class operator :%class...)))
+
+furthur down we see:	
+
+	(plist-union* (:%class plan-operator)
+		      ((:%class operator :%class operator :%class...)
+		       (:%class operator :%class operator :%class...))
+		      t nil)
+
+then:
+
+	(plist-union (:%class plan-operator)
+		     ((:%class operator :%class operator :%class...)
+		      (:%class operator :%class operator :%class...))
+		     t nil)
+
+then:
+
+	(def-frame (def-frame plan-operator (:is-a (# #))) nil)
+
+finally:
+
+	(compiler::transform (def-frame plan-operator (:is-a (# #))) t)
+
+I am using a lisp core from Mar-7-87 (yours is from Jan-14). I am *only*
+loading parmenides.fasl (yesterdays version, prior to the save-wme stuff).
+What the &^%$# is happening?
+
+	paul
+
+

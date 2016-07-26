@@ -1,0 +1,241 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU;  5 Jun 87 14:42:17 EDT
+Date: Friday, 5 June 1987 14:41:31 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@ml.ri.cmu.edu
+Subject: Inverse relations in Parmenides
+Message-ID: <1987.6.5.18.26.12.Fang.Zhao@cive.ri.cmu.edu>
+
+Peter,
+
+I tried the inverse relation.  It worked fine for hirachy of two levels, but
+not for that of three levels.  I am not sure if it's my mistake.  the
+following are two examples.  You can find the code which defines the frames
+after these sample runs.
+
+[hi-rise]% clisp
+;;; Lucid Common Lisp, Version 1.0.1,  9-Jan-87
+;;; Copyright (C) 1986 by Lucid, Inc.   All Rights Reserved
+;;; Development version -- for internal use only
+
+> (load "ldp")
+Loading Parmenides
+Defining class RELATION
+#P"/usrce0/fzhao/hi-rise/ldp.lisp"
+> (load "test")
+Defining class IS-PART-OF
+Defining class HAS
+Defining class TRUCK
+Defining class DOOR
+Defining class HANDLE
+#P"/usrce0/fzhao/hi-rise/test.lisp"
+> (pp-frame 'is-part-of)
+Frame Class IS-PART-OF: (:IS-A RELATION :PROPAGATE NIL)
+COMBINATION-TYPE FIRST
+SLOTS-INHERITED *ALL*
+HAS-INVERSES    T
+INVERSE-NAME    HAS
+NIL
+> (pp-frame 'has)
+Frame Class HAS: (:CACHE (:%CLASS) :IS-A RELATION :PROPAGATE NIL)
+HAS-INVERSES    T
+INVERSE-NAME    IS-PART-OF
+NIL
+> (pp-frame 'truck)
+Frame Class TRUCK: (:HAS (DOOR))
+MAT             STEEL
+WEIGHT          1000
+HAS             (DOOR)
+NIL
+> (pp-frame 'door)
+Frame Class DOOR: (IS-PART-OF TRUCK :HAS (HANDLE))
+MAT             STEEL
+WEIGHT          1000
+IS-PART-OF      TRUCK
+COLOR           RED
+HAS             (HANDLE)
+NIL
+> (pp-frame 'handle)
+Frame Class HANDLE: (IS-PART-OF DOOR)
+MAT             STEEL
+WEIGHT          NIL        ;;; note the value of weight is not passed down
+IS-PART-OF      DOOR
+COLOR           RED
+LENGTH          20
+NIL
+> (make-truck 'truck1 :mat 'plastic :weight 500)
+#<Vector T 4 59185B>
+> (pp-frame 'truck1)
+%CLASS          TRUCK
+MAT             PLASTIC
+WEIGHT          500
+HAS             (DOOR)
+NIL
+> (make-door 'door1 :is-part-of 'truck1 :color 'blue)
+>>Error: The argument to AREF, (DOOR1 DOOR), is not an array.
+
+AREF:
+   Required arg 0 (ARRAY): (DOOR1 DOOR)
+   Optional arg 1 (I1): 0
+   Optional arg 2 (I2): #<Unbound 121E>
+   Rest arg (MORE-SUBSCRIPTS): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply an array.
+-> :a
+Back to Lisp Top Level
+
+> (pp-frame 'truck1)
+%CLASS          TRUCK
+MAT             PLASTIC
+WEIGHT          500
+HAS             (DOOR1 DOOR)
+NIL
+> (make-handle 'handle1 :is-part-of 'door :length 12)
+#<Vector T 6 5E42FB>
+> (pp-frame 'truck)
+Frame Class TRUCK: (:HAS (DOOR))
+MAT             STEEL
+WEIGHT          1000
+HAS             (DOOR)
+NIL
+> (pp-frame 'door)
+Frame Class DOOR: (IS-PART-OF TRUCK :HAS (HANDLE))
+MAT             STEEL
+WEIGHT          1000
+IS-PART-OF      (DOOR1 TRUCK1 TRUCK)
+COLOR           RED
+HAS             (HANDLE1 HANDLE)
+NIL
+> (pp-frame 'handle1)
+%CLASS          HANDLE
+MAT             STEEL
+WEIGHT          1000
+IS-PART-OF      (DOOR)
+COLOR           RED
+LENGTH          12
+NIL
+> (quit)
+
+;;;; another run
+
+[hi-rise]% clisp
+;;; Lucid Common Lisp, Version 1.0.1,  9-Jan-87
+;;; Copyright (C) 1986 by Lucid, Inc.   All Rights Reserved
+;;; Development version -- for internal use only
+
+> (load "ldp")
+Loading Parmenides
+Defining class RELATION
+#P"/usrce0/fzhao/hi-rise/ldp.lisp"
+> (load "test")
+Defining class IS-PART-OF
+Defining class HAS
+Defining class TRUCK
+Defining class DOOR
+Defining class HANDLE
+#P"/usrce0/fzhao/hi-rise/test.lisp"
+> (pp-frame 'truck)
+Frame Class TRUCK: (:HAS (DOOR))
+MAT             STEEL
+WEIGHT          1000
+HAS             (DOOR)
+NIL
+> (pp-frame 'door)
+Frame Class DOOR: (IS-PART-OF TRUCK :HAS (HANDLE))
+MAT             STEEL
+WEIGHT          1000
+IS-PART-OF      TRUCK
+COLOR           RED
+HAS             (HANDLE)
+NIL
+> (pp-frame 'handle)
+Frame Class HANDLE: (IS-PART-OF DOOR)
+MAT             STEEL
+WEIGHT          NIL
+IS-PART-OF      DOOR
+COLOR           RED
+LENGTH          20
+NIL
+> (make-truck 'truck1 :has nil :mat 'plastic)
+#<Vector T 4 5DEE4B>
+> (pp-frame 'truck1)
+%CLASS          TRUCK
+MAT             PLASTIC
+WEIGHT          1000
+HAS             NIL
+NIL
+> (pp-frame 'door)
+Frame Class DOOR: (IS-PART-OF TRUCK :HAS (HANDLE))
+MAT             STEEL
+WEIGHT          1000
+IS-PART-OF      (TRUCK)
+COLOR           RED
+HAS             (HANDLE)
+NIL
+> (make-frame 'door1 :is-part-of 'truck1 :color 'blue :has nil)
+>>Error: NIL should be of type STRUCTURE
+
+(LAMBDA (NEWFRAME) (DECLARE (SPECIAL FI-ALIST AF-ALIST DEFAULT-FRAME NEWFRAME FTYPE)) ((LAMBDA # # #) (PA-FRAME-INDEX-PLIST FTYPE))):
+Original code: ((LAMBDA (NEWFRAME) (DECLARE #) (# #)) (MAKE-ARRAY (PA-FRAME-NUMSLOTS FTYPE) :ADJUSTABLE T))
+   Local 0 (0): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+-> :a
+Back to Lisp Top Level
+
+> (make-frame 'door1 :is-part-of 'truck1 :color 'blue)
+>>Error: NIL should be of type STRUCTURE
+
+(LAMBDA (NEWFRAME) (DECLARE (SPECIAL FI-ALIST AF-ALIST DEFAULT-FRAME NEWFRAME FTYPE)) ((LAMBDA # # #) (PA-FRAME-INDEX-PLIST FTYPE))):
+Original code: ((LAMBDA (NEWFRAME) (DECLARE #) (# #)) (MAKE-ARRAY (PA-FRAME-NUMSLOTS FTYPE) :ADJUSTABLE T))
+   Local 0 (0): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+->:a
+Back to Lisp Top Level
+
+> (make-frame 'door2 :is-part-of 'truck1 :color 'green)
+>>Error: NIL should be of type STRUCTURE
+
+(LAMBDA (NEWFRAME) (DECLARE (SPECIAL FI-ALIST AF-ALIST DEFAULT-FRAME NEWFRAME FTYPE)) ((LAMBDA # # #) (PA-FRAME-INDEX-PLIST FTYPE))):
+Original code: ((LAMBDA (NEWFRAME) (DECLARE #) (# #)) (MAKE-ARRAY (PA-FRAME-NUMSLOTS FTYPE) :ADJUSTABLE T))
+   Local 0 (0): NIL
+
+:A    Abort to Lisp Top Level
+:C    Supply a new value
+-> :a
+Back to Lisp Top Level
+
+>(quit)
+
+;;;; file "test.lisp"
+
+(def-frame is-part-of (:is-a relation :propagate nil)
+  :combination-type first
+  :slots-inherited *ALL*
+  :has-inverses T
+  :inverse-name has)
+
+(def-frame truck ()
+  :mat steel
+  :weight 1000)
+
+(def-frame door (is-part-of truck)
+  :is-part-of truck
+  :color red)
+
+(def-frame handle (is-part-of door)
+  is-part-of door
+  weight nil
+  length 20)
+
+
+By the way, it seems that you can define or make frames with or without a
+":" proceeding the slot names, and the values of class slot be atoms or
+lists.  Right?  
+
+
+Fang
+

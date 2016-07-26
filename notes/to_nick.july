@@ -1,0 +1,26 @@
+Nick, I finally got around to looking at your reports.
+
+The first one, about setting inverse values in instances, has been fixed.
+You're right, it's because Parmenides didn't link the name of the class
+to the frame before it went about setting inverses.
+
+The second problem reflects a problem which I'm not going to be able
+to fix immediatly (I'm leaving for N.E. for a long week), but you can
+get around it if you put the value (list (frame 'a) (frame 'a)) in
+the definition of the class a.  E.g., type:
+
+(def-frame a (cache *ALL*)
+  slot1 `(value ,(list (frame 'a)) ,(list (frame 'a))))
+
+This is because setting the facet of a class isn't quite the same
+as defining the default value, although I admit it should be.
+The reason is that the default value for the slot1 slot is kept UN-evaluated
+in the class data structure (but not the frame data structure).  When
+you use set-value to set the value to (list (frame 'a) ..), since set-value
+and similar functions evaluate their arguments, there is no way to keep
+an un-evaluated version of the data in the class data structure.  This
+problem only comes out when trying to inherit from the class, as you did.
+
+I'll think about how to fix this.
+
+--Peter

@@ -1,0 +1,64 @@
+Received: from CIVE.RI.CMU.EDU by ML.RI.CMU.EDU; 19 May 87 17:47:46 EDT
+Date: Tuesday, 19 May 1987 17:46:52 EDT
+From: Fang.Zhao@cive.ri.cmu.edu
+To: pshell@ml.ri.cmu.edu
+Subject: inheritance between instances of different classes
+Message-ID: <1987.5.19.21.33.59.Fang.Zhao@cive.ri.cmu.edu>
+
+Hi, Peter,
+
+It is time for me to resume my research work after the tiring final and
+insufficient rest.  I have got the new version of Parmenides source code and
+manual.  However, I seem still have the old problem: making instances
+inheriting values of slots from instances of other classes.  The following
+is an example and the running result:
+
+; code
+(def-frame is-part-of (is-a (relation))
+  combination-type first
+  slots-inherited (value '*ALL*))
+
+(def-frame truck ()
+   color blue
+   weight 10000
+   material steel)
+
+(def-frame door (is-part-of (truck)) 
+  is-part-of truck 
+  width 3
+  height 2)
+
+(make-truck 'truck1 :color 'red :weight 200)
+(make-door 'door1 :is-part-of 'truck1 :width 5 :height 5)
+
+; log file
+
+> (load "test")
+Defining class IS-PART-OF
+Defining class TRUCK
+Defining class DOOR
+#P"/usrce0/fzhao/hi-rise/test.lisp"
+> (pp-frame 'truck1)
+%CLASS          TRUCK
+COLOR           RED
+WEIGHT          200
+MATERIAL        STEEL
+NIL
+> (pp-frame 'door1)
+%CLASS          DOOR
+COLOR           BLUE         ;  I expect it changes to "red"
+WEIGHT          10000        ;  I expect it changes to "200"
+MATERIAL        STEEL
+IS-PART-OF      TRUCK1
+WIDTH           5
+HEIGHT          5
+NIL
+> 
+
+I don't know if it's because I didn't understand the manual.  If Parmenides
+does not allow such inheritance, I can still write a function to do it, right?
+
+I would appreciate your help.
+
+--Fang
+

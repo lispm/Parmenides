@@ -1,0 +1,119 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU; 18 Mar 88 20:54:42 EST
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU; 18 Mar 88 20:52:49 EST
+To: pshell@ml
+Subject: Parmenides
+Date: Fri, 18 Mar 88 20:52:42 EST
+Message-ID: <25392.574739562@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+
+Peter;
+
+	Three problems (I'm using your latest fasls and the Mar 16th lisp):
+
+	1) I can see no way to distinguish between a class and an instance,
+		therefore it is not unreasonable for me to call
+		inverse-isas on a frame (rather than a class). One would
+		expect a nil to be returned. This is not the case. For
+		example, the following series of declarations:
+
+	(def-frame class (:cache *ALL*))
+	(def-frame sub-class1 (:is-a (class) :cache *ALL*))
+	(def-frame sub-class2 (:is-a (class) :cache *ALL*))
+	(make-frame 'class 'instance)
+	(inverse-isas 'instance)
+	 |---------------------> ;;returns (subclass2 sub-class1)!!
+
+		It's not clear how this behavior is consistent with its'
+		use in marker propagation. Either you need to provide
+		predicates like class-p and instance-p, or you need to
+		insulate the user from this behavior by ensuring that all
+		or your "relationship" functions accept both classes *and*
+		frames, with intuitive results. Personally, I vote for
+		providing *both* predicates and forgiving behavior.
+
+	2) The documentation states that get-slot-names "returns a list
+		containing the names of all the slots of the given frame.
+		Note that slot names are never referred to as keywords except
+		for in the make functions". Of course, here you return a list
+		of KEYWORDS!! I can guess why. But the documentation pretty
+		clearly states the opposite. I wrap it into a slotp macro
+		anyway that masks this feature, but .... Maybe you'd like
+		to provide a slot-p command yourself ...
+
+	3) Definitely with the current lisp core I get *bizarre* problems
+		with compilation of frames (beyond those documented in my
+		previous mail). Here's how you too can see the pyrotechnics:
+
+		Compile and load /../birkel/usr/pab/spam/spamkb.lisp.
+
+		Now evaluate the following in ~/lisp/dm/test.lisp:
+
+	(def-frame check-step (:is-a (plan-operator) :cache *ALL*)
+	  simulate (:value 'sim-check-step)
+	  find-tasks (:value 'ft-cs)
+	  priority (:value 9))
+
+		Here's what happens:
+
+* (load  "dm:test")
+?Cached slot APPLICATION-USEFULNESS has no definition in class PLAN-OPERATOR
+?Cached slot RELATED-TECHNIQUES has no definition in class PLAN-OPERATOR
+?Cached slot COST has no definition in class PLAN-OPERATOR
+?Cached slot EQUIPMENT has no definition in class PLAN-OPERATOR
+?Cached slot EXPERTISE has no definition in class PLAN-OPERATOR
+?Cached slot ABSOLUTE-TIME has no definition in class PLAN-OPERATOR
+?Cached slot HANDS-TIME has no definition in class PLAN-OPERATOR
+?Cached slot SALT-OPTIMUM has no definition in class PLAN-OPERATOR
+?Cached slot TEMP-OPTIMUM has no definition in class PLAN-OPERATOR
+?Cached slot PH-OPTIMUM has no definition in class PLAN-OPERATOR
+?Cached slot GOOD-SUBSTRATES has no definition in class PLAN-OPERATOR
+?Cached slot BAD-SUBSTRATES has no definition in class PLAN-OPERATOR
+?Cached slot INHIBITORS has no definition in class PLAN-OPERATOR
+?Cached slot MIN-QUANTITY has no definition in class PLAN-OPERATOR
+?Cached slot MIN-CPM has no definition in class PLAN-OPERATOR
+?Cached slot MIN-SPECIFIC-ACTIVITY has no definition in class PLAN-OPERATOR
+?Cached slot QUANTITY-RULES has no definition in class PLAN-OPERATOR
+?Cached slot GEN-RULE has no definition in class PLAN-OPERATOR
+?Cached slot SYNONYMS has no definition in class PLAN-OPERATOR
+?Cached slot GOALS has no definition in class PLAN-OPERATOR
+?Cached slot CONVENIENCE has no definition in class PLAN-OPERATOR
+?Cached slot RELIABILITY has no definition in class PLAN-OPERATOR
+?Cached slot ACCURACY has no definition in class PLAN-OPERATOR
+?Cached slot MAX-QUANTITY has no definition in class PLAN-OPERATOR
+?Cached slot CONSEQUENCES has no definition in class PLAN-OPERATOR
+?Cached slot ENV-RULES has no definition in class PLAN-OPERATOR
+?Cached slot SEL-RULES has no definition in class PLAN-OPERATOR
+?Cached slot BEST-SMALL-MW-COMPONENTS has no definition in class PLAN-OPERATOR
+?Cached slot INPUT has no definition in class PLAN-OPERATOR
+?Cached slot OUTPUT has no definition in class PLAN-OPERATOR
+?Cached slot MAKE-GOALS? has no definition in class PLAN-OPERATOR
+?Cached slot MAKE-GOALS has no definition in class PLAN-OPERATOR
+?Cached slot APPLY? has no definition in class PLAN-OPERATOR
+?Cached slot REFINE has no definition in class PLAN-OPERATOR
+?Cached slot BKWD-PROPAGATE has no definition in class PLAN-OPERATOR
+?Cached slot FWD-PROPAGATE has no definition in class PLAN-OPERATOR
+?Cached slot SIMULATE? has no definition in class PLAN-OPERATOR
+Redefining class CHECK-STEP
+T
+
+		All of the slots are defined in a SIBLING of plan-operator
+	(lab-operator)! This occurs repeatedly throughout the hierarchy (in
+	~/spam/domainkb.lisp).
+	It does not happen if spamkb is left uncompiled. The same complaints
+	occur when domainkb.lisp is compiled (after compiling spamkb).
+
+		Spamkb contains a bunch of utility functions, and the
+	hierarchy backbone. I can't see that there is an ordering problem,
+	and compilation (other than the previous example mailed yesterday)
+	of these files was working OK 'til the new lisp core SUPped out last
+	night. This might be a lisp bug, but I can't tell Dave where it is;
+	I'm afraid that you'll have to check into it.
+
+
+		I'll be around all weekend.
+
+	paul
+

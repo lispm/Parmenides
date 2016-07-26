@@ -1,0 +1,31 @@
+Received: from NL.CS.CMU.EDU by ML.RI.CMU.EDU; 19 May 87 21:18:35 EDT
+Date: 19 May 1987 21:12-EDT 
+From: Hideto.Tomabechi@nl.cs.cmu.edu
+To: PShell@ml.ri.cmu.edu
+Subject: Compiling is still a problem
+Message-Id: <548471579/tomabech@nl.cs.cmu.edu>
+
+With the compiled version of my memory.lisp (the def-frame file),
+add-slot seems to always cache the slot regardless of the value of
+:cache as below:
+
+* (pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE (:%CLASS) :IS-A (*GENERIC-PACKAGE*))
+NIL
+* (add-slot 'object :test '(value 'bogus) :cache nil)
+:TEST
+* (pp-frame 'object)
+Frame Class OBJECT: (:PROPAGATE T :CACHE (:%CLASS :TEST) :IS-A
+                     (*GENERIC-PACKAGE*))
+TEST            (:VALUE BOGUS :DEPTH 0)
+NIL
+* 
+
+This does not happen with the uncompiled version of my memory.lisp,
+so compiling is still a problem with add-slot.
+
+  -- hideto
+
+
+
+

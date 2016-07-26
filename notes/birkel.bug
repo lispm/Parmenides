@@ -1,0 +1,150 @@
+
+Received: from K.GP.CS.CMU.EDU by ML.RI.CMU.EDU;  9 Mar 88 21:24:20 EST
+Received: from K.GP.CS.CMU.EDU by K.GP.CS.CMU.EDU;  9 Mar 88 21:22:09 EST
+To: Peter.Shell@ML.RI.CMU.EDU
+Subject: Re: Parmenides remove-frame 
+In-reply-to: Your message of Wed, 09 Mar 88 17:51:05 -0500.
+Date: Wed, 09 Mar 88 21:22:05 EST
+Message-ID: <23618.573963725@K.GP.CS.CMU.EDU>
+From: Paul.Birkel@K.GP.CS.CMU.EDU
+Status: R
+
+Peter;
+
+	Initial results are quite discouraging. I compiled *everything*,
+using your fasl files on wiener in /usr/pshell/parmenides and frulekit.
+
+	Loading and compiling productions previously took 120 seconds,
+now 405 seconds. 2 GCs in either case.
+
+	Loading data and initializing the net previously took 45 seconds,
+now 170 seconds. 1 GC in either case.
+
+	Attempting to run the system immediately results in a failure on
+the RHS. Here's the relevent stack trace. Have you changed the syntax of
+set-facet-demons?
+
+****************************************************************
+1 instantiations in new bucket BUCKET-1.
+17 instantiations in new bucket BUCKET-2.
+19 instantiations in new bucket BUCKET-3.
+18 instantiations in new bucket BUCKET-4.
+22 instantiations in new bucket BUCKET-5.
+1 instantiations in new bucket BUCKET-9.
+*Error in function FRAME-CLASS.
+Wrong type argument, NIL, should have been of type CONDITIONS::VECTOR-LIKE.
+Proceed cases:
+0: Return to Top-Level.
+1: Return to Top-Level.
+Debug  (type H for help)
+(SIGNAL #<SIMPLE-ERROR.2046898>)
+0] d
+
+(CONDITIONS::MAKE-ERROR-TABLE FRAME-CLASS 0 NIL NIL)
+2] d
+
+(FRAME-CLASS NIL)
+4] d
+
+(NAME-TO-FRAME-TYPE NIL)
+5] d
+
+(GET-CSLOT #(NIL 4.0  TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+             EXPLAIN-3 6...) :POST-IF-SET)
+6] pp
+
+(GET-CSLOT #(NIL 4.0  TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+             EXPLAIN-3 6 #(2751400800 MAR-10-87 1700) #(EVENT-618) #(DOSE-MOD-DISCREPANCY) #(PROBLEM-3) #(CONFIRMED) #(NIL NIL NIL) #(NIL) #(NIL INFERRED
+                                                           (NUMERICAL-ERROR)) #(NIL NIL NIL NIL
+                                                                 NIL NIL NIL NIL)) :POST-IF-SET)
+6] d
+
+(SET-CLASS&INSTANCES-FACET #(NIL 4.0
+                              TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+                             EXPLAIN-3 6...) EXPLAIN-3 :GENERATES-PROBLEM :VALUE...)
+7] pp
+
+(SET-CLASS&INSTANCES-FACET #(NIL 4.0
+                              TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+                             EXPLAIN-3 6 #(2751400800 MAR-10-87 1700) #(EVENT-618) #(DOSE-MOD-DISCREPANCY) #(PROBLEM-3) #(CONFIRMED) #(NIL NIL NIL) #(NIL) #(NIL
+                                                                      INFERRED
+                                                                      (NUMERICAL-ERROR))
+                             #(NIL NIL NIL NIL NIL NIL NIL NIL)) EXPLAIN-3 :GENERATES-PROBLEM :VALUE 8
+                           0 PROBLEM-3 0 NIL NIL NIL :DEMONS NIL)
+7] d
+
+(SET-FACET-DEMONS0 EXPLAIN-3 #(NIL 4.0
+                                TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+                               EXPLAIN-3 6...) :GENERATES-PROBLEM :VALUE...)
+8] pp
+
+(SET-FACET-DEMONS0 EXPLAIN-3 #(NIL 4.0
+                                TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+                               EXPLAIN-3 6 #(2751400800 MAR-10-87 1700) #(EVENT-618) #(DOSE-MOD-DISCREPANCY) #(PROBLEM-3) #(CONFIRMED) #(NIL NIL NIL) #(NIL) #(NIL
+                                                                      INFERRED
+                                                                      (NUMERICAL-ERROR))
+                               #(NIL NIL NIL NIL NIL NIL NIL NIL)) :GENERATES-PROBLEM :VALUE PROBLEM-3
+                   0 :DEMONS)
+8] d
+
+(SET-NAME-FACET-DEMONS EXPLAIN-3 :GENERATES-PROBLEM :VALUE PROBLEM-3)
+9] d
+
+(SET-FACET-DEMONS EXPLAIN-3 :GENERATES-PROBLEM :VALUE PROBLEM-3)
+10] d
+
+(NIL)
+11] d
+
+(FIRE-CHOSEN-INSTANT)
+12] d
+
+(R-ACT TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE)
+13] d
+
+(R-AGENDA-APPLY TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+                (BUCKET-1 BUCKET-2 BUCKET-3 BUCKET-4 BUCKET-5...)
+                (BUCKET-1 BUCKET-2 BUCKET-3 BUCKET-4 BUCKET-5...))
+14] pp
+
+(R-AGENDA-APPLY TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+                (BUCKET-1 BUCKET-2 BUCKET-3 BUCKET-4 BUCKET-5 BUCKET-6 BUCKET-9)
+                (BUCKET-1 BUCKET-2 BUCKET-3 BUCKET-4 BUCKET-5 BUCKET-6 BUCKET-9))
+14] d
+
+(CONT-AGENDA NIL)
+15] d
+
+(R-AGENDA
+ ((BUCKET-1 TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-REG-DOSE
+   TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-LA-DOSE)
+  (BUCKET-2 TEST-MANAGEMENT%CHECK-ACCURACY%FIND-DEVIANT-MOD)
+  (BUCKET-3 TEST-MANAGEMENT%RECONCILE-COMMENTS%ADJUST-REG-FOR-INCREASED-ACTIVITY
+   TEST-MANAGEMENT%RECONCILE-COMMENTS%ADJUST-REG-FOR-DECREASED-ACTIVITY
+   TEST-MANAGEMENT%RECONCILE-COMMENTS%ADJUST-REG-FOR-INCREASED-CALORIE
+   TEST-MANAGEMENT%RECONCILE-COMMENTS%ADJUST-REG-FOR-DECREASED-CALORIE...)
+  (BUCKET-4 TEST-MANAGEMENT%PROPOSE-REASONS%DEC-FOR-PRESUMED-REBOUND
+   TEST-MANAGEMENT%PROPOSE-REASONS%DEC-FOR-INCREASED-ACTIVITY-NOT-AT-SNACK
+   TEST-MANAGEMENT%PROPOSE-REASONS%DEC-FOR-INCREASED-ACTIVITY-AT-SNACK
+   TEST-MANAGEMENT%PROPOSE-REASONS%DEC-FOR-DELAYED-INCREASED-ACTIVITY...)
+  (BUCKET-5 TEST-MANAGEMENT%PROPOSE-REASONS%INC-FOR-INCREASED-CALORIE
+   TEST-MANAGEMENT%PROPOSE-REASONS%INC-FOR-SNACKING-INCREASED-CALORIE
+   TEST-MANAGEMENT%PROPOSE-REASONS%INC-FOR-DELAYED-INCREASED-CALORIE
+   TEST-MANAGEMENT%PROPOSE-REASONS%INC-FOR-IMMEDIATE-KETONURIA...)...)
+ NIL)
+16] q
+
+
+****************************************************************
+
+Don't know if the extra compile time can possibly be worth it since the
+previous execution time was only 200 seconds. I haven't tried running
+it uncompiled (productions, that is).
+
+What's up? I believe that my "configuration" is damm close to the one in
+which the previous timings were made. The code is *exactly* the same.
+Everything freshly compiled.
+
+paul
+x8893
+

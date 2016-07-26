@@ -1,0 +1,4 @@
+How do you know when to use an if-needed demon?  When a value is not
+known?  How do you know when you don't know a value?  The original
+Framekit used the assumption that if the immediate-value is nil, then
+you don't know the value.  This dis-allows null immediate values.

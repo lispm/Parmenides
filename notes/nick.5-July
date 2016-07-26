@@ -1,0 +1,114 @@
+Received: from ATHENA.MIT.EDU by ML.RI.CMU.EDU;  5 Jul 87 13:45:33 EDT
+Received: by ATHENA.MIT.EDU (5.45/4.7)
+	id AA02262; Sun, 5 Jul 87 13:43:19 EDT
+From: <ngroleau@ATHENA.MIT.EDU>
+Received: by DEMETER.MIT.EDU (5.45/4.7) id AA18928; Sun, 5 Jul 87 13:43:04 EDT
+Message-Id: <8707051743.AA18928@DEMETER.MIT.EDU>
+To: pshell@ml.ri.cmu.edu
+Subject: copy of relations
+Date: Sun, 05 Jul 87 13:43:03 EDT
+
+
+		Peter, 
+
+	This is actually not a copy of the relations mail I was 
+refering to, for I forgot to save it. I am even not very sure about 
+writing it now ! 
+
+	Anyway, my problem is that inverse relaions between actual 
+frames (and not their names) seems to work perfectly with classes, 
+but I can't get the same result with instances. 
+
+	I tried to look at the code, but as often, I gained more 
+confusion than help. 
+
+	My question is therefore the following, "How can I have a1 
+(instance of a) and b1 (instance of b) in relation through a 
+relation slot. I first define the relation frame, then a, then b 
+having a relation slot set to (). I then create a1 and b1, declaring 
+b1 to have a relation with a1. 
+
+------------------------------------------------------------------
+;CODE OF INV.LSP
+(defun a () (load "inv.lsp"))
+
+(def-frame parent (is-a relation)
+  has-inverses t
+  inverse-name components)
+
+(setq p
+      (frame
+       (def-frame p
+  (cache *ALL*)
+  parent (value ())
+  components (value ()))))
+
+(setq a (frame (def-frame a (is-a p))))
+
+(setq b (frame (def-frame b (is-a p))))
+
+(setq a1 (make-frame 'a 'a1))
+
+(setq b1 (make-frame 'b 'b1 :parent `(value (,a1))))
+
+(terpri)
+(pp-frame a)
+(terpri)
+(pp-frame a1)
+(terpri)
+(pp-frame b)
+(terpri)
+(pp-frame b1)
+(terpri)
+(pp-frame p)
+(terpri)
+
+;SESSION
+> (A)
+;;; Warning: Redefining A
+Re-defining class PARENT
+;;; Warning: Redefining MAKE-PARENT
+Re-defining class P
+;;; Warning: Redefining MAKE-P
+Re-defining class A
+;;; Warning: Redefining MAKE-A
+Re-defining class B
+;;; Warning: Redefining MAKE-B
+
+Frame Class A: (:CACHE (:%CLASS :PARENT :COMPONENTS) :IS-A P)
+PARENT          (:VALUE NIL :DEPTH 1)
+COMPONENTS      (:VALUE NIL :DEPTH 1)
+
+%CLASS          A
+PARENT          (:VALUE NIL :DEPTH 2)
+COMPONENTS      (:VALUE (B1) :DEPTH 0)
+
+Frame Class B: (:CACHE (:%CLASS :PARENT :COMPONENTS) :IS-A P)
+PARENT          (:VALUE NIL :DEPTH 1)
+COMPONENTS      (:VALUE NIL :DEPTH 1)
+
+%CLASS          B
+PARENT          (:VALUE (#<Vector T 3 C18893>) :DEPTH 0)
+COMPONENTS      (:VALUE NIL :DEPTH 2)
+
+Frame Class P: (:CACHE (:%CLASS :PARENT :COMPONENTS))
+PARENT          (:VALUE NIL :DEPTH 0)
+COMPONENTS      (:VALUE NIL :DEPTH 0)
+
+#P"/usr/iesl/groleau/groleau/parmenides/inv.lsp"
+>
+
+------------------------------------------------------------------
+
+	I would like to have (#<Vector T 3 ......>) instead of (B1) 
+in COMPONENTS of A1. 
+	This looks much like what happened before with the classes, 
+and I guess it should not be too difficult to get it for instances. 
+
+	I got your mail on FRulekit and co., and I'll get the new 
+version as soon as possible. 
+
+	Thanks for all. 
+
+		NICK
+

@@ -1,0 +1,88 @@
+-- Messages from file: /usr/pshell/Mail/my.mail --
+   Thursday, 1 October 1992 10:39AM
+
+
+
+Message 5 -- *********************
+Return-Path: <@gatech.edu:ashwin@cc.gatech.edu>
+Received: from gatech.edu by SALVADOR.MT.CS.CMU.EDU id aa02513;
+          24 Sep 92 12:13:53 EDT
+Received: from burdell.cc.gatech.edu by gatech.edu (4.1/Gatech-9.1)
+	id AA17023 for pshell@SALVADOR.MT.CS.CMU.EDU; Thu, 24 Sep 92 12:13:48 EDT
+Received: from leo.cc.gatech.edu by burdell.cc.gatech.edu (4.1/SMI-4.1)
+	id AA23786; for pshell@SALVADOR.MT.CS.CMU.EDU; Thu, 24 Sep 92 12:13:38 EDT
+Received: by leo.cc.gatech.edu (4.1/SMI-4.1)
+	id AA03464; Thu, 24 Sep 92 12:13:30 EDT
+Date: Thu, 24 Sep 92 12:13:30 EDT
+From: ashwin@cc.gatech.edu (Ashwin Ram)
+Message-Id: <9209241613.AA03464@leo.cc.gatech.edu>
+To: Peter Shell <pshell@SALVADOR.MT.CS.CMU.EDU>
+Cc: ashwin@cc.gatech.edu, kennethm@cc.gatech.edu
+Subject: Followup to previous note
+Reply-To: ashwin@cc.gatech.edu (Ashwin Ram)
+
+Pete,
+
+Here is a real simple instantiation of the previous problem, exactly as I
+typed it in:
+
+        > (def-frame action (:is-a entity)
+            :actor   (:default agent)
+            :object  (:default physical-object))
+
+        > (def-frame ptrans (:is-a action)
+            :from    (:default location)
+            :to      (:default location))
+
+        > (make-frame 'ptrans 'p1)
+
+Now I typed the following series of GET-FACET commands, most of which
+resulted in unexpected errors:
+
+        > (get-facet 'p1 :actor :default)
+        >>Error: Slot :ACTOR in frame PTRANS does not have facets
+
+This should have returned AGENT (inherited from ACTION).  Next:
+
+        > (get-facet 'p1 :actor :value)
+        >>Error: Slot :ACTOR in frame PTRANS does not have facets
+
+This should have returned NIL since there is no :VALUE and none can be
+inherited.  Next:
+
+        > (get-facet 'p1 :from :value)
+        NIL
+        T
+
+        > (get-facet 'p1 :from :default)
+        LOCATION
+        T
+
+These two are correct.  So this works correctly for the :FROM slot but not
+for the :ACTOR slot.  Also:
+
+        > (get-facet 'p1 :xxyyzz :value)
+        >>Error: Slot :XXYYZZ in frame PTRANS does not have facets
+
+This should return NIL because there is no slot called XXYYZZ (the manual
+says that it returns NIL if the slot or the facet cannot be found).  Also:
+
+        > (get-facet 'p1 :from :xxyyzz)
+        >>Error: Slot :FROM in frame ACTION does not have facets
+
+This should return NIL because there is no facet called XXYYZZ in the FROM
+slot of PTRANS (the manual says that it returns NIL if the slot or the facet
+cannot be found).  Also, ACTION does not have a FROM slot, so it should even
+be getting to the point where it is looking for facets there.
+
+It's quite possible that I'm overlooking something quite trivial, but for the
+life of me I can't figure it out.  Thanks for your help.
+
+Ashwin.
+
+--
+Ashwin Ram <ashwin@cc.gatech.edu>
+Assistant Professor, College of Computing
+Georgia Institute of Technology, Atlanta, Georgia 30332-0280
+(404) 853-9372
+

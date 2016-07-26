@@ -1,0 +1,27 @@
+
+Received: from PO3.ANDREW.CMU.EDU by ML.RI.CMU.EDU;  9 Apr 89 16:58:13 EDT
+Received: by po3.andrew.cmu.edu (5.54/3.15) id <AA03240> for pshell@ml.ri.cmu.edu; Sun, 9 Apr 89 16:58:06 EDT
+Received: via switchmail; Sun,  9 Apr 89 16:58:04 -0400 (EDT)
+Received: from haledon.andrew.cmu.edu via qmail
+          ID </afs/andrew.cmu.edu/service/mailqs/q002/QF.8YDwC2y00XolQ0LEkT>;
+          Sun,  9 Apr 89 16:56:37 -0400 (EDT)
+Received: from haledon.andrew.cmu.edu via qmail
+          ID </afs/andrew.cmu.edu/usr20/cn09/.Outgoing/QF.YYDwBwy00XolI5Y0NT>;
+          Sun,  9 Apr 89 16:56:28 -0400 (EDT)
+Received: from Version.6.25.N.CUILIB.3.45.SNAP.NOT.LINKED.haledon.andrew.cmu.edu.rt.r3
+          via MS.5.6.haledon.andrew.cmu.edu.rt_r3;
+          Sun,  9 Apr 89 16:56:28 -0400 (EDT)
+Message-Id: <YYDwBwy00XolQ5Y0EZ@andrew.cmu.edu>
+Date: Sun,  9 Apr 89 16:56:28 -0400 (EDT)
+From: Christopher Kalevi Nuuja <cn09+@andrew.cmu.edu>
+To: pshell@ml.ri.cmu.edu
+Subject: bizzare behavior.
+Status: R
+
+        I get the message Error:   :FLOAT is not of type number, +
+   when trying to (make-frame 'forecast-transaction nil), but not when trying
+(make-frame 'transaction nil).  Both have :data-type :float facets on slots.
+Any ideas?
+
+        -Chris.
+

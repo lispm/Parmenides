@@ -1,0 +1,34 @@
+
+Received: from SUMEX-AIM.STANFORD.EDU by ML.RI.CMU.EDU; 30 Mar 89 00:27:41 EST
+Received: by sumex-aim.stanford.edu (4.0/inc-1.0)
+	id AA17179; Wed, 29 Mar 89 21:28:46 PST
+Date: Wed, 29 Mar 1989 21:28:45 PST
+From: Adnan Darwiche <darwiche@sumex-aim.stanford.edu>
+To: peter.shell@ml.ri.cmu.edu
+Subject: parmenides...
+Message-Id: <CMM.0.88.607238925.darwiche@sumex-aim.stanford.edu>
+Status: R
+
+Pete,
+
+Here is an example:
+
+Adnan
+-----
+
+(def-frame x (:is-a relation :propagation nil)
+	:has-inverses t
+	:inverse-name inv-x)
+
+(def-frame class-a ())
+(def-frame class-b ())
+
+(add-cslot 'class-a :x 'class-b)
+
+(pp-frame 'class-b)
+
+> Frame Class CLASS-B: (:CACHE (:%CLASS))
+--where is :INV-X CLASS-A ?
+
+
+
